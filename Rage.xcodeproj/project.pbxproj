@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D42EE1DAD449F4F8FEEFC36 /* Pods_Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE6FC35B8628AAD5A8B68A9 /* Pods_Rage.framework */; };
-		5D7AA005E7546F33D358ED2D /* SimpleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */; };
+		5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
 		5D7AA12273A3D6F2878DCDFC /* DataTransferFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */; };
 		5D7AA19C0ABB5F738D09AAD9 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */; };
 		5D7AA5EACCC62B3C0247F490 /* RageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA2F960D13BFA100F9D3B /* RageTests.swift */; };
@@ -36,7 +36,7 @@
 		8AA2E8061D6B467700E76B52 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA142843FA148617BFFDC /* Logger.swift */; };
 		8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA2ED83599A807D03DD6 /* Rage.swift */; };
 		8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAEE25ABE680A25C3C18A /* RageError.swift */; };
-		8AA2E8091D6B467700E76B52 /* SimpleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */; };
+		8AA2E8091D6B467700E76B52 /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +75,7 @@
 		49F1212145E7E5FEB39BA0BD /* Pods-Rage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.debug.xcconfig"; sourceTree = "<group>"; };
 		5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransferFormat.swift; sourceTree = "<group>"; };
 		5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParamsBuilder.swift; sourceTree = "<group>"; };
-		5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleExtensions.swift; sourceTree = "<group>"; };
+		5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageExtensions.swift; sourceTree = "<group>"; };
 		5D7AA142843FA148617BFFDC /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5D7AA2F960D13BFA100F9D3B /* RageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageTests.swift; sourceTree = "<group>"; };
 		5D7AA2FD7CB4399F66B06DEE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				5D7AA142843FA148617BFFDC /* Logger.swift */,
 				5D7AAA2ED83599A807D03DD6 /* Rage.swift */,
 				5D7AAEE25ABE680A25C3C18A /* RageError.swift */,
-				5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */,
+				5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -450,7 +450,7 @@
 				5D7AAD36DE3AD1D9E8AE0E18 /* Logger.swift in Sources */,
 				5D7AAE66E31CD58C591A0F94 /* Rage.swift in Sources */,
 				5D7AA9E351C4F5B754403596 /* RageError.swift in Sources */,
-				5D7AA005E7546F33D358ED2D /* SimpleExtensions.swift in Sources */,
+				5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +465,7 @@
 				8AA2E8061D6B467700E76B52 /* Logger.swift in Sources */,
 				8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */,
 				8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */,
-				8AA2E8091D6B467700E76B52 /* SimpleExtensions.swift in Sources */,
+				8AA2E8091D6B467700E76B52 /* RageExtensions.swift in Sources */,
 				5D7AA5EACCC62B3C0247F490 /* RageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

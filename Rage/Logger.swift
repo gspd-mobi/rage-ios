@@ -11,8 +11,8 @@ public class Logger {
     func logRequestUrl(httpMethod: HttpMethod, url: String) {
         switch logLevel {
         case .Full,
-             .NoHeaders:
-            print(">>> \(httpMethod) \(url)")
+             .Medium:
+            print(">>> \(httpMethod.stringValue()) \(url)")
             break
         case .None:
             break
@@ -27,7 +27,7 @@ public class Logger {
                 print("\(key): \(value)")
             }
             break
-        case .NoHeaders,
+        case .Medium,
              .None:
             break
         }
@@ -36,7 +36,7 @@ public class Logger {
     func logResponse(httpMethod: HttpMethod, url: String, data: NSData?, response: NSURLResponse?) {
         switch logLevel {
         case .Full:
-            print("<<< \(httpMethod) \(url)")
+            print("<<< \(httpMethod.stringValue()) \(url)")
             guard let data = data else {
                 print("Empty response data")
                 return
@@ -61,8 +61,8 @@ public class Logger {
                 print(resultString)
             }
             break
-        case .NoHeaders:
-            print("<<< \(httpMethod) \(url)")
+        case .Medium:
+            print("<<< \(httpMethod.stringValue()) \(url)")
             guard let data = data else {
                 print("Empty response data")
                 return
@@ -87,4 +87,29 @@ public class Logger {
         }
     }
 
+    func logBody(data: NSData?) {
+        switch logLevel {
+        case .Full:
+            guard let data = data else {
+                print("Empty response data")
+                return
+            }
+            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
+            print("Body:\n\(resultString)")
+            break
+        case .Medium:
+            guard let data = data else {
+                print("Empty response data")
+                return
+            }
+            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
+            print("Body:")
+            print(resultString.substringToIndex(resultString.startIndex.advancedBy(256)) + "...")
+            print("Body to long to show. Use LogLevel.Full to show full body.")
+            break
+        case .None:
+            break
+        }
+
+    }
 }

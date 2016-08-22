@@ -76,13 +76,25 @@ public class RageClient {
         return createRequest(HttpMethod.DELETE, path: path)
     }
 
+    public func head(path: String?) -> RageRequest {
+        return createRequest(HttpMethod.HEAD, path: path)
+    }
+
+    public func customMethod(method: String, path: String?) -> RageRequest {
+        return createRequest(HttpMethod.CUSTOM(method), path: path)
+    }
+
     private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
-        return RageRequest(httpMethod: httpMethod, baseUrl: baseUrl, path: path, logger: logger)
+        return RageRequest(httpMethod: httpMethod, baseUrl: baseUrl, path: path, timeoutMillis: timeoutMillis, logger: logger)
     }
 
 }
 
 public class RageRequest {
+
+    private let emptyResponseErrorMessage = "Empty response from server"
+    private let jsonParsingErrorMessage = "Couldn't parse object from JSON"
+    private let wrongUrlErrorMessage = "Wrong url provided for request"
 
     var httpMethod: HttpMethod
     var baseUrl: String
@@ -90,16 +102,20 @@ public class RageRequest {
     var queryParameters = [String: String]()
     var pathParameters = [String: String]()
     var headers = [String: String]()
-    var body: Any?
+    var body: NSData?
 
+    var timeoutMillis: Int
     var logger: Logger
 
-    init(httpMethod: HttpMethod, baseUrl: String, path: String?, logger: Logger) {
+    init(httpMethod: HttpMethod, baseUrl: String, path: String?, timeoutMillis: Int, logger: Logger) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
         self.path = path
+        self.timeoutMillis = timeoutMillis
         self.logger = logger
     }
+
+    // MARK: Parameters
 
     public func query<T>(key: String, _ value: T?) -> RageRequest {
         if let nonNullValue = value {
@@ -113,15 +129,36 @@ public class RageRequest {
         return self
     }
 
-    public func body<T>(value: T, dataTransferFormat: DataTransferFormat = .Json) -> RageRequest {
+    public func bodyData(value: NSData) -> RageRequest {
         body = value
         return self
+    }
+
+    public func bodyString(value: String) -> RageRequest {
+        body = value.dataUsingEncoding(NSUTF8StringEncoding)
+        return self
+    }
+
+    public func bodyJson(value: Mappable) -> RageRequest {
+        guard let json = value.toJSONString() else {
+            return self
+        }
+        return bodyString(json)
     }
 
     public func header(key: String, _ value: String) -> RageRequest {
         headers[key] = value
         return self
     }
+
+    // MARK: Configurations
+
+    public func withTimeoutMillis(timeoutMillis: Int) -> RageRequest {
+        self.timeoutMillis = timeoutMillis
+        return self
+    }
+
+    // MARK: Requests
 
     public func requestJson<T:Mappable>() -> Observable<T> {
         return Observable<T>.create {
@@ -135,14 +172,13 @@ public class RageRequest {
                     subscriber.onNext(resultObject)
                     subscriber.onCompleted()
                 } else {
-                    subscriber.onError(RageError("Couldn't parse object from JSON"))
+                    subscriber.onError(RageError(self.jsonParsingErrorMessage))
                 }
             }
 
             return NopDisposable.instance
         }
     }
-
 
     public func requestString() -> Observable<String> {
         return Observable<String>.create {
@@ -152,12 +188,32 @@ public class RageRequest {
                 subscriber.onError(RageError(error.localizedDescription))
             } else {
                 guard let data = data else {
-                    subscriber.onError(RageError("Empty response"))
+                    subscriber.onError(RageError(self.emptyResponseErrorMessage))
                     return NopDisposable.instance
                 }
 
                 let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
                 subscriber.onNext(resultString)
+                subscriber.onCompleted()
+            }
+
+            return NopDisposable.instance
+        }
+    }
+
+    public func requestData() -> Observable<NSData> {
+        return Observable<NSData>.create {
+            subscriber in
+            let (data, response, error) = self.syncCall()
+            if let error = error {
+                subscriber.onError(RageError(error.localizedDescription))
+            } else {
+                guard let data = data else {
+                    subscriber.onError(RageError(self.emptyResponseErrorMessage))
+                    return NopDisposable.instance
+                }
+
+                subscriber.onNext(data)
                 subscriber.onCompleted()
             }
 
@@ -171,19 +227,27 @@ public class RageRequest {
                 queryParameters: self.queryParameters,
                 pathParameters: self.pathParameters)
         logger.logRequestUrl(httpMethod, url: urlString)
-        if self.httpMethod == .GET {
-            let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-            let url = NSURL(string: urlString)
 
-            logger.logHeaders(headers)
-            let (data, response, error) = defaultSession.synchronousDataTaskWithURL(url!, headers: headers)
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let timeoutSeconds = Double(timeoutMillis) / 1000.0
+        configuration.timeoutIntervalForRequest = timeoutSeconds
+        configuration.timeoutIntervalForResource = timeoutSeconds
 
-            logger.logResponse(httpMethod, url: urlString, data: data, response: response)
-            return (data, response, error)
-        } else {
-            // todo
+        let defaultSession = NSURLSession(configuration: configuration)
+        let optionalUrl = NSURL(string: urlString)
+        guard let url = optionalUrl else {
+            preconditionFailure(self.wrongUrlErrorMessage)
             return (nil, nil, nil)
         }
+
+        logger.logHeaders(headers)
+        if httpMethod.hasBody() {
+            logger.logBody(body)
+        }
+        let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod, url: url, headers: headers, bodyData: body)
+
+        logger.logResponse(httpMethod, url: urlString, data: data, response: response)
+        return (data, response, error)
     }
 
 }

@@ -3,7 +3,7 @@ import ObjectMapper
 
 extension NSURLSession {
 
-    func synchronousDataTaskWithURL(url: NSURL, headers: [String:String]) -> (NSData?, NSURLResponse?, NSError?) {
+    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, headers: [String:String], bodyData: NSData?) -> (NSData?, NSURLResponse?, NSError?) {
         var data: NSData?, response: NSURLResponse?, error: NSError?
 
         let semaphore = dispatch_semaphore_create(0)
@@ -12,6 +12,10 @@ extension NSURLSession {
         headers.forEach {
             (key, value) in
             request.addValue(value, forHTTPHeaderField: key)
+        }
+        request.HTTPMethod = httpMethod.stringValue()
+        if httpMethod.hasBody() {
+            request.HTTPBody = bodyData
         }
 
         dataTaskWithRequest(request) {
@@ -35,7 +39,7 @@ extension NSData {
         }
         return b
     }
-    
+
     func prettyJson() -> String? {
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(self, options: NSJSONReadingOptions())

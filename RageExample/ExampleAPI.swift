@@ -27,5 +27,11 @@ class ExampleAPI {
         .path("user", "PavelKorolev")
         .requestJson()
     }
-    
+
+    func postUser(user: GithubUser) -> Observable<String> {
+        return client.post("/users")
+        .bodyJson(user)
+        .requestString()
+    }
+
 }
