@@ -1,0 +1,715 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D42EE1DAD449F4F8FEEFC36 /* Pods_Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE6FC35B8628AAD5A8B68A9 /* Pods_Rage.framework */; };
+		5D7AA005E7546F33D358ED2D /* SimpleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */; };
+		5D7AA12273A3D6F2878DCDFC /* DataTransferFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */; };
+		5D7AA19C0ABB5F738D09AAD9 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */; };
+		5D7AA5EACCC62B3C0247F490 /* RageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA2F960D13BFA100F9D3B /* RageTests.swift */; };
+		5D7AA60F929F44CBF8CE37FE /* ExampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */; };
+		5D7AA71420AAE6E571E2C9C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */; };
+		5D7AA734318F4A5BE91CAD75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AA7A338D139BDE07EB748 /* Main.storyboard */; };
+		5D7AA89DED76456AB34CBCDB /* GithubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */; };
+		5D7AA989EEF3B3CD74075AC2 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA53697C908211ECE80BF /* HttpMethod.swift */; };
+		5D7AA9E351C4F5B754403596 /* RageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAEE25ABE680A25C3C18A /* RageError.swift */; };
+		5D7AAB2A691549A019C13B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA51C1CF6F78649676154 /* AppDelegate.swift */; };
+		5D7AAD04A86AAA3F90E36BD8 /* ParamsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */; };
+		5D7AAD36DE3AD1D9E8AE0E18 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA142843FA148617BFFDC /* Logger.swift */; };
+		5D7AAE66E31CD58C591A0F94 /* Rage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA2ED83599A807D03DD6 /* Rage.swift */; };
+		5D7AAFD4484C5CBB36D2E11E /* RageLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */; };
+		7CC13EA8DAE85DDA84147D15 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CCF262A5BD43CD375C603E8 /* Pods_RageExample.framework */; };
+		8A6748D01D6B37200064467F /* Rage.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6748CF1D6B37200064467F /* Rage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A6748D71D6B37200064467F /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
+		8A6748F41D6B37620064467F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6748F31D6B37620064467F /* Assets.xcassets */; };
+		8A6748FF1D6B3DC40064467F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6748FD1D6B3DC40064467F /* ViewController.swift */; };
+		8A6749001D6B3DC40064467F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6748FE1D6B3DC40064467F /* ViewController.xib */; };
+		8AA2E7FD1D6B414600E76B52 /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
+		8AA2E7FE1D6B414600E76B52 /* Rage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8A6748D81D6B37200064467F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A6748C31D6B37200064467F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A6748CB1D6B37200064467F;
+			remoteInfo = Rage;
+		};
+		8AA2E7FF1D6B414600E76B52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A6748C31D6B37200064467F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A6748CB1D6B37200064467F;
+			remoteInfo = Rage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8AA2E8011D6B414600E76B52 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8AA2E7FE1D6B414600E76B52 /* Rage.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		469A5682CB1B1786744880C7 /* Pods-RageExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.release.xcconfig"; sourceTree = "<group>"; };
+		49F1212145E7E5FEB39BA0BD /* Pods-Rage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.debug.xcconfig"; sourceTree = "<group>"; };
+		5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransferFormat.swift; sourceTree = "<group>"; };
+		5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParamsBuilder.swift; sourceTree = "<group>"; };
+		5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleExtensions.swift; sourceTree = "<group>"; };
+		5D7AA142843FA148617BFFDC /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		5D7AA2F960D13BFA100F9D3B /* RageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageTests.swift; sourceTree = "<group>"; };
+		5D7AA2FD7CB4399F66B06DEE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		5D7AA51C1CF6F78649676154 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5D7AA53697C908211ECE80BF /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		5D7AA7A338D139BDE07EB748 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5D7AAA2ED83599A807D03DD6 /* Rage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rage.swift; sourceTree = "<group>"; };
+		5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
+		5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
+		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RageLibrary.h; sourceTree = "<group>"; };
+		5D7AAEE25ABE680A25C3C18A /* RageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageError.swift; sourceTree = "<group>"; };
+		8A6748CC1D6B37200064467F /* Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A6748CF1D6B37200064467F /* Rage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rage.h; sourceTree = "<group>"; };
+		8A6748D11D6B37200064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A6748D61D6B37200064467F /* RageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A6748DD1D6B37200064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A6748EA1D6B37620064467F /* RageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A6748F31D6B37620064467F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A6748F81D6B37620064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A6748FD1D6B3DC40064467F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8A6748FE1D6B3DC40064467F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		8FE6FC35B8628AAD5A8B68A9 /* Pods_Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CCF262A5BD43CD375C603E8 /* Pods_RageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B017B8E819B5859BCF52D068 /* Pods-Rage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.release.xcconfig"; sourceTree = "<group>"; };
+		EF8FFBB32F8C09E57A54DE6D /* Pods-RageExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8A6748C81D6B37200064467F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D42EE1DAD449F4F8FEEFC36 /* Pods_Rage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748D31D6B37200064467F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A6748D71D6B37200064467F /* Rage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748E71D6B37620064467F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AA2E7FD1D6B414600E76B52 /* Rage.framework in Frameworks */,
+				7CC13EA8DAE85DDA84147D15 /* Pods_RageExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03AB0D3BB3169CB87747E29B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FE6FC35B8628AAD5A8B68A9 /* Pods_Rage.framework */,
+				9CCF262A5BD43CD375C603E8 /* Pods_RageExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A6ACB5A1286B4C320522083 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				49F1212145E7E5FEB39BA0BD /* Pods-Rage.debug.xcconfig */,
+				B017B8E819B5859BCF52D068 /* Pods-Rage.release.xcconfig */,
+				EF8FFBB32F8C09E57A54DE6D /* Pods-RageExample.debug.xcconfig */,
+				469A5682CB1B1786744880C7 /* Pods-RageExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8A6748C21D6B37200064467F = {
+			isa = PBXGroup;
+			children = (
+				8A6748CE1D6B37200064467F /* Rage */,
+				8A6748DA1D6B37200064467F /* RageTests */,
+				8A6748EB1D6B37620064467F /* RageExample */,
+				8A6748CD1D6B37200064467F /* Products */,
+				5D7AA2FD7CB4399F66B06DEE /* .gitignore */,
+				7A6ACB5A1286B4C320522083 /* Pods */,
+				03AB0D3BB3169CB87747E29B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8A6748CD1D6B37200064467F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A6748CC1D6B37200064467F /* Rage.framework */,
+				8A6748D61D6B37200064467F /* RageTests.xctest */,
+				8A6748EA1D6B37620064467F /* RageExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A6748CE1D6B37200064467F /* Rage */ = {
+			isa = PBXGroup;
+			children = (
+				8A6748CF1D6B37200064467F /* Rage.h */,
+				8A6748D11D6B37200064467F /* Info.plist */,
+				5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */,
+				5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */,
+				5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */,
+				5D7AA53697C908211ECE80BF /* HttpMethod.swift */,
+				5D7AA142843FA148617BFFDC /* Logger.swift */,
+				5D7AAA2ED83599A807D03DD6 /* Rage.swift */,
+				5D7AAEE25ABE680A25C3C18A /* RageError.swift */,
+				5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */,
+				5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */,
+			);
+			path = Rage;
+			sourceTree = "<group>";
+		};
+		8A6748DA1D6B37200064467F /* RageTests */ = {
+			isa = PBXGroup;
+			children = (
+				8A6748DD1D6B37200064467F /* Info.plist */,
+				5D7AA2F960D13BFA100F9D3B /* RageTests.swift */,
+			);
+			path = RageTests;
+			sourceTree = "<group>";
+		};
+		8A6748EB1D6B37620064467F /* RageExample */ = {
+			isa = PBXGroup;
+			children = (
+				8A6748F31D6B37620064467F /* Assets.xcassets */,
+				8A6748F81D6B37620064467F /* Info.plist */,
+				5D7AA51C1CF6F78649676154 /* AppDelegate.swift */,
+				5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */,
+				5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */,
+				8A6748FD1D6B3DC40064467F /* ViewController.swift */,
+				8A6748FE1D6B3DC40064467F /* ViewController.xib */,
+				5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */,
+				5D7AA7A338D139BDE07EB748 /* Main.storyboard */,
+			);
+			path = RageExample;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8A6748C91D6B37200064467F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A6748D01D6B37200064467F /* Rage.h in Headers */,
+				5D7AAFD4484C5CBB36D2E11E /* RageLibrary.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8A6748CB1D6B37200064467F /* Rage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A6748E01D6B37200064467F /* Build configuration list for PBXNativeTarget "Rage" */;
+			buildPhases = (
+				C9FD233355649E464C90B115 /* Check Pods Manifest.lock */,
+				8A6748C71D6B37200064467F /* Sources */,
+				8A6748C81D6B37200064467F /* Frameworks */,
+				8A6748C91D6B37200064467F /* Headers */,
+				8A6748CA1D6B37200064467F /* Resources */,
+				B2A4C9AD4DE5CAD12E6560A8 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rage;
+			productName = Rage;
+			productReference = 8A6748CC1D6B37200064467F /* Rage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8A6748D51D6B37200064467F /* RageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A6748E31D6B37200064467F /* Build configuration list for PBXNativeTarget "RageTests" */;
+			buildPhases = (
+				8A6748D21D6B37200064467F /* Sources */,
+				8A6748D31D6B37200064467F /* Frameworks */,
+				8A6748D41D6B37200064467F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A6748D91D6B37200064467F /* PBXTargetDependency */,
+			);
+			name = RageTests;
+			productName = RageTests;
+			productReference = 8A6748D61D6B37200064467F /* RageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8A6748E91D6B37620064467F /* RageExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A6748F91D6B37620064467F /* Build configuration list for PBXNativeTarget "RageExample" */;
+			buildPhases = (
+				3625BCD01D562956A461889B /* Check Pods Manifest.lock */,
+				8A6748E61D6B37620064467F /* Sources */,
+				8A6748E71D6B37620064467F /* Frameworks */,
+				8A6748E81D6B37620064467F /* Resources */,
+				D284F1CFD13ED85CD4895FB7 /* Embed Pods Frameworks */,
+				754F5442EE7F3538EB016CE2 /* Copy Pods Resources */,
+				8AA2E8011D6B414600E76B52 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AA2E8001D6B414600E76B52 /* PBXTargetDependency */,
+			);
+			name = RageExample;
+			productName = RageExample;
+			productReference = 8A6748EA1D6B37620064467F /* RageExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8A6748C31D6B37200064467F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = GSPD;
+				TargetAttributes = {
+					8A6748CB1D6B37200064467F = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 4ZV85MH9VJ;
+					};
+					8A6748D51D6B37200064467F = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					8A6748E91D6B37620064467F = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 4ZV85MH9VJ;
+					};
+				};
+			};
+			buildConfigurationList = 8A6748C61D6B37200064467F /* Build configuration list for PBXProject "Rage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8A6748C21D6B37200064467F;
+			productRefGroup = 8A6748CD1D6B37200064467F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8A6748E91D6B37620064467F /* RageExample */,
+				8A6748CB1D6B37200064467F /* Rage */,
+				8A6748D51D6B37200064467F /* RageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A6748CA1D6B37200064467F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748D41D6B37200064467F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748E81D6B37620064467F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A6749001D6B3DC40064467F /* ViewController.xib in Resources */,
+				8A6748F41D6B37620064467F /* Assets.xcassets in Resources */,
+				5D7AA71420AAE6E571E2C9C6 /* LaunchScreen.storyboard in Resources */,
+				5D7AA734318F4A5BE91CAD75 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3625BCD01D562956A461889B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		754F5442EE7F3538EB016CE2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageExample/Pods-RageExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2A4C9AD4DE5CAD12E6560A8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rage/Pods-Rage-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9FD233355649E464C90B115 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D284F1CFD13ED85CD4895FB7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageExample/Pods-RageExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8A6748C71D6B37200064467F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D7AA19C0ABB5F738D09AAD9 /* LogLevel.swift in Sources */,
+				5D7AA12273A3D6F2878DCDFC /* DataTransferFormat.swift in Sources */,
+				5D7AAD04A86AAA3F90E36BD8 /* ParamsBuilder.swift in Sources */,
+				5D7AA989EEF3B3CD74075AC2 /* HttpMethod.swift in Sources */,
+				5D7AAD36DE3AD1D9E8AE0E18 /* Logger.swift in Sources */,
+				5D7AAE66E31CD58C591A0F94 /* Rage.swift in Sources */,
+				5D7AA9E351C4F5B754403596 /* RageError.swift in Sources */,
+				5D7AA005E7546F33D358ED2D /* SimpleExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748D21D6B37200064467F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D7AA5EACCC62B3C0247F490 /* RageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A6748E61D6B37620064467F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D7AAB2A691549A019C13B35 /* AppDelegate.swift in Sources */,
+				5D7AA60F929F44CBF8CE37FE /* ExampleAPI.swift in Sources */,
+				8A6748FF1D6B3DC40064467F /* ViewController.swift in Sources */,
+				5D7AA89DED76456AB34CBCDB /* GithubUser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8A6748D91D6B37200064467F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A6748CB1D6B37200064467F /* Rage */;
+			targetProxy = 8A6748D81D6B37200064467F /* PBXContainerItemProxy */;
+		};
+		8AA2E8001D6B414600E76B52 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A6748CB1D6B37200064467F /* Rage */;
+			targetProxy = 8AA2E7FF1D6B414600E76B52 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8A6748DE1D6B37200064467F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8A6748DF1D6B37200064467F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8A6748E11D6B37200064467F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49F1212145E7E5FEB39BA0BD /* Pods-Rage.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Rage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.Rage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8A6748E21D6B37200064467F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B017B8E819B5859BCF52D068 /* Pods-Rage.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Rage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.Rage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8A6748E41D6B37200064467F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.RageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8A6748E51D6B37200064467F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.RageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8A6748FA1D6B37620064467F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF8FFBB32F8C09E57A54DE6D /* Pods-RageExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = RageExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.RageExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		8A6748FB1D6B37620064467F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 469A5682CB1B1786744880C7 /* Pods-RageExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = RageExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gspd.RageExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8A6748C61D6B37200064467F /* Build configuration list for PBXProject "Rage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A6748DE1D6B37200064467F /* Debug */,
+				8A6748DF1D6B37200064467F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A6748E01D6B37200064467F /* Build configuration list for PBXNativeTarget "Rage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A6748E11D6B37200064467F /* Debug */,
+				8A6748E21D6B37200064467F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A6748E31D6B37200064467F /* Build configuration list for PBXNativeTarget "RageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A6748E41D6B37200064467F /* Debug */,
+				8A6748E51D6B37200064467F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A6748F91D6B37620064467F /* Build configuration list for PBXNativeTarget "RageExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A6748FA1D6B37620064467F /* Debug */,
+				8A6748FB1D6B37620064467F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8A6748C31D6B37200064467F /* Project object */;
+}

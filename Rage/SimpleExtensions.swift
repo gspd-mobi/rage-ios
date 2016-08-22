@@ -1,0 +1,61 @@
+import Foundation
+import ObjectMapper
+
+extension NSURLSession {
+
+    func synchronousDataTaskWithURL(url: NSURL, headers: [String:String]) -> (NSData?, NSURLResponse?, NSError?) {
+        var data: NSData?, response: NSURLResponse?, error: NSError?
+
+        let semaphore = dispatch_semaphore_create(0)
+
+        let request = NSMutableURLRequest(URL: url)
+        headers.forEach {
+            (key, value) in
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+
+        dataTaskWithRequest(request) {
+            data = $0; response = $1; error = $2
+            dispatch_semaphore_signal(semaphore)
+        }.resume()
+
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+
+        return (data, response, error)
+    }
+
+}
+
+extension NSData {
+
+    func parseJson<T:Mappable>() -> T? {
+        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
+        guard let b = Mapper<T>().map(resultString) else {
+            return nil
+        }
+        return b
+    }
+    
+    func prettyJson() -> String? {
+        do {
+            let jsonData = try NSJSONSerialization.JSONObjectWithData(self, options: NSJSONReadingOptions())
+            let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
+            let string = String(data: data, encoding: NSUTF8StringEncoding)
+            return string
+        } catch {
+            return ""
+        }
+    }
+
+}
+
+extension String {
+
+    func urlEncoded() -> String {
+        guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else {
+            preconditionFailure("Error while encoding string \"\(self)\"")
+        }
+        return encodedString
+    }
+
+}
