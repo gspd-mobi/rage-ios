@@ -12,7 +12,7 @@ let client = Rage.builder()
         .withLogLevel(.Full)
         .build()
 ```
-Then describe your API requests
+Then describe your API requests like these
 ```swift
 func getOrganization() -> Observable<String> {
     return client.get("/orgs/{org}")
@@ -26,7 +26,44 @@ func getUser() -> Observable<GithubUser> {
     .requestJson()
 }
 ```
-        
+That's it. Compact but powerful.
+
+## Installation (CocoaPods) ##
+Add these dependencies to Podfile and `pod install` 
+```ruby
+pod 'Rage',	'~> 0.1.0'
+pod 'RxSwift',	'~> 2.0'
+pod 'ObjectMapper', '~>1.3'
+```
+
+## Configuration ##
+### Client ###
+```swift
+.withBaseUrl(url: String) // Required. Url to use in all requests made with this client.
+.withLogLevel(logLevel: LogLevel) // Changes log level (.None - default, .Medium, .Full).
+.withTimeoutMillis(timeoutMillis: Int) // Changes timeout in milliseconds for each request made with this client.
+```
+### Create requests ###
+```swift
+// All these methods create request with corresponding HTTP Methods and path
+.get(path: String?) 
+.post(path: String?)
+.put(path: String?)
+.delete(path: String?) 
+.head(path: String?)
+.customMethod(method: String, path: String?) // Use this method when there is no needed method in predefined.
+```
+### Requests ###
+```swift
+.query<T>(key: String, _ value: T?) // Adds query parameter to current request.
+.path<T>(key: String, _ value: T) // Adds path parameter to current request. Path parameter value replaces "{key}" substring in method path.
+.bodyData(value: NSData) // Adds body in NSData format to current request.
+.bodyString(value: String) // Adds body in String format to current request.
+.bodyJson(value: Mappable) // Adds body in JSON format mapped from value object.
+.header(key: String, _ value: String) // Adds header to current request.
+
+.withTimeoutMillis(timeoutMillis: Int) // Used to set timeout in milliseconds for this single request.
+```
 License
 -------
     The MIT License (MIT)
