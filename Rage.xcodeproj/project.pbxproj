@@ -81,12 +81,14 @@
 		5D7AA2FD7CB4399F66B06DEE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		5D7AA51C1CF6F78649676154 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D7AA53697C908211ECE80BF /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		5D7AA632CD9EC5CD5ED7804E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D7AA7A338D139BDE07EB748 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D7AAA2ED83599A807D03DD6 /* Rage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rage.swift; sourceTree = "<group>"; };
 		5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
 		5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
 		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		5D7AADAF06FD47162958627D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5D7AAEE25ABE680A25C3C18A /* RageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageError.swift; sourceTree = "<group>"; };
 		8A6748CC1D6B37200064467F /* Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6748CF1D6B37200064467F /* Rage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rage.h; sourceTree = "<group>"; };
@@ -162,6 +164,8 @@
 				5D7AA2FD7CB4399F66B06DEE /* .gitignore */,
 				7A6ACB5A1286B4C320522083 /* Pods */,
 				03AB0D3BB3169CB87747E29B /* Frameworks */,
+				5D7AA632CD9EC5CD5ED7804E /* README.md */,
+				5D7AADAF06FD47162958627D /* LICENSE.txt */,
 			);
 			sourceTree = "<group>";
 		};

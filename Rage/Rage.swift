@@ -163,7 +163,7 @@ public class RageRequest {
     public func requestJson<T:Mappable>() -> Observable<T> {
         return Observable<T>.create {
             subscriber in
-            let (data, response, error) = self.syncCall()
+            let (data, _, error) = self.syncCall()
             if let error = error {
                 subscriber.onError(RageError(error.localizedDescription))
             } else {
@@ -183,7 +183,7 @@ public class RageRequest {
     public func requestString() -> Observable<String> {
         return Observable<String>.create {
             subscriber in
-            let (data, response, error) = self.syncCall()
+            let (data, _, error) = self.syncCall()
             if let error = error {
                 subscriber.onError(RageError(error.localizedDescription))
             } else {
@@ -204,7 +204,7 @@ public class RageRequest {
     public func requestData() -> Observable<NSData> {
         return Observable<NSData>.create {
             subscriber in
-            let (data, response, error) = self.syncCall()
+            let (data, _, error) = self.syncCall()
             if let error = error {
                 subscriber.onError(RageError(error.localizedDescription))
             } else {
@@ -237,7 +237,6 @@ public class RageRequest {
         let optionalUrl = NSURL(string: urlString)
         guard let url = optionalUrl else {
             preconditionFailure(self.wrongUrlErrorMessage)
-            return (nil, nil, nil)
         }
 
         logger.logHeaders(headers)

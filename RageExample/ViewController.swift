@@ -24,7 +24,7 @@ class ViewController: UIViewController {
             self.textView.text = "\(s)"
         }, onError: {
             (error) in
-            print((error as! RageError).message)
+            print((error as! RageError).message ?? "")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }, onCompleted: {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
