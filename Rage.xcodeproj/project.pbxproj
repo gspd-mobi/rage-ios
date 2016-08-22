@@ -22,15 +22,21 @@
 		5D7AAD04A86AAA3F90E36BD8 /* ParamsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */; };
 		5D7AAD36DE3AD1D9E8AE0E18 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA142843FA148617BFFDC /* Logger.swift */; };
 		5D7AAE66E31CD58C591A0F94 /* Rage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA2ED83599A807D03DD6 /* Rage.swift */; };
-		5D7AAFD4484C5CBB36D2E11E /* RageLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */; };
 		7CC13EA8DAE85DDA84147D15 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CCF262A5BD43CD375C603E8 /* Pods_RageExample.framework */; };
 		8A6748D01D6B37200064467F /* Rage.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6748CF1D6B37200064467F /* Rage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A6748D71D6B37200064467F /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
 		8A6748F41D6B37620064467F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6748F31D6B37620064467F /* Assets.xcassets */; };
 		8A6748FF1D6B3DC40064467F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6748FD1D6B3DC40064467F /* ViewController.swift */; };
-		8A6749001D6B3DC40064467F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6748FE1D6B3DC40064467F /* ViewController.xib */; };
 		8AA2E7FD1D6B414600E76B52 /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
 		8AA2E7FE1D6B414600E76B52 /* Rage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8AA2E8021D6B467700E76B52 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */; };
+		8AA2E8031D6B467700E76B52 /* DataTransferFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA014546BC9C0AD6E0557 /* DataTransferFormat.swift */; };
+		8AA2E8041D6B467700E76B52 /* ParamsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */; };
+		8AA2E8051D6B467700E76B52 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA53697C908211ECE80BF /* HttpMethod.swift */; };
+		8AA2E8061D6B467700E76B52 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA142843FA148617BFFDC /* Logger.swift */; };
+		8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA2ED83599A807D03DD6 /* Rage.swift */; };
+		8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAEE25ABE680A25C3C18A /* RageError.swift */; };
+		8AA2E8091D6B467700E76B52 /* SimpleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +87,6 @@
 		5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
 		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
-		5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RageLibrary.h; sourceTree = "<group>"; };
 		5D7AAEE25ABE680A25C3C18A /* RageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageError.swift; sourceTree = "<group>"; };
 		8A6748CC1D6B37200064467F /* Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6748CF1D6B37200064467F /* Rage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rage.h; sourceTree = "<group>"; };
@@ -92,7 +97,6 @@
 		8A6748F31D6B37620064467F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A6748F81D6B37620064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A6748FD1D6B3DC40064467F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8A6748FE1D6B3DC40064467F /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		8FE6FC35B8628AAD5A8B68A9 /* Pods_Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CCF262A5BD43CD375C603E8 /* Pods_RageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B017B8E819B5859BCF52D068 /* Pods-Rage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.release.xcconfig"; sourceTree = "<group>"; };
@@ -184,7 +188,6 @@
 				5D7AAA2ED83599A807D03DD6 /* Rage.swift */,
 				5D7AAEE25ABE680A25C3C18A /* RageError.swift */,
 				5D7AA110A7F9F32C9B681A1D /* SimpleExtensions.swift */,
-				5D7AAE7BF433AFF1FDFF0367 /* RageLibrary.h */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -207,7 +210,6 @@
 				5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */,
 				5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */,
 				8A6748FD1D6B3DC40064467F /* ViewController.swift */,
-				8A6748FE1D6B3DC40064467F /* ViewController.xib */,
 				5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */,
 				5D7AA7A338D139BDE07EB748 /* Main.storyboard */,
 			);
@@ -222,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A6748D01D6B37200064467F /* Rage.h in Headers */,
-				5D7AAFD4484C5CBB36D2E11E /* RageLibrary.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +352,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A6749001D6B3DC40064467F /* ViewController.xib in Resources */,
 				8A6748F41D6B37620064467F /* Assets.xcassets in Resources */,
 				5D7AA71420AAE6E571E2C9C6 /* LaunchScreen.storyboard in Resources */,
 				5D7AA734318F4A5BE91CAD75 /* Main.storyboard in Resources */,
@@ -458,6 +458,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AA2E8021D6B467700E76B52 /* LogLevel.swift in Sources */,
+				8AA2E8031D6B467700E76B52 /* DataTransferFormat.swift in Sources */,
+				8AA2E8041D6B467700E76B52 /* ParamsBuilder.swift in Sources */,
+				8AA2E8051D6B467700E76B52 /* HttpMethod.swift in Sources */,
+				8AA2E8061D6B467700E76B52 /* Logger.swift in Sources */,
+				8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */,
+				8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */,
+				8AA2E8091D6B467700E76B52 /* SimpleExtensions.swift in Sources */,
 				5D7AA5EACCC62B3C0247F490 /* RageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
