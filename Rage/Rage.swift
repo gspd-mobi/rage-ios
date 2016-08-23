@@ -8,20 +8,19 @@ public class Rage {
         // No operations.
     }
 
-    public class func builder() -> Builder {
-        return Builder()
+    public class func builderWithBaseUrl(baseUrl: String) -> Builder {
+        return Builder(baseUrl: baseUrl)
     }
 
     public final class Builder {
 
-        var baseUrl: String?
+        var baseUrl: String
         var logLevel: LogLevel = .None
         var timeoutMillis: Int = 60 * 1000
         var headers = [String: String]()
 
-        public func withBaseUrl(url: String) -> Builder {
-            self.baseUrl = url
-            return self
+        init(baseUrl: String) {
+            self.baseUrl = baseUrl
         }
 
         public func withLogLevel(logLevel: LogLevel) -> Builder {
@@ -40,9 +39,6 @@ public class Rage {
         }
 
         public func build() -> RageClient {
-            guard let baseUrl = self.baseUrl else {
-                preconditionFailure("Can't build client without baseUrl provided")
-            }
             return RageClient(baseUrl: baseUrl,
                     logLevel: self.logLevel,
                     timeoutMillis: self.timeoutMillis,

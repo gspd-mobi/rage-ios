@@ -9,8 +9,7 @@ class ExampleAPI {
     let client: RageClient
 
     init() {
-        client = Rage.builder()
-        .withBaseUrl("https://api.github.com")
+        client = Rage.builderWithBaseUrl("https://api.github.com")
         .withLogLevel(.Full)
         .withTimeoutMillis(10 * 1000)
         .withHeader("Api-Version", "1.0")

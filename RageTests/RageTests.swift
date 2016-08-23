@@ -54,8 +54,4 @@ class ParamsBuilderTests: XCTestCase {
 
 class RageClientTests: XCTestCase {
 
-    func testNoUrlClient() {
-        Rage.builder().build()
-    }
-
 }
