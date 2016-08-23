@@ -13,6 +13,8 @@ class ExampleAPI {
         .withBaseUrl("https://api.github.com")
         .withLogLevel(.Full)
         .withTimeoutMillis(10 * 1000)
+        .withHeader("Api-Version", "1.0")
+        .withHeader("Platform", "iOS")
         .build()
     }
 
@@ -27,7 +29,7 @@ class ExampleAPI {
         .path("user", "PavelKorolev")
         .requestJson()
     }
-    
+
     func getOrgRepositories() -> Observable<[GithubRepository]> {
         return client.get("/orgs/{org}/repos")
         .path("org", "gspd-mobi")

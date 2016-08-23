@@ -17,6 +17,7 @@ public class Rage {
         var baseUrl: String?
         var logLevel: LogLevel = .None
         var timeoutMillis: Int = 60 * 1000
+        var headers = [String: String]()
 
         public func withBaseUrl(url: String) -> Builder {
             self.baseUrl = url
@@ -33,13 +34,19 @@ public class Rage {
             return self
         }
 
+        public func withHeader(key: String, _ value: String) -> Builder {
+            headers[key] = value
+            return self
+        }
+
         public func build() -> RageClient {
             guard let baseUrl = self.baseUrl else {
                 preconditionFailure("Can't build client without baseUrl provided")
             }
             return RageClient(baseUrl: baseUrl,
                     logLevel: self.logLevel,
-                    timeoutMillis: self.timeoutMillis)
+                    timeoutMillis: self.timeoutMillis,
+                    headers: self.headers)
         }
 
     }
@@ -52,12 +59,14 @@ public class RageClient {
     var logLevel: LogLevel
     var timeoutMillis: Int
     var logger: Logger
+    var headers: [String:String]
 
-    init(baseUrl: String, logLevel: LogLevel, timeoutMillis: Int) {
+    init(baseUrl: String, logLevel: LogLevel, timeoutMillis: Int, headers: [String:String]) {
         self.baseUrl = baseUrl
         self.timeoutMillis = timeoutMillis
         self.logLevel = logLevel
         self.logger = Logger(logLevel: logLevel)
+        self.headers = headers
     }
 
     public func get(path: String?) -> RageRequest {
@@ -85,7 +94,7 @@ public class RageClient {
     }
 
     private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
-        return RageRequest(httpMethod: httpMethod, baseUrl: baseUrl, path: path, timeoutMillis: timeoutMillis, logger: logger)
+        return RageRequest(httpMethod: httpMethod, baseUrl: baseUrl, path: path, timeoutMillis: timeoutMillis, headers: headers, logger: logger)
     }
 
 }
@@ -101,18 +110,19 @@ public class RageRequest {
     var path: String?
     var queryParameters = [String: String]()
     var pathParameters = [String: String]()
-    var headers = [String: String]()
+    var headers: [String:String]
     var body: NSData?
 
     var timeoutMillis: Int
     var logger: Logger
 
-    init(httpMethod: HttpMethod, baseUrl: String, path: String?, timeoutMillis: Int, logger: Logger) {
+    init(httpMethod: HttpMethod, baseUrl: String, path: String?, timeoutMillis: Int, headers: [String:String], logger: Logger) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
         self.path = path
         self.timeoutMillis = timeoutMillis
         self.logger = logger
+        self.headers = headers
     }
 
     // MARK: Parameters
@@ -146,8 +156,12 @@ public class RageRequest {
         return bodyString(json)
     }
 
-    public func header(key: String, _ value: String) -> RageRequest {
-        headers[key] = value
+    public func header(key: String, _ value: String?) -> RageRequest {
+        guard let safeValue = value else {
+            headers.removeValueForKey(key)
+            return self
+        }
+        headers[key] = safeValue
         return self
     }
 
@@ -179,7 +193,7 @@ public class RageRequest {
             return NopDisposable.instance
         }
     }
-    
+
     public func requestJson<T:Mappable>() -> Observable<[T]> {
         return Observable<[T]>.create {
             subscriber in
@@ -195,7 +209,7 @@ public class RageRequest {
                     subscriber.onError(RageError(self.jsonParsingErrorMessage))
                 }
             }
-            
+
             return NopDisposable.instance
         }
     }
