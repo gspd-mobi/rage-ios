@@ -28,6 +28,12 @@ class ExampleAPI {
         .requestJson()
     }
 
+    func getRepositories() -> Observable<[GithubRepository]> {
+        return client.get("/orgs/{org}/repos")
+        .path("org", "gspd-mobi")
+        .requestJson()
+    }
+
     func postUser(user: GithubUser) -> Observable<String> {
         return client.post("/users")
         .bodyJson(user)

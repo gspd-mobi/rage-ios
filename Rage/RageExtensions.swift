@@ -39,6 +39,14 @@ extension NSData {
         }
         return b
     }
+    
+    func parseJsonArray<T:Mappable>() -> [T]? {
+        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
+        guard let b = Mapper<T>().mapArray(resultString) else {
+            return nil
+        }
+        return b
+    }
 
     func prettyJson() -> String? {
         do {
