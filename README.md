@@ -7,8 +7,7 @@ You can check example implementation in RageExample project.
 
 At first you need to create RageClient using builder pattern.
 ```swift
-let client = Rage.builder()
-        .withBaseUrl("https://api.github.com")
+let client = Rage.builderWithBaseUrl("https://api.github.com")
         .withLogLevel(.Full)
         .build()
 ```
@@ -31,7 +30,7 @@ That's it. Compact but powerful.
 ## Installation (CocoaPods) ##
 Add these dependencies to Podfile and `pod install` 
 ```ruby
-pod 'Rage',	'~> 0.1.0'
+pod 'Rage',	'~> 0.2.0'
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```

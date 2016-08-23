@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Rage"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "Network abstraction layer for iOS applications"
 
   s.description      = <<-DESC
