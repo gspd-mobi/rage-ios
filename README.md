@@ -1,6 +1,6 @@
 Rage for iOS
 =============================
-Network abstraction layer for iOS application.
+Network abstraction layer for iOS applications.
 
 ## Usage ##
 You can check example implementation in RageExample project.

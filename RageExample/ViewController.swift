@@ -16,7 +16,7 @@ class ViewController: UIViewController {
 
     func exampleRequest() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        _ = ExampleAPI.sharedInstance.getRepositories()
+        _ = ExampleAPI.sharedInstance.getOrgRepositories()
         .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {
@@ -24,9 +24,9 @@ class ViewController: UIViewController {
             var text = ""
             s.forEach {
                 (repository: GithubRepository) in
-                text += "\(repository.name ?? ""): \(repository.stars ?? 0)\n"
+                text += "\(repository.fullName ?? ""): \(repository.stars ?? 0)\n"
             }
-            self.textView.text = "\(text)"
+            self.textView.text = self.textView.text + "\(text)"
         }, onError: {
             (error) in
             print((error as! RageError).message ?? "")
