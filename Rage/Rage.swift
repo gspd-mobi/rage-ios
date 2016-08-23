@@ -128,8 +128,8 @@ public class RageRequest {
     // MARK: Parameters
 
     public func query<T>(key: String, _ value: T?) -> RageRequest {
-        if let nonNullValue = value {
-            queryParameters[key] = String(nonNullValue)
+        if let safeValue = value {
+            queryParameters[key] = String(safeValue)
         }
         return self
     }

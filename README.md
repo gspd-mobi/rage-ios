@@ -64,6 +64,17 @@ pod 'ObjectMapper', '~>1.3'
 
 .withTimeoutMillis(timeoutMillis: Int) // Used to set timeout in milliseconds for this single request.
 ```
+
+## Warning ##
+There may be compatibility issues between newer and older versions of library until version **1.0.0**.
+
+### Roadmap ###
+* Unit tests coverage
+* UrlEncoded format of body/response out of box
+* Errors handling improvement
+* Configuration protocol for RageClient. For example easy use user-implemented request authorization.
+* Multipart requests 
+
 License
 -------
     The MIT License (MIT)

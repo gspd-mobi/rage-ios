@@ -31,4 +31,5 @@ class ParamsBuilderTests: XCTestCase {
         let url = ParamsBuilder.buildUrlString("http://example.com/api", path: "/user/{name}", queryParameters: [String: String](), pathParameters: ["name": "paul k"])
         XCTAssertEqual(url, "http://example.com/api/user/paul%20k")
     }
+
 }
