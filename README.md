@@ -33,7 +33,7 @@ Add these dependencies to Podfile and `pod install`
 ```ruby
 pod 'Rage',	'~> 0.1.0'
 pod 'RxSwift',	'~> 2.0'
-pod 'ObjectMapper', '~>1.3'
+pod 'ObjectMapper', '~> 1.3'
 ```
 
 ## Configuration ##
@@ -43,7 +43,7 @@ pod 'ObjectMapper', '~>1.3'
 .withLogLevel(logLevel: LogLevel) // Changes log level (.None - default, .Medium, .Full).
 .withTimeoutMillis(timeoutMillis: Int) // Changes timeout in milliseconds for each request made with this client.
 ```
-### Create requests ###
+### Create request description ###
 ```swift
 // All these methods create request with corresponding HTTP Methods and path
 .get(path: String?) 
@@ -53,7 +53,7 @@ pod 'ObjectMapper', '~>1.3'
 .head(path: String?)
 .customMethod(method: String, path: String?) // Use this method when there is no needed method in predefined.
 ```
-### Requests ###
+### Configuring request ###
 ```swift
 .query<T>(key: String, _ value: T?) // Adds query parameter to current request.
 .path<T>(key: String, _ value: T) // Adds path parameter to current request. Path parameter value replaces "{key}" substring in method path.
@@ -65,6 +65,15 @@ pod 'ObjectMapper', '~>1.3'
 .withTimeoutMillis(timeoutMillis: Int) // Used to set timeout in milliseconds for this single request.
 ```
 
+### Making request ###
+```swift
+.requestJson<T:Mappable>() -> Observable<T> // Returns Observable of objects of type T, which is Mappable, so parsed from JSON via ObjectMapper
+.requestJson<T:Mappable>() -> Observable<[T]> // Same function overloaded to return Observable of array of type [T]
+.requestString() -> Observable<String> // Returns Observable of Strings
+.requestData() -> Observable<NSData> // Returns Observable of NSData
+.syncCall() -> (NSData?, NSURLResponse?, NSError?) // Returns tuple of data, response and error directly from NSURLSession request made synchronously. 
+```
+
 ## Warning ##
 There may be compatibility issues between newer and older versions of library until version **1.0.0**.
 
@@ -74,6 +83,8 @@ There may be compatibility issues between newer and older versions of library un
 * Errors handling improvement
 * Configuration protocol for RageClient. For example easy use user-implemented request authorization.
 * Multipart requests 
+* Optional JSON/RxSwift dependencies
+* Carthage support
 
 License
 -------

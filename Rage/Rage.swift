@@ -94,9 +94,36 @@ public class RageClient {
     }
 
     private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
-        return RageRequest(httpMethod: httpMethod, baseUrl: baseUrl, path: path, timeoutMillis: timeoutMillis, headers: headers, logger: logger)
+        let options = RequestOptions()
+        options.timeoutMillis = timeoutMillis
+
+        let requestDescription = RequestDescription(httpMethod: httpMethod,
+                baseUrl: baseUrl,
+                path: path,
+                headers: headers)
+        return RageRequest(requestDescription: requestDescription,
+                options: options,
+                logger: logger)
     }
 
+}
+
+public class RequestDescription {
+    var httpMethod: HttpMethod
+    var baseUrl: String
+    var path: String?
+    var headers: [String:String]
+
+    init(httpMethod: HttpMethod, baseUrl: String, path: String?, headers: [String:String]) {
+        self.httpMethod = httpMethod
+        self.baseUrl = baseUrl
+        self.path = path
+        self.headers = headers
+    }
+}
+
+public class RequestOptions {
+    var timeoutMillis: Int = 60 * 1000
 }
 
 public class RageRequest {
@@ -116,13 +143,15 @@ public class RageRequest {
     var timeoutMillis: Int
     var logger: Logger
 
-    init(httpMethod: HttpMethod, baseUrl: String, path: String?, timeoutMillis: Int, headers: [String:String], logger: Logger) {
-        self.httpMethod = httpMethod
-        self.baseUrl = baseUrl
-        self.path = path
-        self.timeoutMillis = timeoutMillis
+    init(requestDescription: RequestDescription,
+         options: RequestOptions,
+         logger: Logger) {
+        self.httpMethod = requestDescription.httpMethod
+        self.baseUrl = requestDescription.baseUrl
+        self.path = requestDescription.path
+        self.headers = requestDescription.headers
+        self.timeoutMillis = options.timeoutMillis
         self.logger = logger
-        self.headers = headers
     }
 
     // MARK: Parameters
@@ -174,7 +203,7 @@ public class RageRequest {
 
     // MARK: Requests
 
-    public func requestJson<T:Mappable>() -> Observable<T> {
+    public func requestJson<T: Mappable>() -> Observable<T> {
         return Observable<T>.create {
             subscriber in
             let (data, _, error) = self.syncCall()
@@ -194,7 +223,7 @@ public class RageRequest {
         }
     }
 
-    public func requestJson<T:Mappable>() -> Observable<[T]> {
+    public func requestJson<T: Mappable>() -> Observable<[T]> {
         return Observable<[T]>.create {
             subscriber in
             let (data, _, error) = self.syncCall()
@@ -277,7 +306,10 @@ public class RageRequest {
         if httpMethod.hasBody() {
             logger.logBody(body)
         }
-        let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod, url: url, headers: headers, bodyData: body)
+        let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod,
+                url: url,
+                headers: headers,
+                bodyData: body)
 
         logger.logResponse(httpMethod, url: urlString, data: data, response: response)
         return (data, response, error)

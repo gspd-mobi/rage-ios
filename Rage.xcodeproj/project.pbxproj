@@ -87,6 +87,7 @@
 		5D7AA53697C908211ECE80BF /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		5D7AA632CD9EC5CD5ED7804E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D7AA7A338D139BDE07EB748 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5D7AAA2ED83599A807D03DD6 /* Rage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rage.swift; sourceTree = "<group>"; };
 		5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
 		5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 				5D7AA632CD9EC5CD5ED7804E /* README.md */,
 				5D7AADAF06FD47162958627D /* LICENSE.txt */,
 				5D7AA4AD068266FB626E0B66 /* Rage.podspec */,
+				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
 			);
 			sourceTree = "<group>";
 		};
@@ -289,6 +291,7 @@
 				D284F1CFD13ED85CD4895FB7 /* Embed Pods Frameworks */,
 				754F5442EE7F3538EB016CE2 /* Copy Pods Resources */,
 				8AA2E8011D6B414600E76B52 /* Embed Frameworks */,
+				8AA2E82C1D6C8A6600E76B52 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -401,6 +404,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageExample/Pods-RageExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8AA2E82C1D6C8A6600E76B52 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		B2A4C9AD4DE5CAD12E6560A8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -3,7 +3,7 @@ import ObjectMapper
 
 class GithubRepository: Mappable {
 
-    var id: Int?
+    var repositoryId: Int?
 
     var name: String?
     var fullName: String?
@@ -20,7 +20,7 @@ class GithubRepository: Mappable {
     }
 
     func mapping(map: Map) {
-        id <- map["id"]
+        repositoryId <- map["id"]
         name <- map["name"]
         fullName <- map["full_name"]
         url <- map["url"]

@@ -3,7 +3,7 @@ import ObjectMapper
 
 class GithubUser: Mappable {
 
-    var id: Int?
+    var userId: Int?
 
     var login: String?
     var avatarUrl: String?
@@ -16,13 +16,13 @@ class GithubUser: Mappable {
     init() {
         // No operations.
     }
-    
+
     required init?(_ map: Map) {
-        
+
     }
-    
+
     func mapping(map: Map) {
-        id <- map["id"]
+        userId <- map["id"]
         login <- map["login"]
         avatarUrl <- map["avatar_url"]
         htmlUrl <- map["html_url"]

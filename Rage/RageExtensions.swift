@@ -3,7 +3,8 @@ import ObjectMapper
 
 extension NSURLSession {
 
-    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, headers: [String:String], bodyData: NSData?) -> (NSData?, NSURLResponse?, NSError?) {
+    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, headers: [String:String],
+                                    bodyData: NSData?) -> (NSData?, NSURLResponse?, NSError?) {
         var data: NSData?, response: NSURLResponse?, error: NSError?
 
         let semaphore = dispatch_semaphore_create(0)
@@ -32,15 +33,15 @@ extension NSURLSession {
 
 extension NSData {
 
-    func parseJson<T:Mappable>() -> T? {
+    func parseJson<T: Mappable>() -> T? {
         let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
         guard let b = Mapper<T>().map(resultString) else {
             return nil
         }
         return b
     }
-    
-    func parseJsonArray<T:Mappable>() -> [T]? {
+
+    func parseJsonArray<T: Mappable>() -> [T]? {
         let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
         guard let b = Mapper<T>().mapArray(resultString) else {
             return nil
@@ -50,7 +51,8 @@ extension NSData {
 
     func prettyJson() -> String? {
         do {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(self, options: NSJSONReadingOptions())
+            let jsonData = try NSJSONSerialization
+                .JSONObjectWithData(self, options: NSJSONReadingOptions())
             let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
             let string = String(data: data, encoding: NSUTF8StringEncoding)
             return string
@@ -64,7 +66,8 @@ extension NSData {
 extension String {
 
     func urlEncoded() -> String {
-        guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else {
+        guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(
+            .URLHostAllowedCharacterSet()) else {
             preconditionFailure("Error while encoding string \"\(self)\"")
         }
         return encodedString

@@ -55,7 +55,7 @@ public class Logger {
             }
 
             let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            if ((httpResponse.allHeaderFields["Content-Type"] as? String)?.containsString("application/json") ?? false) {
+            if isJson(httpResponse) {
                 print(data.prettyJson() ?? "")
             } else {
                 print(resultString)
@@ -76,7 +76,7 @@ public class Logger {
             print(httpResponse.statusCode)
 
             let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            if ((httpResponse.allHeaderFields["Content-Type"] as? String)?.containsString("application/json") ?? false) {
+            if isJson(httpResponse) {
                 print(data.prettyJson() ?? "")
             } else {
                 print(resultString)
@@ -85,6 +85,14 @@ public class Logger {
         case .None:
             break
         }
+    }
+
+    private func isJson(httpResponse: NSHTTPURLResponse) -> Bool {
+        let contentTypeHeader = httpResponse.allHeaderFields["Content-Type"]
+        guard let contentTypeStringValue = contentTypeHeader as? String else {
+            return false
+        }
+        return contentTypeStringValue.containsString("application/json")
     }
 
     func logBody(data: NSData?) {

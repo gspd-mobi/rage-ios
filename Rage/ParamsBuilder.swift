@@ -11,7 +11,8 @@ public class ParamsBuilder {
         pathParameters.forEach {
             (key, value) in
             let placeholderString = "{\(key)}"
-            pathString = pathString.stringByReplacingOccurrencesOfString(placeholderString, withString: value.urlEncoded())
+            pathString = pathString.stringByReplacingOccurrencesOfString(placeholderString,
+                withString: value.urlEncoded())
         }
 
         var queryParametersString = ""

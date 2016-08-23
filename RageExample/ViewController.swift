@@ -29,7 +29,7 @@ class ViewController: UIViewController {
             self.textView.text = self.textView.text + "\(text)"
         }, onError: {
             (error) in
-            print((error as! RageError).message ?? "")
+            print((error as? RageError)?.message ?? "")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }, onCompleted: {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -38,4 +38,3 @@ class ViewController: UIViewController {
     }
 
 }
-

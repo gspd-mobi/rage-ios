@@ -27,7 +27,7 @@ public enum HttpMethod {
             return customMethod
         }
     }
-    
+
     func hasBody() -> Bool {
         switch self {
         case GET,
@@ -38,4 +38,5 @@ public enum HttpMethod {
         }
 
     }
+
 }
