@@ -35,9 +35,11 @@ public class RageRequest {
     // MARK: Parameters
 
     public func query<T>(key: String, _ value: T?) -> RageRequest {
-        if let safeValue = value {
-            queryParameters[key] = String(safeValue)
+        guard let safeValue = value else {
+            queryParameters.removeValueForKey(key)
+            return self
         }
+        queryParameters[key] = String(safeValue)
         return self
     }
 

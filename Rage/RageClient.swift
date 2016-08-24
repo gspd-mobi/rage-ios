@@ -39,6 +39,10 @@ public class RageClient {
         return createRequest(HttpMethod.HEAD, path: path)
     }
 
+    public func patch(path: String?) -> RageRequest {
+        return createRequest(HttpMethod.PATCH, path: path)
+    }
+
     public func customMethod(method: String, path: String?) -> RageRequest {
         return createRequest(HttpMethod.CUSTOM(method), path: path)
     }

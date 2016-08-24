@@ -44,14 +44,10 @@ public class Rage {
             return self
         }
 
-        public func withHeaderDictionary(dictionary: [String:String?]) -> Builder {
+        public func withHeaderDictionary(dictionary: [String:String]) -> Builder {
             dictionary.forEach {
                 (key, value) in
-                if let safeValue = value {
-                    headers[key] = safeValue
-                } else {
-                    headers.removeValueForKey(key)
-                }
+                headers[key] = value
             }
             return self
         }
