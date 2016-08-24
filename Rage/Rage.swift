@@ -44,6 +44,18 @@ public class Rage {
             return self
         }
 
+        public func withHeaderDictionary(dictionary: [String:String?]) -> Builder {
+            dictionary.forEach {
+                (key, value) in
+                if let safeValue = value {
+                    headers[key] = safeValue
+                } else {
+                    headers.removeValueForKey(key)
+                }
+            }
+            return self
+        }
+
         public func build() -> RageClient {
             return RageClient(baseUrl: baseUrl,
                     contentType: self.contentType,
@@ -141,6 +153,7 @@ public class RageRequest {
     let emptyResponseErrorMessage = "Empty response from server"
     let jsonParsingErrorMessage = "Couldn't parse object from JSON"
     let wrongUrlErrorMessage = "Wrong url provided for request"
+    let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
 
     var httpMethod: HttpMethod
     var baseUrl: String
@@ -205,11 +218,17 @@ public class RageRequest {
     }
 
     public func bodyData(value: NSData) -> RageRequest {
+        if !httpMethod.hasBody() {
+            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
+        }
         body = value
         return self
     }
 
     public func bodyString(value: String) -> RageRequest {
+        if !httpMethod.hasBody() {
+            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
+        }
         body = value.dataUsingEncoding(NSUTF8StringEncoding)
         return self
     }

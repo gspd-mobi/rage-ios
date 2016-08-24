@@ -13,8 +13,10 @@ class ExampleAPI {
         .withContentType(.Json)
         .withLogLevel(.Full)
         .withTimeoutMillis(10 * 1000)
-        .withHeader("Api-Version", "1.0")
-        .withHeader("Platform", "iOS")
+        .withHeaderDictionary([
+                "Api-Version": "1.1",
+                "Platform": "iOS"
+        ])
         .build()
     }
 
@@ -34,10 +36,9 @@ class ExampleAPI {
     }
 
     func getSomething() -> Observable<String> {
-        return client.get("/users/{user}")
-            .queryDictionary(["a": "b", "c":"d"])
-            .path("user", "PavelKorolev")
-            .requestString()
+        return client.get("/users")
+        .queryDictionary(["a": "b", "c": "d"])
+        .requestString()
     }
 
     func getUser() -> Observable<GithubUser> {
