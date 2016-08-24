@@ -3,13 +3,15 @@ import ObjectMapper
 
 extension NSURLSession {
 
-    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, headers: [String:String],
-                                    bodyData: NSData?) -> (NSData?, NSURLResponse?, NSError?) {
+    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, contentType: ContentType,
+                                    headers: [String:String], bodyData: NSData?)
+                    -> (NSData?, NSURLResponse?, NSError?) {
         var data: NSData?, response: NSURLResponse?, error: NSError?
 
         let semaphore = dispatch_semaphore_create(0)
 
         let request = NSMutableURLRequest(URL: url)
+        request.addValue(contentType.stringValue(), forHTTPHeaderField: "Content-Type")
         headers.forEach {
             (key, value) in
             request.addValue(value, forHTTPHeaderField: key)
@@ -52,7 +54,7 @@ extension NSData {
     func prettyJson() -> String? {
         do {
             let jsonData = try NSJSONSerialization
-                .JSONObjectWithData(self, options: NSJSONReadingOptions())
+            .JSONObjectWithData(self, options: NSJSONReadingOptions())
             let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
             let string = String(data: data, encoding: NSUTF8StringEncoding)
             return string
@@ -67,7 +69,7 @@ extension String {
 
     func urlEncoded() -> String {
         guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(
-            .URLHostAllowedCharacterSet()) else {
+        .URLHostAllowedCharacterSet()) else {
             preconditionFailure("Error while encoding string \"\(self)\"")
         }
         return encodedString

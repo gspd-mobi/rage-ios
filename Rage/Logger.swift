@@ -33,6 +33,17 @@ public class Logger {
         }
     }
 
+    func logContentType(contentType: ContentType) {
+        switch logLevel {
+        case .Full:
+            print("Content-Type: \(contentType.stringValue())")
+            break
+        case .Medium,
+             .None:
+            break
+        }
+    }
+
     func logResponse(httpMethod: HttpMethod, url: String, data: NSData?, response: NSURLResponse?) {
         switch logLevel {
         case .Full:

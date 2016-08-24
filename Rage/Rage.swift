@@ -1,6 +1,4 @@
 import Foundation
-import RxSwift
-import ObjectMapper
 
 public class Rage {
 
@@ -15,12 +13,20 @@ public class Rage {
     public final class Builder {
 
         var baseUrl: String
+
+        var contentType = ContentType.UrlEncoded
+
         var logLevel: LogLevel = .None
         var timeoutMillis: Int = 60 * 1000
         var headers = [String: String]()
 
         init(baseUrl: String) {
             self.baseUrl = baseUrl
+        }
+
+        public func withContentType(contentType: ContentType) -> Builder {
+            self.contentType = contentType
+            return self
         }
 
         public func withLogLevel(logLevel: LogLevel) -> Builder {
@@ -40,6 +46,7 @@ public class Rage {
 
         public func build() -> RageClient {
             return RageClient(baseUrl: baseUrl,
+                    contentType: self.contentType,
                     logLevel: self.logLevel,
                     timeoutMillis: self.timeoutMillis,
                     headers: self.headers)
@@ -56,9 +63,12 @@ public class RageClient {
     var timeoutMillis: Int
     var logger: Logger
     var headers: [String:String]
+    var contentType: ContentType
 
-    init(baseUrl: String, logLevel: LogLevel, timeoutMillis: Int, headers: [String:String]) {
+    init(baseUrl: String, contentType: ContentType, logLevel: LogLevel,
+         timeoutMillis: Int, headers: [String:String]) {
         self.baseUrl = baseUrl
+        self.contentType = contentType
         self.timeoutMillis = timeoutMillis
         self.logLevel = logLevel
         self.logger = Logger(logLevel: logLevel)
@@ -95,6 +105,7 @@ public class RageClient {
 
         let requestDescription = RequestDescription(httpMethod: httpMethod,
                 baseUrl: baseUrl,
+                contentType: contentType,
                 path: path,
                 headers: headers)
         return RageRequest(requestDescription: requestDescription,
@@ -109,12 +120,15 @@ public class RequestDescription {
     var baseUrl: String
     var path: String?
     var headers: [String:String]
+    var contentType: ContentType
 
-    init(httpMethod: HttpMethod, baseUrl: String, path: String?, headers: [String:String]) {
+    init(httpMethod: HttpMethod, baseUrl: String, contentType: ContentType,
+         path: String?, headers: [String:String]) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
         self.path = path
         self.headers = headers
+        self.contentType = contentType
     }
 }
 
@@ -124,16 +138,18 @@ public class RequestOptions {
 
 public class RageRequest {
 
-    private let emptyResponseErrorMessage = "Empty response from server"
-    private let jsonParsingErrorMessage = "Couldn't parse object from JSON"
-    private let wrongUrlErrorMessage = "Wrong url provided for request"
+    let emptyResponseErrorMessage = "Empty response from server"
+    let jsonParsingErrorMessage = "Couldn't parse object from JSON"
+    let wrongUrlErrorMessage = "Wrong url provided for request"
 
     var httpMethod: HttpMethod
     var baseUrl: String
     var path: String?
     var queryParameters = [String: String]()
     var pathParameters = [String: String]()
+    var fieldParameters = [String: String]()
     var headers: [String:String]
+    var contentType: ContentType
     var body: NSData?
 
     var timeoutMillis: Int
@@ -146,6 +162,7 @@ public class RageRequest {
         self.baseUrl = requestDescription.baseUrl
         self.path = requestDescription.path
         self.headers = requestDescription.headers
+        self.contentType = requestDescription.contentType
         self.timeoutMillis = options.timeoutMillis
         self.logger = logger
     }
@@ -164,6 +181,11 @@ public class RageRequest {
         return self
     }
 
+    public func field<T>(key: String, _ value: T) -> RageRequest {
+        fieldParameters[key] = String(value)
+        return self
+    }
+
     public func bodyData(value: NSData) -> RageRequest {
         body = value
         return self
@@ -172,13 +194,6 @@ public class RageRequest {
     public func bodyString(value: String) -> RageRequest {
         body = value.dataUsingEncoding(NSUTF8StringEncoding)
         return self
-    }
-
-    public func bodyJson(value: Mappable) -> RageRequest {
-        guard let json = value.toJSONString() else {
-            return self
-        }
-        return bodyString(json)
     }
 
     public func header(key: String, _ value: String?) -> RageRequest {
@@ -190,6 +205,11 @@ public class RageRequest {
         return self
     }
 
+    public func contentType(contentType: ContentType) -> RageRequest {
+        self.contentType = contentType
+        return self
+    }
+
     // MARK: Configurations
 
     public func withTimeoutMillis(timeoutMillis: Int) -> RageRequest {
@@ -198,88 +218,6 @@ public class RageRequest {
     }
 
     // MARK: Requests
-
-    public func requestJson<T: Mappable>() -> Observable<T> {
-        return Observable<T>.create {
-            subscriber in
-            let (data, _, error) = self.syncCall()
-            if let error = error {
-                subscriber.onError(RageError(error.localizedDescription))
-            } else {
-                let parsedObject: T? = data?.parseJson()
-                if let resultObject = parsedObject {
-                    subscriber.onNext(resultObject)
-                    subscriber.onCompleted()
-                } else {
-                    subscriber.onError(RageError(self.jsonParsingErrorMessage))
-                }
-            }
-
-            return NopDisposable.instance
-        }
-    }
-
-    public func requestJson<T: Mappable>() -> Observable<[T]> {
-        return Observable<[T]>.create {
-            subscriber in
-            let (data, _, error) = self.syncCall()
-            if let error = error {
-                subscriber.onError(RageError(error.localizedDescription))
-            } else {
-                let parsedObject: [T]? = data?.parseJsonArray()
-                if let resultObject = parsedObject {
-                    subscriber.onNext(resultObject)
-                    subscriber.onCompleted()
-                } else {
-                    subscriber.onError(RageError(self.jsonParsingErrorMessage))
-                }
-            }
-
-            return NopDisposable.instance
-        }
-    }
-
-    public func requestString() -> Observable<String> {
-        return Observable<String>.create {
-            subscriber in
-            let (data, _, error) = self.syncCall()
-            if let error = error {
-                subscriber.onError(RageError(error.localizedDescription))
-            } else {
-                guard let data = data else {
-                    subscriber.onError(RageError(self.emptyResponseErrorMessage))
-                    return NopDisposable.instance
-                }
-
-                let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-                subscriber.onNext(resultString)
-                subscriber.onCompleted()
-            }
-
-            return NopDisposable.instance
-        }
-    }
-
-    public func requestData() -> Observable<NSData> {
-        return Observable<NSData>.create {
-            subscriber in
-            let (data, _, error) = self.syncCall()
-            if let error = error {
-                subscriber.onError(RageError(error.localizedDescription))
-            } else {
-                guard let data = data else {
-                    subscriber.onError(RageError(self.emptyResponseErrorMessage))
-                    return NopDisposable.instance
-                }
-
-                subscriber.onNext(data)
-                subscriber.onCompleted()
-            }
-
-            return NopDisposable.instance
-        }
-    }
-
     public func syncCall() -> (NSData?, NSURLResponse?, NSError?) {
         let urlString = ParamsBuilder.buildUrlString(self.baseUrl,
                 path: self.path ?? "",
@@ -298,12 +236,20 @@ public class RageRequest {
             preconditionFailure(self.wrongUrlErrorMessage)
         }
 
+        logger.logContentType(contentType)
         logger.logHeaders(headers)
+
+        if body == nil {
+            body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
+                .dataUsingEncoding(NSUTF8StringEncoding)
+        }
+
         if httpMethod.hasBody() {
             logger.logBody(body)
         }
         let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod,
                 url: url,
+                contentType: contentType,
                 headers: headers,
                 bodyData: body)
 

@@ -10,11 +10,21 @@ class ExampleAPI {
 
     init() {
         client = Rage.builderWithBaseUrl("https://api.github.com")
+        .withContentType(.Json)
         .withLogLevel(.Full)
         .withTimeoutMillis(10 * 1000)
         .withHeader("Api-Version", "1.0")
         .withHeader("Platform", "iOS")
         .build()
+    }
+
+    func auth() -> Observable<String> {
+        return client.post("/auth")
+        .contentType(.UrlEncoded)
+        .field("grant_type", "password")
+        .field("username", "user")
+        .field("password", "pa$$word")
+        .requestString()
     }
 
     func getOrganization() -> Observable<String> {

@@ -2,6 +2,10 @@ Rage for iOS
 =============================
 Network abstraction layer for iOS applications.
 
+## Warning ##
+Library is NOT production ready yet. Please don't use it before it gets more stable.
+There may be compatibility issues between newer and older versions of library until version **1.0.0**.
+
 ## Usage ##
 You can check example implementation in RageExample project.
 
@@ -73,10 +77,7 @@ pod 'ObjectMapper', '~> 1.3'
 .syncCall() -> (NSData?, NSURLResponse?, NSError?) // Returns tuple of data, response and error directly from NSURLSession request made synchronously. 
 ```
 
-## Warning ##
-There may be compatibility issues between newer and older versions of library until version **1.0.0**.
-
-### Roadmap ###
+## Roadmap ##
 * Unit tests coverage
 * UrlEncoded format of body/response out of box
 * Errors handling improvement

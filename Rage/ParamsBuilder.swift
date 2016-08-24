@@ -12,7 +12,7 @@ public class ParamsBuilder {
             (key, value) in
             let placeholderString = "{\(key)}"
             pathString = pathString.stringByReplacingOccurrencesOfString(placeholderString,
-                withString: value.urlEncoded())
+                    withString: value.urlEncoded())
         }
 
         var queryParametersString = ""
@@ -29,6 +29,18 @@ public class ParamsBuilder {
         }
 
         return baseUrl + pathString + queryParametersString
+    }
+
+    class func buildUrlEncodedString(fieldParameters: [String:String]) -> String {
+        var fieldsString = ""
+        fieldParameters.forEach {
+            (key, value) in
+            if !fieldsString.isEmpty {
+                fieldsString += "&"
+            }
+            fieldsString += "\(key)=\(value)"
+        }
+        return fieldsString
     }
 
 }
