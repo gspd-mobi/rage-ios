@@ -16,7 +16,7 @@ class ViewController: UIViewController {
 
     func exampleRequest() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        _ = ExampleAPI.sharedInstance.auth()
+        _ = ExampleAPI.sharedInstance.getSomething()
         .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {

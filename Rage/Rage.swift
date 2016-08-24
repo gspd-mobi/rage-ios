@@ -176,6 +176,16 @@ public class RageRequest {
         return self
     }
 
+    public func queryDictionary<T>(dictionary: [String:T?]) -> RageRequest {
+        dictionary.forEach {
+            (key, value) in
+            if let safeValue = value {
+                queryParameters[key] = String(safeValue)
+            }
+        }
+        return self
+    }
+
     public func path<T>(key: String, _ value: T) -> RageRequest {
         pathParameters[key] = String(value)
         return self
@@ -183,6 +193,14 @@ public class RageRequest {
 
     public func field<T>(key: String, _ value: T) -> RageRequest {
         fieldParameters[key] = String(value)
+        return self
+    }
+
+    public func fieldDictionary<T>(dictionary: [String:T]) -> RageRequest {
+        dictionary.forEach {
+            (key, value) in
+            fieldParameters[key] = String(value)
+        }
         return self
     }
 
@@ -202,6 +220,18 @@ public class RageRequest {
             return self
         }
         headers[key] = safeValue
+        return self
+    }
+
+    public func headerDictionary(dictionary: [String:String?]) -> RageRequest {
+        dictionary.forEach {
+            (key, value) in
+            if let safeValue = value {
+                headers[key] = safeValue
+            } else {
+                headers.removeValueForKey(key)
+            }
+        }
         return self
     }
 
@@ -241,7 +271,7 @@ public class RageRequest {
 
         if body == nil {
             body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
-                .dataUsingEncoding(NSUTF8StringEncoding)
+            .dataUsingEncoding(NSUTF8StringEncoding)
         }
 
         if httpMethod.hasBody() {

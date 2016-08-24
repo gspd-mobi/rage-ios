@@ -33,6 +33,13 @@ class ExampleAPI {
         .requestString()
     }
 
+    func getSomething() -> Observable<String> {
+        return client.get("/users/{user}")
+            .queryDictionary(["a": "b", "c":"d"])
+            .path("user", "PavelKorolev")
+            .requestString()
+    }
+
     func getUser() -> Observable<GithubUser> {
         return client.get("/users/{user}")
         .path("user", "PavelKorolev")

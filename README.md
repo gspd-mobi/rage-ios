@@ -34,7 +34,7 @@ That's it. Compact but powerful.
 ## Installation (CocoaPods) ##
 Add these dependencies to Podfile and `pod install` 
 ```ruby
-pod 'Rage',	'~> 0.2.0'
+pod 'Rage',	'~> 0.3.0'
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```
@@ -79,7 +79,6 @@ pod 'ObjectMapper', '~> 1.3'
 
 ## Roadmap ##
 * Unit tests coverage
-* UrlEncoded format of body/response out of box
 * Errors handling improvement
 * Configuration protocol for RageClient. For example easy use user-implemented request authorization.
 * Multipart requests 
