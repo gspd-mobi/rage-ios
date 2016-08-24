@@ -20,7 +20,7 @@ public class Rage {
         var timeoutMillis: Int = 60 * 1000
         var headers = [String: String]()
 
-        init(baseUrl: String) {
+        private init(baseUrl: String) {
             self.baseUrl = baseUrl
         }
 

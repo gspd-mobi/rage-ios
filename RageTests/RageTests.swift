@@ -1,53 +1,57 @@
 import XCTest
 
-class ParamsBuilderTests: XCTestCase {
+extension LogLevel: Equatable {
+}
 
-    func testNoParams() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/someRequest",
-                queryParameters: [String: String](),
-                pathParameters: [String: String]())
-        XCTAssertEqual(url, "http://example.com/api/someRequest")
+public func == (lhs: LogLevel, rhs: LogLevel) -> Bool {
+    switch (lhs, rhs) {
+    case (.None, .None):
+        return true
+    case (.Medium, .Medium):
+        return true
+    case (.Full, .Full):
+        return true
+    default:
+        return false
+    }
+}
+
+class RageTests: XCTestCase {
+
+    func testClientBaseUrl() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        XCTAssertEqual("http://example.com", client.baseUrl)
     }
 
-    func testOneQuery() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/someRequest",
-                queryParameters: ["name": "Paul"],
-                pathParameters: [String: String]())
-        XCTAssertEqual(url, "http://example.com/api/someRequest?name=Paul")
+    func testTimeoutSet() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        .withTimeoutMillis(24 * 60 * 1000)
+        XCTAssertEqual(client.timeoutMillis, 24 * 60 * 1000)
     }
 
-    func testMultipleQuery() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/someRequest",
-                queryParameters: ["name": "Paul", "age": "24"],
-                pathParameters: [String: String]())
-        XCTAssertEqual(url, "http://example.com/api/someRequest?age=24&name=Paul")
+    func testLogLevelSet() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        .withLogLevel(.Medium)
+        XCTAssertEqual(client.logLevel, LogLevel.Medium)
     }
 
-    func testPathParam() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/user/{userId}",
-                queryParameters: [String: String](),
-                pathParameters: ["userId": "5"])
-        XCTAssertEqual(url, "http://example.com/api/user/5")
+    func testContentTypeSet() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        .withContentType(.Custom("content-type"))
+        XCTAssertEqual(client.contentType.stringValue(), "content-type")
     }
 
-    func testQueryEscaping() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/user",
-                queryParameters: ["name": "paul k"],
-                pathParameters: [String: String]())
-        XCTAssertEqual(url, "http://example.com/api/user?name=paul%20k")
+    func testHeaderSet() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        .withHeader("Platform", "iOS")
+        XCTAssertEqual(client.headers.count, 1)
+        XCTAssertEqual(client.headers["Platform"], "iOS")
     }
 
-    func testPathEscaping() {
-        let url = ParamsBuilder.buildUrlString("http://example.com/api",
-                path: "/user/{name}",
-                queryParameters: [String: String](),
-                pathParameters: ["name": "paul k"])
-        XCTAssertEqual(url, "http://example.com/api/user/paul%20k")
+    func testHeaderDictionarySet() {
+        let client = Rage.builderWithBaseUrl("http://example.com")
+        .withHeaderDictionary(["Platform": "iOS"])
+        XCTAssertEqual(client.headers["Platform"], "iOS")
     }
 
 }
