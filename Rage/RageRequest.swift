@@ -14,7 +14,6 @@ public class RageRequest {
     var pathParameters = [String: String]()
     var fieldParameters = [String: String]()
     var headers: [String:String]
-    var contentType: ContentType
     var body: NSData?
 
     var authenticator: Authenticator?
@@ -24,18 +23,17 @@ public class RageRequest {
     var plugins: [RagePlugin]
 
     init(requestDescription: RequestDescription,
-         options: RequestOptions,
          plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl
         self.path = requestDescription.path
         self.headers = requestDescription.headers
-        self.contentType = requestDescription.contentType
+        self.headers["Content-Type"] = requestDescription.contentType.stringValue()
 
         self.authenticator = requestDescription.authenticator
         self.needAuth = requestDescription.authorized
 
-        self.timeoutMillis = options.timeoutMillis
+        self.timeoutMillis = requestDescription.timeoutMillis
         self.plugins = plugins
     }
 
@@ -116,7 +114,7 @@ public class RageRequest {
     }
 
     public func contentType(contentType: ContentType) -> RageRequest {
-        self.contentType = contentType
+        self.headers["Content-Type"] = contentType.stringValue()
         return self
     }
 
@@ -166,7 +164,6 @@ public class RageRequest {
 
         let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod,
                 url: url,
-                contentType: contentType,
                 headers: headers,
                 bodyData: body)
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)

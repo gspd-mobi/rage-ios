@@ -3,15 +3,16 @@ import ObjectMapper
 
 extension NSURLSession {
 
-    func synchronousDataTaskWithURL(httpMethod: HttpMethod, url: NSURL, contentType: ContentType,
-                                    headers: [String:String], bodyData: NSData?)
+    func synchronousDataTaskWithURL(httpMethod: HttpMethod,
+                                    url: NSURL,
+                                    headers: [String:String],
+                                    bodyData: NSData?)
                     -> (NSData?, NSURLResponse?, NSError?) {
         var data: NSData?, response: NSURLResponse?, error: NSError?
 
         let semaphore = dispatch_semaphore_create(0)
 
         let request = NSMutableURLRequest(URL: url)
-        request.addValue(contentType.stringValue(), forHTTPHeaderField: "Content-Type")
         headers.forEach {
             (key, value) in
             request.addValue(value, forHTTPHeaderField: key)

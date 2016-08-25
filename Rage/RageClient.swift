@@ -1,19 +1,5 @@
 import Foundation
 
-public class RageClientConfiguration {
-    var baseUrl: String
-    var timeoutMillis: Int = 60 * 1000
-    var headers = [String: String]()
-    var contentType = ContentType.Json
-    var authenticator: Authenticator?
-
-    var plugins = [RagePlugin]()
-
-    init(baseUrl: String) {
-        self.baseUrl = baseUrl
-    }
-}
-
 public class RageClient {
 
     var defaultConfiguration: RageClientConfiguration
@@ -51,19 +37,14 @@ public class RageClient {
     }
 
     private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
-        let options = RequestOptions()
-        options.timeoutMillis = defaultConfiguration.timeoutMillis
-
         let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
                 httpMethod: httpMethod,
                 path: path)
 
         requestDescription.authenticator = self.defaultConfiguration.authenticator
+        requestDescription.timeoutMillis = self.defaultConfiguration.timeoutMillis
 
-        return RageRequest(requestDescription: requestDescription,
-                options: options,
-                plugins: defaultConfiguration.plugins
-        )
+        return RageRequest(requestDescription: requestDescription, plugins: defaultConfiguration.plugins)
     }
 
 }

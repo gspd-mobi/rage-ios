@@ -10,6 +10,8 @@ public class RequestDescription {
     var authenticator: Authenticator?
     var authorized = false
 
+    var timeoutMillis: Int = 60 * 1000
+
     init(defaultConfiguration: RageClientConfiguration,
          httpMethod: HttpMethod,
          path: String?) {

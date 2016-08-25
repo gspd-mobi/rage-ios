@@ -16,7 +16,6 @@ public class LoggingPlugin: RagePlugin {
 
     public func willSendRequest(request: RageRequest) {
         logRequestUrl(request.httpMethod, url: request.url())
-        logContentType(request.contentType)
         logHeaders(request.headers)
         if request.httpMethod.hasBody() {
             logBody(request.body)
@@ -46,17 +45,6 @@ public class LoggingPlugin: RagePlugin {
                 (key, value) in
                 print("\(key): \(value)")
             }
-            break
-        case .Medium,
-             .None:
-            break
-        }
-    }
-
-    private func logContentType(contentType: ContentType) {
-        switch logLevel {
-        case .Full:
-            print("Content-Type: \(contentType.stringValue())")
             break
         case .Medium,
              .None:
