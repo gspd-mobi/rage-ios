@@ -1,12 +1,13 @@
 import Foundation
 
-public class RageClientDefaultConfiguration {
+public class RageClientConfiguration {
     var baseUrl: String
-    var logLevel: LogLevel = .None
     var timeoutMillis: Int = 60 * 1000
     var headers = [String: String]()
     var contentType = ContentType.Json
     var authenticator: Authenticator?
+
+    var plugins = [RagePlugin]()
 
     init(baseUrl: String) {
         self.baseUrl = baseUrl
@@ -15,12 +16,10 @@ public class RageClientDefaultConfiguration {
 
 public class RageClient {
 
-    var logger: Logger
-    var defaultConfiguration: RageClientDefaultConfiguration
+    var defaultConfiguration: RageClientConfiguration
 
-    init(defaultConfiguration: RageClientDefaultConfiguration) {
+    init(defaultConfiguration: RageClientConfiguration) {
         self.defaultConfiguration = defaultConfiguration
-        self.logger = Logger(logLevel: defaultConfiguration.logLevel)
     }
 
     public func get(path: String?) -> RageRequest {
@@ -63,7 +62,8 @@ public class RageClient {
 
         return RageRequest(requestDescription: requestDescription,
                 options: options,
-                logger: logger)
+                plugins: defaultConfiguration.plugins
+        )
     }
 
 }

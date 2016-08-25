@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     }
 
     func exampleRequest() {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         _ = ExampleAPI.sharedInstance.getSomething()
         .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         .observeOn(MainScheduler.instance)
@@ -25,9 +24,7 @@ class ViewController: UIViewController {
         }, onError: {
             (error) in
             print((error as? RageError)?.message ?? "")
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }, onCompleted: {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }, onDisposed: {
         })
     }

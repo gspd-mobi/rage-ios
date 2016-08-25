@@ -12,60 +12,46 @@ public class Rage {
 
     public final class Builder {
 
-        var baseUrl: String
-
-        var contentType = ContentType.UrlEncoded
-
-        var logLevel: LogLevel = .None
-        var timeoutMillis: Int = 60 * 1000
-        var headers = [String: String]()
-
-        var authenticator: Authenticator?
+        let config: RageClientConfiguration
 
         private init(baseUrl: String) {
-            self.baseUrl = baseUrl
+            config = RageClientConfiguration(baseUrl: baseUrl)
         }
 
         public func withContentType(contentType: ContentType) -> Builder {
-            self.contentType = contentType
-            return self
-        }
-
-        public func withLogLevel(logLevel: LogLevel) -> Builder {
-            self.logLevel = logLevel
+            config.contentType = contentType
             return self
         }
 
         public func withTimeoutMillis(timeoutMillis: Int) -> Builder {
-            self.timeoutMillis = timeoutMillis
+            config.timeoutMillis = timeoutMillis
             return self
         }
 
         public func withHeader(key: String, _ value: String) -> Builder {
-            headers[key] = value
+            config.headers[key] = value
             return self
         }
 
         public func withHeaderDictionary(dictionary: [String:String]) -> Builder {
             dictionary.forEach {
                 (key, value) in
-                headers[key] = value
+                config.headers[key] = value
             }
             return self
         }
 
+        public func withPlugin(ragePlugin: RagePlugin) -> Builder {
+            config.plugins.append(ragePlugin)
+            return self
+        }
+
         public func withAuthenticator(authenticator: Authenticator?) -> Builder {
-            self.authenticator = authenticator
+            config.authenticator = authenticator
             return self
         }
 
         public func build() -> RageClient {
-            let config = RageClientDefaultConfiguration(baseUrl: baseUrl)
-            config.contentType = contentType
-            config.headers = headers
-            config.logLevel = logLevel
-            config.timeoutMillis = timeoutMillis
-            config.authenticator = authenticator
             return RageClient(defaultConfiguration: config)
         }
 

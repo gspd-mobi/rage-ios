@@ -21,11 +21,11 @@ public class RageRequest {
     var needAuth = false
 
     var timeoutMillis: Int
-    var logger: Logger
+    var plugins: [RagePlugin]
 
     init(requestDescription: RequestDescription,
          options: RequestOptions,
-         logger: Logger) {
+         plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl
         self.path = requestDescription.path
@@ -36,7 +36,7 @@ public class RageRequest {
         self.needAuth = requestDescription.authorized
 
         self.timeoutMillis = options.timeoutMillis
-        self.logger = logger
+        self.plugins = plugins
     }
 
     // MARK: Parameters
@@ -142,11 +142,7 @@ public class RageRequest {
 
     // MARK: Requests
     public func syncCall() -> (NSData?, NSURLResponse?, NSError?) {
-        let urlString = ParamsBuilder.buildUrlString(self.baseUrl,
-                path: self.path ?? "",
-                queryParameters: self.queryParameters,
-                pathParameters: self.pathParameters)
-        logger.logRequestUrl(httpMethod, url: urlString)
+        let urlString = url()
 
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let timeoutSeconds = Double(timeoutMillis) / 1000.0
@@ -159,25 +155,31 @@ public class RageRequest {
             preconditionFailure(self.wrongUrlErrorMessage)
         }
 
-        logger.logContentType(contentType)
-        logger.logHeaders(headers)
-
         if body == nil {
             body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
             .dataUsingEncoding(NSUTF8StringEncoding)
         }
 
-        if httpMethod.hasBody() {
-            logger.logBody(body)
+        plugins.forEach {
+            $0.willSendRequest(self)
         }
+
         let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod,
                 url: url,
                 contentType: contentType,
                 headers: headers,
                 bodyData: body)
-
-        logger.logResponse(httpMethod, url: urlString, data: data, response: response)
+        let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
+        plugins.forEach {
+            $0.didReceiveResponse(rageResponse)
+        }
         return (data, response, error)
     }
 
+    func url() -> String {
+        return ParamsBuilder.buildUrlString(self.baseUrl,
+                path: self.path ?? "",
+                queryParameters: self.queryParameters,
+                pathParameters: self.pathParameters)
+    }
 }

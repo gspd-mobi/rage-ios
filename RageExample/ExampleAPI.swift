@@ -17,12 +17,13 @@ class ExampleAPI {
     init() {
         client = Rage.builderWithBaseUrl("https://api.github.com")
         .withContentType(.Json)
-        .withLogLevel(.Full)
         .withTimeoutMillis(10 * 1000)
         .withHeaderDictionary([
                 "Api-Version": "1.1",
                 "Platform": "iOS"
         ])
+        .withPlugin(LoggingPlugin(logLevel: .Full))
+        .withPlugin(ActivityIndicatorPlugin())
         .withAuthenticator(MyAuthenticator())
         .build()
     }

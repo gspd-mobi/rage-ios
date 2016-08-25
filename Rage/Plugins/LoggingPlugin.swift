@@ -1,14 +1,34 @@
 import Foundation
 
-public class Logger {
+public enum LogLevel {
+    case None
+    case Medium
+    case Full
+}
+
+public class LoggingPlugin: RagePlugin {
 
     var logLevel: LogLevel
 
-    init(logLevel: LogLevel) {
+    public init(logLevel: LogLevel) {
         self.logLevel = logLevel
     }
 
-    func logRequestUrl(httpMethod: HttpMethod, url: String) {
+    public func willSendRequest(request: RageRequest) {
+        logRequestUrl(request.httpMethod, url: request.url())
+        logContentType(request.contentType)
+        logHeaders(request.headers)
+        if request.httpMethod.hasBody() {
+            logBody(request.body)
+        }
+    }
+
+    public func didReceiveResponse(response: RageResponse) {
+        logResponse(response.request.httpMethod, url: response.request.url(),
+                    data: response.data, response: response.response)
+    }
+
+    private func logRequestUrl(httpMethod: HttpMethod, url: String) {
         switch logLevel {
         case .Full,
              .Medium:
@@ -19,7 +39,7 @@ public class Logger {
         }
     }
 
-    func logHeaders(headers: [String:String]) {
+    private func logHeaders(headers: [String:String]) {
         switch logLevel {
         case .Full:
             headers.forEach {
@@ -33,7 +53,7 @@ public class Logger {
         }
     }
 
-    func logContentType(contentType: ContentType) {
+    private func logContentType(contentType: ContentType) {
         switch logLevel {
         case .Full:
             print("Content-Type: \(contentType.stringValue())")
@@ -44,7 +64,8 @@ public class Logger {
         }
     }
 
-    func logResponse(httpMethod: HttpMethod, url: String, data: NSData?, response: NSURLResponse?) {
+    private func logResponse(httpMethod: HttpMethod, url: String, data: NSData?,
+                             response: NSURLResponse?) {
         switch logLevel {
         case .Full:
             print("<<< \(httpMethod.stringValue()) \(url)")

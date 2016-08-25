@@ -10,7 +10,7 @@ public class RequestDescription {
     var authenticator: Authenticator?
     var authorized = false
 
-    init(defaultConfiguration: RageClientDefaultConfiguration,
+    init(defaultConfiguration: RageClientConfiguration,
          httpMethod: HttpMethod,
          path: String?) {
         self.httpMethod = httpMethod

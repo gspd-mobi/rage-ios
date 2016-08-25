@@ -12,7 +12,6 @@ class RageRequestParamsTests: XCTestCase {
                                              path: "someRequest",
                                              headers: [String: String]())
         let options = RequestOptions()
-        let logger = Logger(logLevel: .None)
         request = RageRequest(requestDescription: description, options: options, logger: logger)
     }
 
