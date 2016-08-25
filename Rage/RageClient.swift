@@ -1,22 +1,26 @@
 import Foundation
 
+public class RageClientDefaultConfiguration {
+    var baseUrl: String
+    var logLevel: LogLevel = .None
+    var timeoutMillis: Int = 60 * 1000
+    var headers = [String: String]()
+    var contentType = ContentType.Json
+    var authenticator: Authenticator?
+
+    init(baseUrl: String) {
+        self.baseUrl = baseUrl
+    }
+}
+
 public class RageClient {
 
-    var baseUrl: String
-    var logLevel: LogLevel
-    var timeoutMillis: Int
     var logger: Logger
-    var headers: [String:String]
-    var contentType: ContentType
+    var defaultConfiguration: RageClientDefaultConfiguration
 
-    init(baseUrl: String, contentType: ContentType, logLevel: LogLevel,
-         timeoutMillis: Int, headers: [String:String]) {
-        self.baseUrl = baseUrl
-        self.contentType = contentType
-        self.timeoutMillis = timeoutMillis
-        self.logLevel = logLevel
-        self.logger = Logger(logLevel: logLevel)
-        self.headers = headers
+    init(defaultConfiguration: RageClientDefaultConfiguration) {
+        self.defaultConfiguration = defaultConfiguration
+        self.logger = Logger(logLevel: defaultConfiguration.logLevel)
     }
 
     public func get(path: String?) -> RageRequest {
@@ -49,13 +53,14 @@ public class RageClient {
 
     private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
         let options = RequestOptions()
-        options.timeoutMillis = timeoutMillis
+        options.timeoutMillis = defaultConfiguration.timeoutMillis
 
-        let requestDescription = RequestDescription(httpMethod: httpMethod,
-                baseUrl: baseUrl,
-                contentType: contentType,
-                path: path,
-                headers: headers)
+        let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
+                httpMethod: httpMethod,
+                path: path)
+
+        requestDescription.authenticator = self.defaultConfiguration.authenticator
+
         return RageRequest(requestDescription: requestDescription,
                 options: options,
                 logger: logger)

@@ -7,12 +7,16 @@ public class RequestDescription {
     var headers: [String:String]
     var contentType: ContentType
 
-    init(httpMethod: HttpMethod, baseUrl: String, contentType: ContentType,
-         path: String?, headers: [String:String]) {
+    var authenticator: Authenticator?
+    var authorized = false
+
+    init(defaultConfiguration: RageClientDefaultConfiguration,
+         httpMethod: HttpMethod,
+         path: String?) {
         self.httpMethod = httpMethod
-        self.baseUrl = baseUrl
+        self.baseUrl = defaultConfiguration.baseUrl
         self.path = path
-        self.headers = headers
-        self.contentType = contentType
+        self.headers = defaultConfiguration.headers
+        self.contentType = defaultConfiguration.contentType
     }
 }

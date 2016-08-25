@@ -17,6 +17,9 @@ public class RageRequest {
     var contentType: ContentType
     var body: NSData?
 
+    var authenticator: Authenticator?
+    var needAuth = false
+
     var timeoutMillis: Int
     var logger: Logger
 
@@ -28,6 +31,10 @@ public class RageRequest {
         self.path = requestDescription.path
         self.headers = requestDescription.headers
         self.contentType = requestDescription.contentType
+
+        self.authenticator = requestDescription.authenticator
+        self.needAuth = requestDescription.authorized
+
         self.timeoutMillis = options.timeoutMillis
         self.logger = logger
     }
@@ -111,6 +118,19 @@ public class RageRequest {
     public func contentType(contentType: ContentType) -> RageRequest {
         self.contentType = contentType
         return self
+    }
+
+    public func authorized(authenticator: Authenticator) -> RageRequest {
+        self.authenticator = authenticator
+        return authorized()
+    }
+
+    public func authorized() -> RageRequest {
+        if let safeAuthenticator = authenticator {
+            return safeAuthenticator.authorizeRequest(self)
+        } else {
+            preconditionFailure("Can't create authorized request without Authenticator provided")
+        }
     }
 
     // MARK: Configurations

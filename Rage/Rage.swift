@@ -20,6 +20,8 @@ public class Rage {
         var timeoutMillis: Int = 60 * 1000
         var headers = [String: String]()
 
+        var authenticator: Authenticator?
+
         private init(baseUrl: String) {
             self.baseUrl = baseUrl
         }
@@ -52,12 +54,19 @@ public class Rage {
             return self
         }
 
+        public func withAuthenticator(authenticator: Authenticator?) -> Builder {
+            self.authenticator = authenticator
+            return self
+        }
+
         public func build() -> RageClient {
-            return RageClient(baseUrl: baseUrl,
-                    contentType: self.contentType,
-                    logLevel: self.logLevel,
-                    timeoutMillis: self.timeoutMillis,
-                    headers: self.headers)
+            let config = RageClientDefaultConfiguration(baseUrl: baseUrl)
+            config.contentType = contentType
+            config.headers = headers
+            config.logLevel = logLevel
+            config.timeoutMillis = timeoutMillis
+            config.authenticator = authenticator
+            return RageClient(defaultConfiguration: config)
         }
 
     }

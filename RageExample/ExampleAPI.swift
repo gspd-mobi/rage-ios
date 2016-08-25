@@ -2,6 +2,12 @@ import Foundation
 import RxSwift
 import Rage
 
+class MyAuthenticator: Authenticator {
+    func authorizeRequest(request: RageRequest) -> RageRequest {
+        return request.header("Authorization", "Bearer token123")
+    }
+}
+
 class ExampleAPI {
 
     static let sharedInstance = ExampleAPI()
@@ -17,6 +23,7 @@ class ExampleAPI {
                 "Api-Version": "1.1",
                 "Platform": "iOS"
         ])
+        .withAuthenticator(MyAuthenticator())
         .build()
     }
 

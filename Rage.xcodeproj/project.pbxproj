@@ -16,6 +16,7 @@
 		5D7AA2ADBF3C8E96C9A7606F /* RageObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA0A2EDEB7B06CFF6918F /* RageObjectMapper.swift */; };
 		5D7AA357207D7C410D000BFB /* RageRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA799457BC5B64A015B50 /* RageRequestTests.swift */; };
 		5D7AA3939662D37EB4740A5A /* RageRxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAE438A7955F7C8A06871 /* RageRxSwift.swift */; };
+		5D7AA3B54CBE1FD1C08B7110 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA6010DF92B82EE914961 /* Authenticator.swift */; };
 		5D7AA592A1050C33E405C623 /* RageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD25133CE41969B1B048 /* RageRequest.swift */; };
 		5D7AA5EACCC62B3C0247F490 /* ParamsBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA2F960D13BFA100F9D3B /* ParamsBuilderTests.swift */; };
 		5D7AA60F929F44CBF8CE37FE /* ExampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */; };
@@ -46,6 +47,7 @@
 		8A6748D71D6B37200064467F /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
 		8A6748F41D6B37620064467F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6748F31D6B37620064467F /* Assets.xcassets */; };
 		8A6748FF1D6B3DC40064467F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6748FD1D6B3DC40064467F /* ViewController.swift */; };
+		8A7B084B1D6EF41300A61194 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA6010DF92B82EE914961 /* Authenticator.swift */; };
 		8AA2E7FD1D6B414600E76B52 /* Rage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; };
 		8AA2E7FE1D6B414600E76B52 /* Rage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6748CC1D6B37200064467F /* Rage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8AA2E8021D6B467700E76B52 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD33DCEB643FC1C3F27C /* LogLevel.swift */; };
@@ -108,6 +110,7 @@
 		5D7AA4B1EBE7193F2F20DA3D /* RequestOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestOptions.swift; sourceTree = "<group>"; };
 		5D7AA51C1CF6F78649676154 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D7AA53697C908211ECE80BF /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		5D7AA6010DF92B82EE914961 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		5D7AA60ED89EB1D7051B1BEB /* RequestDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDescription.swift; sourceTree = "<group>"; };
 		5D7AA632CD9EC5CD5ED7804E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D7AA799457BC5B64A015B50 /* RageRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRequestTests.swift; sourceTree = "<group>"; };
@@ -265,6 +268,7 @@
 				5D7AAD25133CE41969B1B048 /* RageRequest.swift */,
 				5D7AA60ED89EB1D7051B1BEB /* RequestDescription.swift */,
 				5D7AA4B1EBE7193F2F20DA3D /* RequestOptions.swift */,
+				5D7AA6010DF92B82EE914961 /* Authenticator.swift */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -555,6 +559,7 @@
 				5D7AAC1959A6B3ED3FFC33C6 /* RageRequest.swift in Sources */,
 				5D7AA9FE2E30A380252F8EB8 /* RequestDescription.swift in Sources */,
 				5D7AA952E8607CEB8648C6AC /* RequestOptions.swift in Sources */,
+				5D7AA3B54CBE1FD1C08B7110 /* Authenticator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +572,7 @@
 				8AA2E8041D6B467700E76B52 /* ParamsBuilder.swift in Sources */,
 				8AA2E8051D6B467700E76B52 /* HttpMethod.swift in Sources */,
 				8AA2E8061D6B467700E76B52 /* Logger.swift in Sources */,
+				8A7B084B1D6EF41300A61194 /* Authenticator.swift in Sources */,
 				8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */,
 				8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */,
 				8AA2E8091D6B467700E76B52 /* RageExtensions.swift in Sources */,
