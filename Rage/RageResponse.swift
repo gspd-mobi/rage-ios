@@ -15,3 +15,21 @@ public class RageResponse {
     }
 
 }
+
+extension RageResponse {
+
+    func statusCode() -> Int? {
+        if let httpResponse = response as? NSHTTPURLResponse {
+            return httpResponse.statusCode
+        }
+        return nil
+    }
+
+    func isSuccess() -> Bool {
+        if let status = statusCode() {
+            return 200 ..< 400 ~= status
+        }
+        return false
+    }
+    
+}

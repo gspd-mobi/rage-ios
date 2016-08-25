@@ -43,6 +43,12 @@ class ExampleAPI {
         .requestString()
     }
 
+    func getSomethingError() -> Observable<String> {
+        return client.post("/orgs/{org}")
+        .path("org", "gspd-mobi")
+        .requestString()
+    }
+
     func getSomething() -> Observable<String> {
         return client.get("/users")
         .queryDictionary(["a": "b", "c": "d"])

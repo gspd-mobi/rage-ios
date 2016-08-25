@@ -139,7 +139,7 @@ public class RageRequest {
     }
 
     // MARK: Requests
-    public func syncCall() -> (NSData?, NSURLResponse?, NSError?) {
+    public func syncCall() -> RageResponse {
         let urlString = url()
 
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -166,11 +166,12 @@ public class RageRequest {
                 url: url,
                 headers: headers,
                 bodyData: body)
+
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
         plugins.forEach {
             $0.didReceiveResponse(rageResponse)
         }
-        return (data, response, error)
+        return rageResponse
     }
 
     func url() -> String {

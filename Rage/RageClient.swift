@@ -44,7 +44,8 @@ public class RageClient {
         requestDescription.authenticator = self.defaultConfiguration.authenticator
         requestDescription.timeoutMillis = self.defaultConfiguration.timeoutMillis
 
-        return RageRequest(requestDescription: requestDescription, plugins: defaultConfiguration.plugins)
+        return RageRequest(requestDescription: requestDescription,
+                           plugins: defaultConfiguration.plugins)
     }
 
 }

@@ -15,15 +15,15 @@ class ViewController: UIViewController {
     }
 
     func exampleRequest() {
-        _ = ExampleAPI.sharedInstance.getSomething()
+        _ = ExampleAPI.sharedInstance.getSomethingError()
         .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {
             (s) in
             self.textView.text = "\(s)"
         }, onError: {
-            (error) in
-            print((error as? RageError)?.message ?? "")
+            (error: ErrorType) in
+
         }, onCompleted: {
         }, onDisposed: {
         })
