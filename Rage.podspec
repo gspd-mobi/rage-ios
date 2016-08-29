@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Rage"
-  s.version          = "0.4.0"
+  s.version          = "0.4.1"
   s.summary          = "Network abstraction layer for iOS applications"
 
   s.description      = <<-DESC
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.default_subspec = "Core"
+
   s.subspec "Core" do |ss|
     ss.source_files = 'Rage/*.swift'
     ss.framework = "Foundation"

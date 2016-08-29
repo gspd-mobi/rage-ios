@@ -34,7 +34,7 @@ That's it. Compact but powerful.
 ## Installation (CocoaPods) ##
 Add these dependencies to Podfile and `pod install` 
 ```ruby
-pod 'Rage',	'~> 0.4.0'
+pod 'Rage',	'~> 0.4.1'
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```

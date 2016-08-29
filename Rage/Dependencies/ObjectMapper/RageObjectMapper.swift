@@ -15,3 +15,23 @@ extension RageRequest {
     }
 
 }
+
+extension NSData {
+
+    func parseJson<T: Mappable>() -> T? {
+        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
+        guard let b = Mapper<T>().map(resultString) else {
+            return nil
+        }
+        return b
+    }
+
+    func parseJsonArray<T: Mappable>() -> [T]? {
+        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
+        guard let b = Mapper<T>().mapArray(resultString) else {
+            return nil
+        }
+        return b
+    }
+
+}
