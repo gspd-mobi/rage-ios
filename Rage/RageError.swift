@@ -1,39 +1,37 @@
 import Foundation
 
+public enum RageErrorType {
+    case Raw
+    case EmptyNetworkResponse
+    case Configuration
+    case Http
+    case NetworkError
+}
+
 public class RageError: ErrorType {
 
-    let message: String?
+    public let type: RageErrorType
 
-    let response: RageResponse?
+    public var rageResponse: RageResponse? = nil
 
-    init(_ response: RageResponse?) {
-        self.response = response
-        self.message = nil
+    public var message: String? = nil
+
+    init(type: RageErrorType, rageResponse: RageResponse?) {
+        self.rageResponse = rageResponse
+        self.type = type
     }
 
-    init(_ message: String?) {
+    init(type: RageErrorType, message: String? = nil) {
+        self.type = type
         self.message = message
-        self.response = nil
     }
-
-}
-
-public class HttpError: RageError {
-
-}
-
-public class NetworkError: RageError {
 
 }
 
 extension RageError {
 
     public func statusCode() -> Int? {
-        return response?.statusCode()
-    }
-
-    public func description() -> String {
-        return self.response?.error?.description ?? ""
+        return rageResponse?.statusCode()
     }
 
 }

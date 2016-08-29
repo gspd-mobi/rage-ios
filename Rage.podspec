@@ -15,10 +15,25 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Rage/**/*'
-  s.frameworks = 'Foundation'
+  s.default_subspec = "Core"
+  s.subspec "Core" do |ss|
+    ss.source_files = 'Rage/*.swift'
+    ss.framework = "Foundation"
+    ss.dependency 'Result', '~> 2.1'
+  end
 
-  s.dependency 'RxSwift', '~> 2.0'
-  s.dependency 'ObjectMapper', '~> 1.3'
+  s.subspec "RxSwift" do |ss|
+    ss.source_files = 'Rage/Dependencies/RxSwift/*.swift'
+    ss.dependency 'RxSwift', '~> 2.0'
+  end
+
+  s.subspec "ObjectMapper" do |ss|
+    ss.source_files = 'Rage/Dependencies/ObjectMapper/*.swift'
+    ss.dependency 'ObjectMapper', '~> 1.3'
+  end
+
+  s.subspec "RxSwiftAndObjectMapper" do |ss|
+    ss.source_files = 'Rage/Dependencies/RxSwiftAndObjectMapper/*.swift'
+  end
 
 end

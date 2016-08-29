@@ -24,6 +24,14 @@ class ViewController: UIViewController {
         }, onError: {
             (error: ErrorType) in
 
+            let message = error.description()
+
+            let alert = UIAlertController(title: "Error", message: message,
+                    preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok",
+                    style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
         }, onCompleted: {
         }, onDisposed: {
         })

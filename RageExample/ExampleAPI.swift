@@ -44,8 +44,8 @@ class ExampleAPI {
     }
 
     func getSomethingError() -> Observable<String> {
-        return client.post("/orgs/{org}")
-        .path("org", "gspd-mobi")
+        return client.get("/orgs/{org}")
+        .path("org", "gsasdasdasdasdas")
         .requestString()
     }
 

@@ -1,15 +1,15 @@
 import Foundation
+import Result
 
 public class RageRequest {
 
-    let emptyResponseErrorMessage = "Empty response from server"
     let jsonParsingErrorMessage = "Couldn't parse object from JSON"
     let wrongUrlErrorMessage = "Wrong url provided for request"
     let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
 
     var httpMethod: HttpMethod
     var baseUrl: String
-    var path: String?
+    var methodPath: String?
     var queryParameters = [String: String]()
     var pathParameters = [String: String]()
     var fieldParameters = [String: String]()
@@ -26,7 +26,7 @@ public class RageRequest {
          plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl
-        self.path = requestDescription.path
+        self.methodPath = requestDescription.path
         self.headers = requestDescription.headers
         self.headers["Content-Type"] = requestDescription.contentType.stringValue()
 
@@ -139,44 +139,79 @@ public class RageRequest {
     }
 
     // MARK: Requests
-    public func syncCall() -> RageResponse {
-        let urlString = url()
 
+    private func createSession() -> NSURLSession {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let timeoutSeconds = Double(timeoutMillis) / 1000.0
         configuration.timeoutIntervalForRequest = timeoutSeconds
         configuration.timeoutIntervalForResource = timeoutSeconds
 
-        let defaultSession = NSURLSession(configuration: configuration)
-        let optionalUrl = NSURL(string: urlString)
-        guard let url = optionalUrl else {
-            preconditionFailure(self.wrongUrlErrorMessage)
-        }
+        return NSURLSession(configuration: configuration)
+    }
 
+    private func prepareParameters() {
         if body == nil {
             body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
             .dataUsingEncoding(NSUTF8StringEncoding)
         }
+    }
+
+    public func syncResult() -> Result<RageResponse, RageError> {
+        let urlString = url()
+        let optionalUrl = NSURL(string: urlString)
+        guard let url = optionalUrl else {
+            preconditionFailure(self.wrongUrlErrorMessage)
+        }
+        prepareParameters()
+
+        let session = createSession()
 
         plugins.forEach {
             $0.willSendRequest(self)
         }
 
-        let (data, response, error) = defaultSession.synchronousDataTaskWithURL(httpMethod,
+        let (data, response, error) = session.synchronousDataTaskWithURL(httpMethod,
                 url: url,
                 headers: headers,
                 bodyData: body)
 
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
+
         plugins.forEach {
             $0.didReceiveResponse(rageResponse)
         }
-        return rageResponse
+
+        if rageResponse.isSuccess() {
+            return .Success(rageResponse)
+        } else {
+            return .Failure(createErrorFromResponse(rageResponse))
+        }
+    }
+
+    public func asyncResult(completion: (Result<RageResponse, RageError>) -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+            let result = self.syncResult()
+
+            dispatch_async(dispatch_get_main_queue(), {
+                return result
+            })
+        })
+    }
+
+    private func createErrorFromResponse(rageResponse: RageResponse) -> RageError {
+        if rageResponse.error == nil && rageResponse.data?.length ?? 0 == 0 {
+            return RageError(type: .EmptyNetworkResponse)
+        }
+        if rageResponse.error == nil {
+            return RageError(type: .Http, rageResponse: rageResponse)
+        }
+
+        return RageError(type: .Raw, rageResponse: rageResponse)
     }
 
     func url() -> String {
         return ParamsBuilder.buildUrlString(self.baseUrl,
-                path: self.path ?? "",
+                path: self.methodPath ?? "",
                 queryParameters: self.queryParameters,
                 pathParameters: self.pathParameters)
     }

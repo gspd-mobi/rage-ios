@@ -7,17 +7,22 @@ extension RageRequest {
     public func requestJson<T: Mappable>() -> Observable<T> {
         return Observable<T>.create {
             subscriber in
-            let response = self.syncCall()
-            if response.isSuccess() {
+            let result = self.syncResult()
+
+            switch result {
+            case .Success(let response):
                 let parsedObject: T? = response.data?.parseJson()
                 if let resultObject = parsedObject {
                     subscriber.onNext(resultObject)
                     subscriber.onCompleted()
                 } else {
-                    subscriber.onError(RageError(self.jsonParsingErrorMessage))
+                    subscriber.onError(RageError(type: .Configuration,
+                            message: self.jsonParsingErrorMessage))
                 }
-            } else {
-                subscriber.onError(RageError(response))
+                break
+            case .Failure(let error):
+                subscriber.onError(error)
+                break
             }
 
             return NopDisposable.instance
@@ -27,19 +32,23 @@ extension RageRequest {
     public func requestJson<T: Mappable>() -> Observable<[T]> {
         return Observable<[T]>.create {
             subscriber in
-            let response = self.syncCall()
-            if response.isSuccess() {
+            let result = self.syncResult()
+
+            switch result {
+            case .Success(let response):
                 let parsedObject: [T]? = response.data?.parseJsonArray()
                 if let resultObject = parsedObject {
                     subscriber.onNext(resultObject)
                     subscriber.onCompleted()
                 } else {
-                    subscriber.onError(RageError(self.jsonParsingErrorMessage))
+                    subscriber.onError(RageError(type: .Configuration,
+                            message: self.jsonParsingErrorMessage))
                 }
-            } else {
-                subscriber.onError(RageError(response))
+                break
+            case .Failure(let error):
+                subscriber.onError(error)
+                break
             }
-
             return NopDisposable.instance
         }
     }

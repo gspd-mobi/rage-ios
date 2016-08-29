@@ -45,7 +45,7 @@ public class RageClient {
         requestDescription.timeoutMillis = self.defaultConfiguration.timeoutMillis
 
         return RageRequest(requestDescription: requestDescription,
-                           plugins: defaultConfiguration.plugins)
+                plugins: defaultConfiguration.plugins)
     }
 
 }
