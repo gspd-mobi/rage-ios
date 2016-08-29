@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Rage"
-  s.version          = "0.4.1"
+  s.version          = "0.4.2"
   s.summary          = "Network abstraction layer for iOS applications"
 
   s.description      = <<-DESC
@@ -25,16 +25,21 @@ Pod::Spec.new do |s|
 
   s.subspec "RxSwift" do |ss|
     ss.source_files = 'Rage/Dependencies/RxSwift/*.swift'
+    ss.dependency "Rage/Core"
     ss.dependency 'RxSwift', '~> 2.0'
   end
 
   s.subspec "ObjectMapper" do |ss|
     ss.source_files = 'Rage/Dependencies/ObjectMapper/*.swift'
+    ss.dependency "Rage/Core"
     ss.dependency 'ObjectMapper', '~> 1.3'
   end
 
   s.subspec "RxSwiftAndObjectMapper" do |ss|
     ss.source_files = 'Rage/Dependencies/RxSwiftAndObjectMapper/*.swift'
+    ss.dependency "Rage/Core"
+    ss.dependency "Rage/RxSwift"
+    ss.dependency "Rage/ObjectMapper"
   end
 
 end
