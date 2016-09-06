@@ -30,53 +30,54 @@ class ExampleAPI {
 
     func auth() -> Observable<String> {
         return client.post("/auth")
-        .contentType(.UrlEncoded)
+        .formUrlEncoded()
         .field("grant_type", "password")
         .field("username", "user")
         .field("password", "pa$$word")
-        .requestString()
+        .executeStringObservable()
     }
 
     func getOrganization() -> Observable<String> {
         return client.get("/orgs/{org}")
         .path("org", "gspd-mobi")
-        .requestString()
+        .executeStringObservable()
     }
 
     func getSomethingError() -> Observable<String> {
         return client.get("/orgs/{org}")
         .path("org", "gsasdasdasdasdas")
-        .requestString()
+        .executeStringObservable()
     }
 
     func getSomething() -> Observable<String> {
         return client.get("/users")
         .queryDictionary(["a": "b", "c": "d"])
-        .requestString()
+        .executeStringObservable()
     }
 
     func getUser() -> Observable<GithubUser> {
         return client.get("/users/{user}")
         .path("user", "PavelKorolev")
-        .requestJson()
+        .executeObjectObservable()
     }
 
     func getOrgRepositories() -> Observable<[GithubRepository]> {
         return client.get("/orgs/{org}/repos")
         .path("org", "gspd-mobi")
-        .requestJson()
+        .executeObjectObservable()
     }
 
     func getUserRepositories() -> Observable<[GithubRepository]> {
         return client.get("/users/{user}/repos")
         .path("user", "PavelKorolev")
-        .requestJson()
+        .executeObjectObservable()
     }
 
     func postUser(user: GithubUser) -> Observable<String> {
         return client.post("/users")
+        .withBody()
         .bodyJson(user)
-        .requestString()
+        .executeStringObservable()
     }
 
 }

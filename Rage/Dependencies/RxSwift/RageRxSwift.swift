@@ -3,11 +3,11 @@ import RxSwift
 
 extension RageRequest {
 
-    public func requestString() -> Observable<String> {
+    public func executeStringObservable() -> Observable<String> {
         return Observable<String>.create {
             subscriber in
 
-            let result = self.syncResult()
+            let result = self.execute()
 
             switch result {
             case .Success(let response):
@@ -29,10 +29,10 @@ extension RageRequest {
         }
     }
 
-    public func requestData() -> Observable<NSData> {
+    public func executeDataObservable() -> Observable<NSData> {
         return Observable<NSData>.create {
             subscriber in
-            let result = self.syncResult()
+            let result = self.execute()
 
             switch result {
             case .Success(let response):

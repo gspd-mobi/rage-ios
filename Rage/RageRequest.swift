@@ -1,7 +1,7 @@
 import Foundation
 import Result
 
-public class RageRequest {
+public class RageRequest: Call {
 
     let jsonParsingErrorMessage = "Couldn't parse object from JSON"
     let wrongUrlErrorMessage = "Wrong url provided for request"
@@ -12,15 +12,18 @@ public class RageRequest {
     var methodPath: String?
     var queryParameters = [String: String]()
     var pathParameters = [String: String]()
-    var fieldParameters = [String: String]()
-    var headers: [String:String]
-    var body: NSData?
+    var headers = [String: String]()
 
     var authenticator: Authenticator?
     var needAuth = false
 
-    var timeoutMillis: Int
-    var plugins: [RagePlugin]
+    var timeoutMillis: Int = 60 * 1000
+    var plugins: [RagePlugin]?
+
+    init(httpMethod: HttpMethod, baseUrl: String) {
+        self.httpMethod = httpMethod
+        self.baseUrl = baseUrl
+    }
 
     init(requestDescription: RequestDescription,
          plugins: [RagePlugin]) {
@@ -49,8 +52,7 @@ public class RageRequest {
     }
 
     public func queryDictionary<T>(dictionary: [String:T?]) -> RageRequest {
-        dictionary.forEach {
-            (key, value) in
+        for (key, value) in dictionary {
             if let safeValue = value {
                 queryParameters[key] = String(safeValue)
             }
@@ -60,35 +62,6 @@ public class RageRequest {
 
     public func path<T>(key: String, _ value: T) -> RageRequest {
         pathParameters[key] = String(value)
-        return self
-    }
-
-    public func field<T>(key: String, _ value: T) -> RageRequest {
-        fieldParameters[key] = String(value)
-        return self
-    }
-
-    public func fieldDictionary<T>(dictionary: [String:T]) -> RageRequest {
-        dictionary.forEach {
-            (key, value) in
-            fieldParameters[key] = String(value)
-        }
-        return self
-    }
-
-    public func bodyData(value: NSData) -> RageRequest {
-        if !httpMethod.hasBody() {
-            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
-        }
-        body = value
-        return self
-    }
-
-    public func bodyString(value: String) -> RageRequest {
-        if !httpMethod.hasBody() {
-            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
-        }
-        body = value.dataUsingEncoding(NSUTF8StringEncoding)
         return self
     }
 
@@ -102,8 +75,7 @@ public class RageRequest {
     }
 
     public func headerDictionary(dictionary: [String:String?]) -> RageRequest {
-        dictionary.forEach {
-            (key, value) in
+        for (key, value) in dictionary {
             if let safeValue = value {
                 headers[key] = safeValue
             } else {
@@ -140,7 +112,7 @@ public class RageRequest {
 
     // MARK: Requests
 
-    private func createSession() -> NSURLSession {
+    func createSession() -> NSURLSession {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let timeoutSeconds = Double(timeoutMillis) / 1000.0
         configuration.timeoutIntervalForRequest = timeoutSeconds
@@ -149,56 +121,7 @@ public class RageRequest {
         return NSURLSession(configuration: configuration)
     }
 
-    private func prepareParameters() {
-        if body == nil {
-            body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
-            .dataUsingEncoding(NSUTF8StringEncoding)
-        }
-    }
-
-    public func syncResult() -> Result<RageResponse, RageError> {
-        let urlString = url()
-        let optionalUrl = NSURL(string: urlString)
-        guard let url = optionalUrl else {
-            preconditionFailure(self.wrongUrlErrorMessage)
-        }
-        prepareParameters()
-
-        let session = createSession()
-
-        plugins.forEach {
-            $0.willSendRequest(self)
-        }
-
-        let (data, response, error) = session.synchronousDataTaskWithURL(httpMethod,
-                url: url,
-                headers: headers,
-                bodyData: body)
-
-        let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
-
-        plugins.forEach {
-            $0.didReceiveResponse(rageResponse)
-        }
-
-        if rageResponse.isSuccess() {
-            return .Success(rageResponse)
-        } else {
-            return .Failure(createErrorFromResponse(rageResponse))
-        }
-    }
-
-    public func asyncResult(completion: (Result<RageResponse, RageError>) -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            let result = self.syncResult()
-
-            dispatch_async(dispatch_get_main_queue(), {
-                return result
-            })
-        })
-    }
-
-    private func createErrorFromResponse(rageResponse: RageResponse) -> RageError {
+    func createErrorFromResponse(rageResponse: RageResponse) -> RageError {
         if rageResponse.error == nil && rageResponse.data?.length ?? 0 == 0 {
             return RageError(type: .EmptyNetworkResponse)
         }
@@ -215,4 +138,72 @@ public class RageRequest {
                 queryParameters: self.queryParameters,
                 pathParameters: self.pathParameters)
     }
+
+    // MARK: Complex request abstractions
+
+    public func withBody() -> BodyRageRequest {
+        return BodyRageRequest(from: self)
+    }
+
+    public func multipart() -> MultipartRageRequest {
+        return MultipartRageRequest(from: self)
+    }
+
+    public func formUrlEncoded() -> FormUrlEncodedRequest {
+        return FormUrlEncodedRequest(from: self)
+    }
+
+    // MARK: Executing
+
+    func execute() -> Result<RageResponse, RageError> {
+        let request = rawRequest()
+        let session = createSession()
+
+        if let plugins = plugins {
+            for plugin in plugins {
+                plugin.willSendRequest(self)
+            }
+        }
+
+        let (data, response, error) = session.syncTask(request)
+        let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
+
+        if let plugins = plugins {
+            for plugin in plugins {
+                plugin.didReceiveResponse(rageResponse)
+            }
+        }
+
+        if rageResponse.isSuccess() {
+            return .Success(rageResponse)
+        } else {
+            return .Failure(createErrorFromResponse(rageResponse))
+        }
+    }
+
+    func enqueue(completion: Result<RageResponse, RageError> -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+            let result = self.execute()
+
+            dispatch_async(dispatch_get_main_queue(), {
+                return result
+            })
+        })
+    }
+
+    public func rawRequest() -> NSURLRequest {
+        let urlString = url()
+        let optionalUrl = NSURL(string: urlString)
+        guard let url = optionalUrl else {
+            preconditionFailure(self.wrongUrlErrorMessage)
+        }
+
+        let request = NSMutableURLRequest(URL: url)
+        for (key, value) in headers {
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+        request.HTTPMethod = httpMethod.stringValue()
+        return request
+    }
+
 }

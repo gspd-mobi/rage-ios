@@ -1,9 +1,9 @@
 import Foundation
 import ObjectMapper
 
-extension RageRequest {
+extension BodyRageRequest {
 
-    public func bodyJson(value: Mappable) -> RageRequest {
+    public func bodyJson(value: Mappable) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
         }
@@ -32,6 +32,20 @@ extension NSData {
             return nil
         }
         return b
+    }
+
+}
+
+extension TypedObject {
+
+    class func fromJsonObject(object: Mappable) -> TypedObject? {
+        guard let json = object.toJSONString() else {
+            return nil
+        }
+        guard let data = json.dataUsingEncoding(NSUTF8StringEncoding) else {
+            return nil
+        }
+        return TypedObject(data, mimeType: "application/json")
     }
 
 }

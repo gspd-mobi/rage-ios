@@ -4,10 +4,10 @@ import ObjectMapper
 
 extension RageRequest {
 
-    public func requestJson<T: Mappable>() -> Observable<T> {
+    public func executeObjectObservable<T: Mappable>() -> Observable<T> {
         return Observable<T>.create {
             subscriber in
-            let result = self.syncResult()
+            let result = self.execute()
 
             switch result {
             case .Success(let response):
@@ -29,10 +29,10 @@ extension RageRequest {
         }
     }
 
-    public func requestJson<T: Mappable>() -> Observable<[T]> {
+    public func executeObjectObservable<T: Mappable>() -> Observable<[T]> {
         return Observable<[T]>.create {
             subscriber in
-            let result = self.syncResult()
+            let result = self.execute()
 
             switch result {
             case .Success(let response):

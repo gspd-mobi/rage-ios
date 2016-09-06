@@ -18,7 +18,7 @@ public class LoggingPlugin: RagePlugin {
         logRequestUrl(request.httpMethod, url: request.url())
         logHeaders(request.headers)
         if request.httpMethod.hasBody() {
-            logBody(request.body)
+            //logBody(request.body)
         }
     }
 
@@ -41,8 +41,7 @@ public class LoggingPlugin: RagePlugin {
     private func logHeaders(headers: [String:String]) {
         switch logLevel {
         case .Full:
-            headers.forEach {
-                (key, value) in
+            for (key, value) in headers {
                 print("\(key): \(value)")
             }
             break
@@ -69,8 +68,7 @@ public class LoggingPlugin: RagePlugin {
 
             print(httpResponse.statusCode)
 
-            httpResponse.allHeaderFields.forEach {
-                (key, value) in
+            for (key, value) in httpResponse.allHeaderFields {
                 print("\(key): \(value)")
             }
 
