@@ -55,6 +55,12 @@ class ExampleAPI {
         .executeStringObservable()
     }
 
+    func getSomethingWithUrlRequest() -> Observable<String> {
+        return client.get()
+            .url("https://some-other-api-url.com")
+            .executeStringObservable()
+    }
+
     func getUser() -> Observable<GithubUser> {
         return client.get("/users/{user}")
         .path("user", "PavelKorolev")

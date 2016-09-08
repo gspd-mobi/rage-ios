@@ -42,6 +42,11 @@ public class RageRequest: Call {
 
     // MARK: Parameters
 
+    public func url(url: String) -> RageRequest {
+        self.baseUrl = url
+        return self
+    }
+
     public func query<T>(key: String, _ value: T?) -> RageRequest {
         guard let safeValue = value else {
             queryParameters.removeValueForKey(key)

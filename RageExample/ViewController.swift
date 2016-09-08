@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     }
 
     func exampleRequest() {
-        _ = ExampleAPI.sharedInstance.getSomethingError()
+        _ = ExampleAPI.sharedInstance.getSomethingWithUrlRequest()
         .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {

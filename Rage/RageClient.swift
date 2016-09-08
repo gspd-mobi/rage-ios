@@ -8,31 +8,31 @@ public class RageClient {
         self.defaultConfiguration = defaultConfiguration
     }
 
-    public func get(path: String?) -> RageRequest {
+    public func get(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.GET, path: path)
     }
 
-    public func post(path: String?) -> RageRequest {
+    public func post(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.POST, path: path)
     }
 
-    public func put(path: String?) -> RageRequest {
+    public func put(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.PUT, path: path)
     }
 
-    public func delete(path: String?) -> RageRequest {
+    public func delete(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.DELETE, path: path)
     }
 
-    public func head(path: String?) -> RageRequest {
+    public func head(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.HEAD, path: path)
     }
 
-    public func patch(path: String?) -> RageRequest {
+    public func patch(path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.PATCH, path: path)
     }
 
-    public func customMethod(method: String, path: String?) -> RageRequest {
+    public func customMethod(method: String, path: String? = nil) -> RageRequest {
         return createRequest(HttpMethod.CUSTOM(method), path: path)
     }
 
