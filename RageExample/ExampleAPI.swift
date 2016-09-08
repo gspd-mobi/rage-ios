@@ -58,6 +58,7 @@ class ExampleAPI {
     func getSomethingWithUrlRequest() -> Observable<String> {
         return client.get()
             .url("https://some-other-api-url.com")
+            .stub(GithubUser(email:"pavel.korolev@gspd.mobi"))
             .executeStringObservable()
     }
 

@@ -20,6 +20,8 @@ public class RageRequest: Call {
     var timeoutMillis: Int = 60 * 1000
     var plugins: [RagePlugin]?
 
+    var stubData: StubData?
+
     init(httpMethod: HttpMethod, baseUrl: String) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
@@ -108,6 +110,18 @@ public class RageRequest: Call {
         }
     }
 
+    public func stub(data: NSData, mode: StubMode = .immediate) -> RageRequest {
+        self.stubData = StubData(data: data, mode: mode)
+        return self
+    }
+
+    public func stub(string: String, mode: StubMode = .immediate) -> RageRequest {
+        guard let data = string.dataUsingEncoding(NSUTF8StringEncoding) else {
+            return self
+        }
+        return self.stub(data, mode: mode)
+    }
+
     // MARK: Configurations
 
     public func withTimeoutMillis(timeoutMillis: Int) -> RageRequest {
@@ -161,14 +175,24 @@ public class RageRequest: Call {
     // MARK: Executing
 
     func execute() -> Result<RageResponse, RageError> {
-        let request = rawRequest()
-        let session = createSession()
-
         if let plugins = plugins {
             for plugin in plugins {
                 plugin.willSendRequest(self)
             }
         }
+
+        if let s = getStubData() {
+            let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
+            if let plugins = plugins {
+                for plugin in plugins {
+                    plugin.didReceiveResponse(rageResponse)
+                }
+            }
+            return .Success(rageResponse)
+        }
+
+        let request = rawRequest()
+        let session = createSession()
 
         let (data, response, error) = session.syncTask(request)
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
@@ -209,6 +233,34 @@ public class RageRequest: Call {
         }
         request.HTTPMethod = httpMethod.stringValue()
         return request
+    }
+
+    public func isStubbed() -> Bool {
+        guard let s = stubData else {
+            return false
+        }
+        switch s.mode {
+        case .never:
+            return false
+        default:
+            return true
+        }
+    }
+
+    private func getStubData() -> NSData? {
+        guard let s = stubData else {
+            return nil
+        }
+        switch s.mode {
+        case .never:
+            return nil
+        case .immediate:
+            return s.data
+        case .delayed(let delayMillis):
+            let seconds = Double(delayMillis) / 1000
+            NSThread.sleepForTimeInterval(seconds)
+            return s.data
+        }
     }
 
 }

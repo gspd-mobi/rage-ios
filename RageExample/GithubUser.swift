@@ -17,6 +17,10 @@ class GithubUser: Mappable {
         // No operations.
     }
 
+    init(email: String) {
+        self.email = email
+    }
+
     required init?(_ map: Map) {
 
     }

@@ -16,6 +16,17 @@ extension BodyRageRequest {
 
 }
 
+extension RageRequest {
+
+    public func stub(value: Mappable, mode: StubMode = .immediate) -> RageRequest {
+        guard let json = value.toJSONString() else {
+            return self
+        }
+        return self.stub(json, mode: mode)
+    }
+
+}
+
 extension NSData {
 
     func parseJson<T: Mappable>() -> T? {

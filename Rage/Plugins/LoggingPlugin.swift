@@ -15,7 +15,7 @@ public class LoggingPlugin: RagePlugin {
     }
 
     public func willSendRequest(request: RageRequest) {
-        logRequestUrl(request.httpMethod, url: request.url())
+        logRequestUrl(request.isStubbed(), httpMethod: request.httpMethod, url: request.url())
         logHeaders(request.headers)
         if request.httpMethod.hasBody() {
             //logBody(request.body)
@@ -27,11 +27,12 @@ public class LoggingPlugin: RagePlugin {
                     data: response.data, response: response.response)
     }
 
-    private func logRequestUrl(httpMethod: HttpMethod, url: String) {
+    private func logRequestUrl(stubbed: Bool, httpMethod: HttpMethod, url: String) {
         switch logLevel {
         case .Full,
              .Medium:
-            print(">>> \(httpMethod.stringValue()) \(url)")
+            let stubbedString = stubbed ? "STUB " : ""
+            print(">>> \(stubbedString)\(httpMethod.stringValue()) \(url)")
             break
         case .None:
             break
