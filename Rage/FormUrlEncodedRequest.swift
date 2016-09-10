@@ -18,14 +18,22 @@ public class FormUrlEncodedRequest: RageRequest {
         self.plugins = request.plugins
     }
 
-    public func field<T>(key: String, _ value: T) -> FormUrlEncodedRequest {
-        fieldParameters[key] = String(value)
+    public func field<T>(key: String, _ value: T?) -> FormUrlEncodedRequest {
+        guard let safeObject = value else {
+            fieldParameters.removeValueForKey(key)
+            return self
+        }
+        fieldParameters[key] = String(safeObject)
         return self
     }
 
-    public func fieldDictionary<T>(dictionary: [String:T]) -> FormUrlEncodedRequest {
+    public func fieldDictionary<T>(dictionary: [String:T?]) -> FormUrlEncodedRequest {
         for (key, value) in dictionary {
-            fieldParameters[key] = String(value)
+            if let safeObject = value {
+                fieldParameters[key] = String(safeObject)
+            } else {
+                fieldParameters.removeValueForKey(key)
+            }
         }
         return self
     }

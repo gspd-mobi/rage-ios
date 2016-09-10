@@ -18,17 +18,11 @@ public class BodyRageRequest: RageRequest {
     }
 
     public func bodyData(value: NSData) -> BodyRageRequest {
-        if !httpMethod.hasBody() {
-            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
-        }
         body = value
         return self
     }
 
     public func bodyString(value: String) -> BodyRageRequest {
-        if !httpMethod.hasBody() {
-            preconditionFailure(self.wrongHttpMethodForBodyErrorMessage)
-        }
         body = value.dataUsingEncoding(NSUTF8StringEncoding)
         return self
     }

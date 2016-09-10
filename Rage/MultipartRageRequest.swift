@@ -20,6 +20,7 @@ public class MultipartRageRequest: RageRequest {
 
     public func part(object: TypedObject?, name: String) -> MultipartRageRequest {
         guard let safeObject = object else {
+            parts.removeValueForKey(name)
             return self
         }
         parts[name] = safeObject
@@ -53,16 +54,16 @@ public class MultipartRageRequest: RageRequest {
 
             for (key, value) in parts {
                 guard let boundaryString = "--\(boundary)\r\n"
-                    .dataUsingEncoding(NSUTF8StringEncoding) else {
+                .dataUsingEncoding(NSUTF8StringEncoding) else {
                     break
                 }
                 guard let contentDisposition =
-                    "Content-Disposition:form-data; name=\"\(key)\"; filename=\(key)\r\n"
-                    .dataUsingEncoding(NSUTF8StringEncoding) else {
+                "Content-Disposition:form-data; name=\"\(key)\"; filename=\(key)\r\n"
+                .dataUsingEncoding(NSUTF8StringEncoding) else {
                     break
                 }
                 guard let contentType = "Content-Type: \(value.mimeType)\r\n"
-                    .dataUsingEncoding(NSUTF8StringEncoding) else {
+                .dataUsingEncoding(NSUTF8StringEncoding) else {
                     break
                 }
                 guard let lineTerminator = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
