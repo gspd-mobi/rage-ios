@@ -14,18 +14,16 @@ public class LoggingPlugin: RagePlugin {
         self.logLevel = logLevel
     }
 
-    public func willSendRequest(request: RageRequest) {
-        logRequestUrl(request.isStubbed(), httpMethod: request.httpMethod, url: request.url())
-        logHeaders(request.headers)
-        if request.httpMethod.hasBody() {
-            //logBody(request.body)
-        }
+    public func didReceiveResponse(response: RageResponse) {
+        logResponse(response)
     }
 
-    public func didReceiveResponse(response: RageResponse) {
-        logResponse(response.request.httpMethod, url: response.request.url(),
-                    data: response.data, response: response.response)
+    public func didSendRequest(request: RageRequest, raw: NSURLRequest) {
+        logRequestUrl(request.isStubbed(), httpMethod: request.httpMethod, url: request.url())
+        logHeaders(raw.allHTTPHeaderFields)
+        logBody(raw.HTTPBody)
     }
+
 
     private func logRequestUrl(stubbed: Bool, httpMethod: HttpMethod, url: String) {
         switch logLevel {
@@ -39,11 +37,13 @@ public class LoggingPlugin: RagePlugin {
         }
     }
 
-    private func logHeaders(headers: [String:String]) {
+    private func logHeaders(headers: [String:String]?) {
         switch logLevel {
         case .Full:
-            for (key, value) in headers {
-                print("\(key): \(value)")
+            if let headers = headers {
+                for (key, value) in headers {
+                    print("\(key): \(value)")
+                }
             }
             break
         case .Medium,
@@ -52,8 +52,13 @@ public class LoggingPlugin: RagePlugin {
         }
     }
 
-    private func logResponse(httpMethod: HttpMethod, url: String, data: NSData?,
-                             response: NSURLResponse?) {
+    private func logResponse(rageResponse: RageResponse) {
+
+        let httpMethod = rageResponse.request.httpMethod
+        let url = rageResponse.request.url()
+        let data = rageResponse.data
+        let response = rageResponse.response
+
         switch logLevel {
         case .Full:
             print("<<< \(httpMethod.stringValue()) \(url)")
@@ -115,20 +120,16 @@ public class LoggingPlugin: RagePlugin {
     }
 
     func logBody(data: NSData?) {
+        guard let data = data else {
+            return
+        }
+
         switch logLevel {
         case .Full:
-            guard let data = data else {
-                print("Empty response data")
-                return
-            }
             let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
             print("Body:\n\(resultString)")
             break
         case .Medium:
-            guard let data = data else {
-                print("Empty response data")
-                return
-            }
             let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
             print("Body:")
             print(resultString.substringToIndex(resultString.startIndex.advancedBy(256)) + "...")

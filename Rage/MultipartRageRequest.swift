@@ -14,9 +14,11 @@ public class MultipartRageRequest: RageRequest {
         self.needAuth = request.needAuth
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
+
+        contentType(ContentType.MultipartFormData)
     }
 
-    func part(object: TypedObject?, name: String) -> MultipartRageRequest {
+    public func part(object: TypedObject?, name: String) -> MultipartRageRequest {
         guard let safeObject = object else {
             return self
         }

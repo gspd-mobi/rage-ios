@@ -181,6 +181,14 @@ public class RageRequest: Call {
             }
         }
 
+        let request = rawRequest()
+
+        if let plugins = plugins {
+            for plugin in plugins {
+                plugin.didSendRequest(self, raw: request)
+            }
+        }
+
         if let s = getStubData() {
             let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
             if let plugins = plugins {
@@ -191,7 +199,6 @@ public class RageRequest: Call {
             return .Success(rageResponse)
         }
 
-        let request = rawRequest()
         let session = createSession()
 
         let (data, response, error) = session.syncTask(request)

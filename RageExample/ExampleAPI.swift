@@ -37,6 +37,16 @@ class ExampleAPI {
         .executeStringObservable()
     }
 
+    func multipartRegister() -> Observable<String> {
+        return client.post("/register")
+        .multipart()
+        .part(TypedObject("123".dataUsingEncoding(NSUTF8StringEncoding)!, mimeType: "application/text"), name: "smth1")
+        .part(TypedObject("456".dataUsingEncoding(NSUTF8StringEncoding)!, mimeType: "application/text"), name: "smth2")
+        .part(TypedObject("{\"smth\":123}".dataUsingEncoding(NSUTF8StringEncoding)!, mimeType: "application/json"), name: "smth3")
+        .stub("{}")
+        .executeStringObservable()
+    }
+
     func getOrganization() -> Observable<String> {
         return client.get("/orgs/{org}")
         .path("org", "gspd-mobi")
