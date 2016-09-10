@@ -40,10 +40,11 @@ class ExampleAPI {
     func multipartRegister() -> Observable<String> {
         return client.post("/register")
         .multipart()
+        .withCustomBoundary("hello.custom.boundary.test")
         .part(TypedObject("123".dataUsingEncoding(NSUTF8StringEncoding)!,
                 mimeType: "application/text"), name: "smth1")
         .part(TypedObject("456".dataUsingEncoding(NSUTF8StringEncoding)!,
-                mimeType: "application/text"), name: "smth2")
+                mimeType: "application/text", fileName: "digits.txt"), name: "smth2")
         .part(TypedObject("{\"smth\":123}".dataUsingEncoding(NSUTF8StringEncoding)!,
                 mimeType: "application/json"), name: "smth3")
         .stub("{}")

@@ -3,6 +3,7 @@ import Foundation
 public class MultipartRageRequest: RageRequest {
 
     var parts = [String: TypedObject]()
+    var customBoundary: String?
 
     public init(from request: RageRequest) {
         super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl)
@@ -27,8 +28,13 @@ public class MultipartRageRequest: RageRequest {
         return self
     }
 
+    public func withCustomBoundary(boundary: String?) -> MultipartRageRequest {
+        self.customBoundary = boundary
+        return self
+    }
+
     private func generateBoundary() -> String {
-        return "RageBoundary-\(NSUUID().UUIDString)"
+        return "----rage.boundary-\(NSUUID().UUIDString)"
     }
 
     override public func rawRequest() -> NSURLRequest {
@@ -39,7 +45,7 @@ public class MultipartRageRequest: RageRequest {
         }
 
         let request = NSMutableURLRequest(URL: url)
-        let boundary = generateBoundary()
+        let boundary = customBoundary ?? generateBoundary()
         for (key, value) in headers {
             if key == "Content-Type" {
                 request.addValue("\(value); boundary=\(boundary)", forHTTPHeaderField: key)
@@ -52,32 +58,47 @@ public class MultipartRageRequest: RageRequest {
         if httpMethod.hasBody() {
             let body = NSMutableData()
 
+            let boundaryData = "\(boundary)"
+            .dataUsingEncoding(NSUTF8StringEncoding)
+
+            let extraDashesData = "--".dataUsingEncoding(NSUTF8StringEncoding)
+
             for (key, value) in parts {
-                guard let boundaryString = "--\(boundary)\r\n"
-                .dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-                guard let contentDisposition =
-                "Content-Disposition:form-data; name=\"\(key)\"; filename=\(key)\r\n"
-                .dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-                guard let contentType = "Content-Type: \(value.mimeType)\r\n"
-                .dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-                guard let lineTerminator = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
+                guard let safeBoundaryData = boundaryData else {
                     break
                 }
 
-                body.appendData(boundaryString)
-                body.appendData(contentDisposition)
-                body.appendData(contentType)
+                var fileString = ""
+                if let fileName = value.fileName {
+                    fileString = "; filename=\"\(fileName)\""
+                }
+
+                guard let contentDispositionData =
+                "Content-Disposition: form-data; name=\"\(key)\"\(fileString)\r\n"
+                .dataUsingEncoding(NSUTF8StringEncoding) else {
+                    break
+                }
+                guard let contentTypeData = "Content-Type: \(value.mimeType)\r\n"
+                .dataUsingEncoding(NSUTF8StringEncoding) else {
+                    break
+                }
+                guard let lineTerminatorData = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
+                    break
+                }
+
+                body.appendData(safeBoundaryData)
+                body.appendData(lineTerminatorData)
+                body.appendData(contentDispositionData)
+                body.appendData(contentTypeData)
+                body.appendData(lineTerminatorData)
                 body.appendData(value.object)
-                body.appendData(lineTerminator)
+                body.appendData(lineTerminatorData)
             }
-            if let boundaryString2 = "--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding) {
-                body.appendData(boundaryString2)
+            if let safeBoundaryData = boundaryData {
+                body.appendData(safeBoundaryData)
+            }
+            if let safeExtraDashesData = extraDashesData {
+                body.appendData(safeExtraDashesData)
             }
 
             request.HTTPBody = body
