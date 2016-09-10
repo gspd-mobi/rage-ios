@@ -1,9 +1,10 @@
 import Foundation
 
 public enum LogLevel {
-    case None
-    case Medium
-    case Full
+    case none
+    case basic
+    case medium
+    case full
 }
 
 public class LoggingPlugin: RagePlugin {
@@ -14,101 +15,129 @@ public class LoggingPlugin: RagePlugin {
         self.logLevel = logLevel
     }
 
-    public func didReceiveResponse(response: RageResponse) {
-        logResponse(response)
+    public func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest) {
+        let stubbed = response.request.isStubbed()
+        logResponse(response, rawRequest: rawRequest, stubbed: stubbed)
     }
 
-    public func didSendRequest(request: RageRequest, raw: NSURLRequest) {
-        logRequestUrl(request.isStubbed(), httpMethod: request.httpMethod, url: request.url())
-        logHeaders(raw.allHTTPHeaderFields)
-        logBody(raw.HTTPBody)
+    public func didSendRequest(request: RageRequest, rawRequest: NSURLRequest) {
+        logRequest(request, rawRequest: rawRequest)
     }
 
+    private func logRequest(request: RageRequest, rawRequest: NSURLRequest) {
+        let stubbed = request.isStubbed()
+        logUrlForRawRequest(rawRequest, stubbed: stubbed)
+        logHeadersForRawRequest(rawRequest)
+        logBodyForRawRequest(rawRequest)
+    }
 
-    private func logRequestUrl(stubbed: Bool, httpMethod: HttpMethod, url: String) {
+    private func logUrlForRawRequest(raw: NSURLRequest, stubbed: Bool = false) {
         switch logLevel {
-        case .Full,
-             .Medium:
-            let stubbedString = stubbed ? "STUB " : ""
-            print(">>> \(stubbedString)\(httpMethod.stringValue()) \(url)")
+        case .full,
+             .medium,
+             .basic:
+            let stubbedString = generateStubString(stubbed)
+            let httpMethod = raw.HTTPMethod ?? ""
+            let url = raw.URL?.absoluteString ?? ""
+            print("--> \(stubbedString)\(httpMethod) \(url)")
             break
-        case .None:
+        case .none:
             break
         }
     }
 
-    private func logHeaders(headers: [String:String]?) {
+    private func logHeadersForRawRequest(raw: NSURLRequest) {
+        let headers = raw.allHTTPHeaderFields
         switch logLevel {
-        case .Full:
-            if let headers = headers {
-                for (key, value) in headers {
-                    print("\(key): \(value)")
-                }
+        case .full:
+            guard let headers = headers else {
+                break
+            }
+            for (key, value) in headers {
+                print("\(key): \(value)")
             }
             break
-        case .Medium,
-             .None:
+        case .medium,
+             .basic,
+             .none:
             break
         }
     }
 
-    private func logResponse(rageResponse: RageResponse) {
+    private func logResponse(rageResponse: RageResponse, rawRequest: NSURLRequest, stubbed: Bool = false) {
 
-        let httpMethod = rageResponse.request.httpMethod
-        let url = rageResponse.request.url()
+        let httpMethod = rawRequest.HTTPMethod ?? ""
+        let url = rawRequest.URL?.absoluteString ?? ""
         let data = rageResponse.data
         let response = rageResponse.response
 
         switch logLevel {
-        case .Full:
-            print("<<< \(httpMethod.stringValue()) \(url)")
+        case .full,
+             .medium:
+            let stubbedString = generateStubString(stubbed)
+            print("<-- \(stubbedString)\(httpMethod) \(url)")
+
             guard let data = data else {
                 print("Empty response data")
                 return
             }
 
-            guard let httpResponse = response as? NSHTTPURLResponse else {
-                print("Empty response")
-                return
-            }
-
-            print(httpResponse.statusCode)
-
-            for (key, value) in httpResponse.allHeaderFields {
-                print("\(key): \(value)")
-            }
-
-            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            if isJson(httpResponse) {
-                print(data.prettyJson() ?? "")
-            } else {
+            if stubbed {
+                guard let resultString = String(data: data, encoding: NSUTF8StringEncoding) else {
+                    break
+                }
                 print(resultString)
+            } else {
+                guard let httpResponse = response as? NSHTTPURLResponse else {
+                    print("Empty response")
+                    return
+                }
+
+                print(httpResponse.statusCode)
+
+                for (key, value) in httpResponse.allHeaderFields {
+                    print("\(key): \(value)")
+                }
+
+                if isJson(httpResponse) {
+                    print(data.prettyJson() ?? "")
+                } else {
+                    guard let resultString = String(data: data, encoding: NSUTF8StringEncoding) else {
+                        break
+                    }
+                    print(resultString)
+                }
             }
             break
-        case .Medium:
-            print("<<< \(httpMethod.stringValue()) \(url)")
-            guard let data = data else {
-                print("Empty response data")
-                return
-            }
-
-            guard let httpResponse = response as? NSHTTPURLResponse else {
-                print("Empty response")
-                return
-            }
-
-            print(httpResponse.statusCode)
-
-            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            if isJson(httpResponse) {
-                print(data.prettyJson() ?? "")
-            } else {
-                print(resultString)
-            }
-            break
-        case .None:
+        case .basic,
+             .none:
             break
         }
+    }
+
+    func logBodyForRawRequest(raw: NSURLRequest) {
+        guard let data = raw.HTTPBody else {
+            return
+        }
+
+        switch logLevel {
+        case .full,
+             .medium:
+            guard let resultString = String(data: data, encoding: NSUTF8StringEncoding) else {
+                break
+            }
+            print()
+            print(resultString)
+            break
+        case .basic,
+             .none:
+            break
+        }
+
+    }
+
+    private func generateStubString(stubbed: Bool) -> String {
+        return stubbed ? "STUB " : ""
     }
 
     private func isJson(httpResponse: NSHTTPURLResponse) -> Bool {
@@ -119,25 +148,4 @@ public class LoggingPlugin: RagePlugin {
         return contentTypeStringValue.containsString("application/json")
     }
 
-    func logBody(data: NSData?) {
-        guard let data = data else {
-            return
-        }
-
-        switch logLevel {
-        case .Full:
-            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            print("Body:\n\(resultString)")
-            break
-        case .Medium:
-            let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
-            print("Body:")
-            print(resultString.substringToIndex(resultString.startIndex.advancedBy(256)) + "...")
-            print("Body to long to show. Use LogLevel.Full to show full body.")
-            break
-        case .None:
-            break
-        }
-
-    }
 }

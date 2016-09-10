@@ -3,8 +3,8 @@ import Foundation
 public protocol RagePlugin {
 
     func willSendRequest(request: RageRequest)
-    func didReceiveResponse(response: RageResponse)
-    func didSendRequest(request: RageRequest, raw: NSURLRequest)
+    func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest)
+    func didSendRequest(request: RageRequest, rawRequest: NSURLRequest)
 
 }
 
@@ -14,11 +14,11 @@ public extension RagePlugin {
 
     }
 
-    func didReceiveResponse(response: RageResponse) {
+    func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest) {
 
     }
 
-    func didSendRequest(request: RageRequest, raw: NSURLRequest) {
+    func didSendRequest(request: RageRequest, rawRequest: NSURLRequest) {
 
     }
 

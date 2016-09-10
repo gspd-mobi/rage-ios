@@ -5,11 +5,11 @@ extension LogLevel: Equatable {
 
 public func == (lhs: LogLevel, rhs: LogLevel) -> Bool {
     switch (lhs, rhs) {
-    case (.None, .None):
+    case (.none, .none):
         return true
-    case (.Medium, .Medium):
+    case (.medium, .medium):
         return true
-    case (.Full, .Full):
+    case (.full, .full):
         return true
     default:
         return false
@@ -32,7 +32,7 @@ class RageTests: XCTestCase {
     func testLogLevelSet() {
         let builder = Rage.builderWithBaseUrl("http://example.com")
         .withLogLevel(.Medium)
-        XCTAssertEqual(builder.logLevel, LogLevel.Medium)
+        XCTAssertEqual(builder.logLevel, LogLevel.medium)
     }
 
     func testContentTypeSet() {
@@ -65,7 +65,7 @@ class RageTests: XCTestCase {
         .build()
 
         XCTAssertEqual(client.baseUrl, "https://example.com")
-        XCTAssertEqual(client.logLevel, LogLevel.Full)
+        XCTAssertEqual(client.logLevel, LogLevel.full)
         XCTAssertEqual(client.contentType.stringValue(), "application/json")
         XCTAssertEqual(client.headers.count, 3)
         XCTAssertEqual(client.headers["Api-Version"], "2.0")

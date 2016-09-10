@@ -10,7 +10,7 @@ public class ActivityIndicatorPlugin: RagePlugin {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
 
-    public func didReceiveResponse(response: RageResponse) {
+    public func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
 

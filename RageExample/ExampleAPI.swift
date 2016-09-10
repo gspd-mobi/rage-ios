@@ -22,7 +22,7 @@ class ExampleAPI {
                 "Api-Version": "1.1",
                 "Platform": "iOS"
         ])
-        .withPlugin(LoggingPlugin(logLevel: .Full))
+        .withPlugin(LoggingPlugin(logLevel: .full))
         .withPlugin(ActivityIndicatorPlugin())
         .withAuthenticator(MyAuthenticator())
         .build()
@@ -40,7 +40,6 @@ class ExampleAPI {
     func multipartRegister() -> Observable<String> {
         return client.post("/register")
         .multipart()
-        .withCustomBoundary("hello.custom.boundary.test")
         .part(TypedObject("123".dataUsingEncoding(NSUTF8StringEncoding)!,
                 mimeType: "application/text"), name: "smth1")
         .part(TypedObject("456".dataUsingEncoding(NSUTF8StringEncoding)!,

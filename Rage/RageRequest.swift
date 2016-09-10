@@ -185,7 +185,7 @@ public class RageRequest: Call {
 
         if let plugins = plugins {
             for plugin in plugins {
-                plugin.didSendRequest(self, raw: request)
+                plugin.didSendRequest(self, rawRequest: request)
             }
         }
 
@@ -193,7 +193,7 @@ public class RageRequest: Call {
             let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
             if let plugins = plugins {
                 for plugin in plugins {
-                    plugin.didReceiveResponse(rageResponse)
+                    plugin.didReceiveResponse(rageResponse, rawRequest: request)
                 }
             }
             return .Success(rageResponse)
@@ -206,7 +206,7 @@ public class RageRequest: Call {
 
         if let plugins = plugins {
             for plugin in plugins {
-                plugin.didReceiveResponse(rageResponse)
+                plugin.didReceiveResponse(rageResponse, rawRequest: request)
             }
         }
 
@@ -242,7 +242,7 @@ public class RageRequest: Call {
         return request
     }
 
-    public func isStubbed() -> Bool {
+    func isStubbed() -> Bool {
         guard let s = stubData else {
             return false
         }
