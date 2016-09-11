@@ -6,6 +6,8 @@ Network abstraction layer for iOS applications.
 Library is NOT production ready yet. Please don't use it before it gets more stable.
 There may be compatibility issues between newer and older versions of library until version **1.0.0**.
 
+README now may differ from real API because it's unstable and improving pretty fast.
+
 ## Usage ##
 You can check example implementation in RageExample project.
 
@@ -17,24 +19,24 @@ let client = Rage.builderWithBaseUrl("https://api.github.com")
 ```
 Then describe your API requests like these
 ```swift
-func getOrganization() -> Observable<String> {
-    return client.get("/orgs/{org}")
-    .path("org", "gspd-mobi")
-    .requestString()
-}
-
 func getUser() -> Observable<GithubUser> {
     return client.get("/users/{user}")
     .path("user", "PavelKorolev")
-    .requestJson()
+    .executeObjectObservable()
+}
+
+func getOrgRepositories() -> Observable<[GithubRepository]> {
+    return client.get("/orgs/{org}/repos")
+    .path("org", "gspd-mobi")
+    .executeObjectObservable()
 }
 ```
 That's it. Compact but powerful.
 
 ## Installation (CocoaPods) ##
-Add these dependencies to Podfile and `pod install` 
+Add these dependencies to Podfile and `pod install`
 ```ruby
-pod 'Rage',	'~> 0.4.2'
+pod 'Rage',	'~> 0.5.0'
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```
@@ -49,10 +51,10 @@ pod 'ObjectMapper', '~> 1.3'
 ### Create request description ###
 ```swift
 // All these methods create request with corresponding HTTP Methods and path
-.get(path: String?) 
+.get(path: String?)
 .post(path: String?)
 .put(path: String?)
-.delete(path: String?) 
+.delete(path: String?)
 .head(path: String?)
 .customMethod(method: String, path: String?) // Use this method when there is no needed method in predefined.
 ```
@@ -74,16 +76,14 @@ pod 'ObjectMapper', '~> 1.3'
 .requestJson<T:Mappable>() -> Observable<[T]> // Same function overloaded to return Observable of array of type [T]
 .requestString() -> Observable<String> // Returns Observable of Strings
 .requestData() -> Observable<NSData> // Returns Observable of NSData
-.syncCall() -> (NSData?, NSURLResponse?, NSError?) // Returns tuple of data, response and error directly from NSURLSession request made synchronously. 
+.syncCall() -> (NSData?, NSURLResponse?, NSError?) // Returns tuple of data, response and error directly from NSURLSession request made synchronously.
 ```
 
 ## Roadmap ##
+* Code refactoring
 * Unit tests coverage
-* Errors handling improvement
-* Configuration protocol for RageClient. For example easy use user-implemented request authorization.
-* Multipart requests 
-* Optional JSON/RxSwift dependencies
 * Carthage support
+* Documentation
 
 License
 -------
