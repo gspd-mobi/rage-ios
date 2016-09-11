@@ -37,7 +37,7 @@ class RageTests: XCTestCase {
 
     func testContentTypeSet() {
         let builder = Rage.builderWithBaseUrl("http://example.com")
-        .withContentType(.Custom("content-type"))
+        .withContentType(.custom("content-type"))
         XCTAssertEqual(builder.contentType.stringValue(), "content-type")
     }
 

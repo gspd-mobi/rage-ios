@@ -43,6 +43,7 @@ public class RageClient {
 
         requestDescription.authenticator = self.defaultConfiguration.authenticator
         requestDescription.timeoutMillis = self.defaultConfiguration.timeoutMillis
+        requestDescription.errorHandlers = self.defaultConfiguration.errorsHandlersClosure()
 
         return RageRequest(requestDescription: requestDescription,
                 plugins: defaultConfiguration.plugins)

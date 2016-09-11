@@ -10,9 +10,11 @@ public class RageRequest: Call {
     var httpMethod: HttpMethod
     var baseUrl: String
     var methodPath: String?
-    var queryParameters = [String: String]()
-    var pathParameters = [String: String]()
-    var headers = [String: String]()
+    var queryParameters: [String:String] = [:]
+    var pathParameters: [String:String] = [:]
+    var headers: [String:String] = [:]
+
+    var errorHandlers: [ErrorHandler] = []
 
     var authenticator: Authenticator?
     var needAuth = false
@@ -35,8 +37,8 @@ public class RageRequest: Call {
         self.headers = requestDescription.headers
         self.headers["Content-Type"] = requestDescription.contentType.stringValue()
 
+        self.errorHandlers = requestDescription.errorHandlers
         self.authenticator = requestDescription.authenticator
-        self.needAuth = requestDescription.authorized
 
         self.timeoutMillis = requestDescription.timeoutMillis
         self.plugins = plugins
@@ -102,8 +104,10 @@ public class RageRequest: Call {
         return authorized()
     }
 
-    public func authorized() -> RageRequest {
+    public func authorized(authErrorHandling: Bool = true) -> RageRequest {
         if let safeAuthenticator = authenticator {
+            self.needAuth = true
+            //self.authErrorHandling = authErrorHandling
             return safeAuthenticator.authorizeRequest(self)
         } else {
             preconditionFailure("Can't create authorized request without Authenticator provided")
@@ -120,6 +124,11 @@ public class RageRequest: Call {
             return self
         }
         return self.stub(data, mode: mode)
+    }
+
+    public func withErrorHandlers(handlers: [ErrorHandler]) -> RageRequest {
+        self.errorHandlers = handlers
+        return self
     }
 
     // MARK: Configurations
@@ -174,7 +183,7 @@ public class RageRequest: Call {
 
     // MARK: Executing
 
-    func execute() -> Result<RageResponse, RageError> {
+    public func execute() -> Result<RageResponse, RageError> {
         if let plugins = plugins {
             for plugin in plugins {
                 plugin.willSendRequest(self)
@@ -212,12 +221,18 @@ public class RageRequest: Call {
 
         if rageResponse.isSuccess() {
             return .Success(rageResponse)
-        } else {
-            return .Failure(createErrorFromResponse(rageResponse))
         }
+        let rageError = createErrorFromResponse(rageResponse)
+        let result: Result<RageResponse, RageError> = .Failure(rageError)
+        for handler in errorHandlers {
+            if handler.enabled && handler.isError(rageError) {
+                return handler.handleError(self, result: result)
+            }
+        }
+        return result
     }
 
-    func enqueue(completion: Result<RageResponse, RageError> -> ()) {
+    public func enqueue(completion: Result<RageResponse, RageError> -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
             let result = self.execute()
 

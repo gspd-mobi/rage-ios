@@ -7,8 +7,8 @@ public class RequestDescription {
     var headers: [String:String]
     var contentType: ContentType
 
+    var errorHandlers: [ErrorHandler] = []
     var authenticator: Authenticator?
-    var authorized = false
 
     var timeoutMillis: Int = 60 * 1000
 

@@ -16,7 +16,7 @@ public class MultipartRageRequest: RageRequest {
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
 
-        contentType(ContentType.MultipartFormData)
+        contentType(.multipartFormData)
     }
 
     public func part(object: TypedObject?, name: String) -> MultipartRageRequest {

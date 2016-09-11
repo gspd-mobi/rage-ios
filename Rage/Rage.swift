@@ -51,6 +51,11 @@ public class Rage {
             return self
         }
 
+        public func withErrorsHandlersClosure(closure: () -> [ErrorHandler]) -> Builder {
+            config.errorsHandlersClosure = closure
+            return self
+        }
+
         public func build() -> RageClient {
             return RageClient(defaultConfiguration: config)
         }

@@ -1,6 +1,6 @@
 Rage for iOS
 =============================
-Network abstraction layer for iOS applications.
+Pragmatic network abstraction layer for iOS applications.
 
 ## Warning ##
 Library is NOT production ready yet. Please don't use it before it gets more stable.

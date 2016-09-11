@@ -1,11 +1,45 @@
 import Foundation
 import RxSwift
 import Rage
+import Result
+
+var token = "token1"
 
 class MyAuthenticator: Authenticator {
+
     func authorizeRequest(request: RageRequest) -> RageRequest {
-        return request.header("Authorization", "Bearer token123")
+        return request.header("Authorization", "Bearer \(token)")
     }
+
+}
+
+class AuthErrorHandler: ErrorHandler {
+
+    var enabled = true
+
+    func canHandleError(error: RageError) -> Bool {
+        return error.statusCode() == 401
+    }
+
+    func handleErrorForRequest(request: RageRequest,
+                               result: Result<RageResponse, RageError>)
+                    -> Result<RageResponse, RageError> {
+        switch ExampleAPI.sharedInstance.authSync() {
+        case .Success(let response):
+            guard let data = response.data else {
+                break
+            }
+            token = String(data: data, encoding: NSUTF8StringEncoding)!
+            self.enabled = false
+            return request.authorized().execute()
+        case .Failure(let error):
+            // Logout logic / opening login screen or something
+            print(error.description())
+            break
+        }
+        return result
+    }
+
 }
 
 class ExampleAPI {
@@ -16,7 +50,7 @@ class ExampleAPI {
 
     init() {
         client = Rage.builderWithBaseUrl("https://api.github.com")
-        .withContentType(.Json)
+        .withContentType(.json)
         .withTimeoutMillis(10 * 1000)
         .withHeaderDictionary([
                 "Api-Version": "1.1",
@@ -25,6 +59,9 @@ class ExampleAPI {
         .withPlugin(LoggingPlugin(logLevel: .full))
         .withPlugin(ActivityIndicatorPlugin())
         .withAuthenticator(MyAuthenticator())
+        .withErrorsHandlersClosure {
+            [AuthErrorHandler()]
+        }
         .build()
     }
 
@@ -35,6 +72,16 @@ class ExampleAPI {
         .field("username", "user")
         .field("password", "pa$$word")
         .executeStringObservable()
+    }
+
+    func authSync() -> Result<RageResponse, RageError> {
+        return client.post("/auth")
+        .formUrlEncoded()
+        .field("grant_type", "password")
+        .field("username", "user")
+        .field("password", "pa$$word")
+        .stub("token2")
+        .execute()
     }
 
     func multipartRegister() -> Observable<String> {
@@ -52,6 +99,7 @@ class ExampleAPI {
 
     func getOrganization() -> Observable<String> {
         return client.get("/orgs/{org}")
+        .authorized()
         .path("org", "gspd-mobi")
         .executeStringObservable()
     }
