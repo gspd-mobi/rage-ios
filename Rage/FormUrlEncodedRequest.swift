@@ -1,9 +1,21 @@
 import Foundation
 import Result
 
+public class FieldParameter {
+
+    var encoded: Bool = false
+    var value: String
+
+    init(value: String, encoded: Bool = false) {
+        self.value = value
+        self.encoded = encoded
+    }
+
+}
+
 public class FormUrlEncodedRequest: RageRequest {
 
-    var fieldParameters = [String: String]()
+    var fieldParameters = [String: FieldParameter]()
     var body: NSData?
 
     public init(from request: RageRequest) {
@@ -13,24 +25,23 @@ public class FormUrlEncodedRequest: RageRequest {
         self.pathParameters = request.pathParameters
         self.headers = request.headers
         self.authenticator = request.authenticator
-        self.needAuth = request.needAuth
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
     }
 
-    public func field<T>(key: String, _ value: T?) -> FormUrlEncodedRequest {
+    public func field<T>(key: String, _ value: T?, encoded: Bool = false) -> FormUrlEncodedRequest {
         guard let safeObject = value else {
             fieldParameters.removeValueForKey(key)
             return self
         }
-        fieldParameters[key] = String(safeObject)
+        fieldParameters[key] = FieldParameter(value: String(safeObject), encoded: encoded)
         return self
     }
 
-    public func fieldDictionary<T>(dictionary: [String:T?]) -> FormUrlEncodedRequest {
+    public func fieldDictionary(dictionary: [String: FieldParameter?]) -> FormUrlEncodedRequest {
         for (key, value) in dictionary {
             if let safeObject = value {
-                fieldParameters[key] = String(safeObject)
+                fieldParameters[key] = safeObject
             } else {
                 fieldParameters.removeValueForKey(key)
             }

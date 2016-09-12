@@ -12,7 +12,6 @@ public class BodyRageRequest: RageRequest {
         self.pathParameters = request.pathParameters
         self.headers = request.headers
         self.authenticator = request.authenticator
-        self.needAuth = request.needAuth
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
     }

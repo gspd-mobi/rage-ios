@@ -64,7 +64,8 @@ public class LoggingPlugin: RagePlugin {
         }
     }
 
-    private func logResponse(rageResponse: RageResponse, rawRequest: NSURLRequest, stubbed: Bool = false) {
+    private func logResponse(rageResponse: RageResponse, rawRequest: NSURLRequest,
+                             stubbed: Bool = false) {
 
         let httpMethod = rawRequest.HTTPMethod ?? ""
         let url = rawRequest.URL?.absoluteString ?? ""
@@ -102,7 +103,8 @@ public class LoggingPlugin: RagePlugin {
                 if isJson(httpResponse) {
                     print(data.prettyJson() ?? "")
                 } else {
-                    guard let resultString = String(data: data, encoding: NSUTF8StringEncoding) else {
+                    guard let resultString = String(data: data,
+                                                    encoding: NSUTF8StringEncoding) else {
                         break
                     }
                     print(resultString)

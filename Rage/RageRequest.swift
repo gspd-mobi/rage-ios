@@ -17,7 +17,6 @@ public class RageRequest: Call {
     var errorHandlers: [ErrorHandler] = []
 
     var authenticator: Authenticator?
-    var needAuth = false
 
     var timeoutMillis: Int = 60 * 1000
     var plugins: [RagePlugin]?
@@ -106,8 +105,6 @@ public class RageRequest: Call {
 
     public func authorized(authErrorHandling: Bool = true) -> RageRequest {
         if let safeAuthenticator = authenticator {
-            self.needAuth = true
-            //self.authErrorHandling = authErrorHandling
             return safeAuthenticator.authorizeRequest(self)
         } else {
             preconditionFailure("Can't create authorized request without Authenticator provided")
@@ -225,8 +222,8 @@ public class RageRequest: Call {
         let rageError = createErrorFromResponse(rageResponse)
         let result: Result<RageResponse, RageError> = .Failure(rageError)
         for handler in errorHandlers {
-            if handler.enabled && handler.isError(rageError) {
-                return handler.handleError(self, result: result)
+            if handler.enabled && handler.canHandleError(rageError) {
+                return handler.handleErrorForRequest(self, result: result)
             }
         }
         return result
