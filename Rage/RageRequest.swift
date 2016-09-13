@@ -19,7 +19,7 @@ public class RageRequest: Call {
     var authenticator: Authenticator?
 
     var timeoutMillis: Int = 60 * 1000
-    var plugins: [RagePlugin]?
+    var plugins: [RagePlugin] = []
 
     var stubData: StubData?
 
@@ -181,40 +181,23 @@ public class RageRequest: Call {
     // MARK: Executing
 
     public func execute() -> Result<RageResponse, RageError> {
-        if let plugins = plugins {
-            for plugin in plugins {
-                plugin.willSendRequest(self)
-            }
-        }
+        sendPluginsWillSendRequest()
 
         let request = rawRequest()
 
-        if let plugins = plugins {
-            for plugin in plugins {
-                plugin.didSendRequest(self, rawRequest: request)
-            }
-        }
+        sendPluginsDidSendRequest(request)
 
         if let s = getStubData() {
             let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
-            if let plugins = plugins {
-                for plugin in plugins {
-                    plugin.didReceiveResponse(rageResponse, rawRequest: request)
-                }
-            }
+            sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
             return .Success(rageResponse)
         }
 
         let session = createSession()
-
         let (data, response, error) = session.syncTask(request)
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
 
-        if let plugins = plugins {
-            for plugin in plugins {
-                plugin.didReceiveResponse(rageResponse, rawRequest: request)
-            }
-        }
+        sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
 
         if rageResponse.isSuccess() {
             return .Success(rageResponse)
@@ -227,6 +210,25 @@ public class RageRequest: Call {
             }
         }
         return result
+    }
+
+    private func sendPluginsWillSendRequest() {
+        for plugin in plugins {
+            plugin.willSendRequest(self)
+        }
+    }
+
+    private func sendPluginsDidSendRequest(rawRequest: NSURLRequest) {
+        for plugin in plugins {
+            plugin.didSendRequest(self, rawRequest: rawRequest)
+        }
+    }
+
+    private func sendPluginsDidReceiveResponse(rageResponse: RageResponse,
+                                               rawRequest: NSURLRequest) {
+        for plugin in plugins {
+            plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
+        }
     }
 
     public func enqueue(completion: Result<RageResponse, RageError> -> ()) {

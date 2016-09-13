@@ -4,7 +4,7 @@ import Result
 public protocol ErrorHandler {
 
     var enabled: Bool { get set }
-    
+
     func canHandleError(error: RageError) -> Bool
 
     func handleErrorForRequest(request: RageRequest,

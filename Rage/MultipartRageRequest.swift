@@ -55,54 +55,57 @@ public class MultipartRageRequest: RageRequest {
         request.HTTPMethod = httpMethod.stringValue()
 
         if httpMethod.hasBody() {
-            let body = NSMutableData()
-
-            let boundaryData = "\(boundary)"
-            .dataUsingEncoding(NSUTF8StringEncoding)
-
-            let extraDashesData = "--".dataUsingEncoding(NSUTF8StringEncoding)
-
-            for (key, value) in parts {
-                guard let safeBoundaryData = boundaryData else {
-                    break
-                }
-
-                var fileString = ""
-                if let fileName = value.fileName {
-                    fileString = "; filename=\"\(fileName)\""
-                }
-
-                guard let contentDispositionData =
-                "Content-Disposition: form-data; name=\"\(key)\"\(fileString)\r\n"
-                .dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-                guard let contentTypeData = "Content-Type: \(value.mimeType)\r\n"
-                .dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-                guard let lineTerminatorData = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
-                    break
-                }
-
-                body.appendData(safeBoundaryData)
-                body.appendData(lineTerminatorData)
-                body.appendData(contentDispositionData)
-                body.appendData(contentTypeData)
-                body.appendData(lineTerminatorData)
-                body.appendData(value.object)
-                body.appendData(lineTerminatorData)
-            }
-            if let safeBoundaryData = boundaryData {
-                body.appendData(safeBoundaryData)
-            }
-            if let safeExtraDashesData = extraDashesData {
-                body.appendData(safeExtraDashesData)
-            }
-
-            request.HTTPBody = body
+            request.HTTPBody = createBodyWithBoundary(boundary)
         }
         return request
+    }
+
+    private func createBodyWithBoundary(boundary: String) -> NSData {
+        let body = NSMutableData()
+
+        let boundaryData = "\(boundary)"
+        .dataUsingEncoding(NSUTF8StringEncoding)
+
+        let extraDashesData = "--".dataUsingEncoding(NSUTF8StringEncoding)
+
+        for (key, value) in parts {
+            guard let safeBoundaryData = boundaryData else {
+                break
+            }
+
+            var fileString = ""
+            if let fileName = value.fileName {
+                fileString = "; filename=\"\(fileName)\""
+            }
+
+            guard let contentDispositionData =
+            "Content-Disposition: form-data; name=\"\(key)\"\(fileString)\r\n"
+            .dataUsingEncoding(NSUTF8StringEncoding) else {
+                break
+            }
+            guard let contentTypeData = "Content-Type: \(value.mimeType)\r\n"
+            .dataUsingEncoding(NSUTF8StringEncoding) else {
+                break
+            }
+            guard let lineTerminatorData = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
+                break
+            }
+
+            body.appendData(safeBoundaryData)
+            body.appendData(lineTerminatorData)
+            body.appendData(contentDispositionData)
+            body.appendData(contentTypeData)
+            body.appendData(lineTerminatorData)
+            body.appendData(value.object)
+            body.appendData(lineTerminatorData)
+        }
+        if let safeBoundaryData = boundaryData {
+            body.appendData(safeBoundaryData)
+        }
+        if let safeExtraDashesData = extraDashesData {
+            body.appendData(safeExtraDashesData)
+        }
+        return body
     }
 
 }
