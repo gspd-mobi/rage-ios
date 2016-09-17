@@ -14,21 +14,46 @@ You can check example implementation in RageExample project.
 At first you need to create RageClient using builder pattern.
 ```swift
 let client = Rage.builderWithBaseUrl("https://api.github.com")
-        .withLogLevel(.Full)
-        .build()
+    .withContentType(.json)
+    .withTimeoutMillis(10 * 1000)
+    .withHeaderDictionary([
+            "Api-Version": "1.1",
+            "Platform": "iOS"
+    ])
+    .withPlugin(LoggingPlugin(logLevel: .full))
+    .withAuthenticator(MyAuthenticator())
+    .withErrorsHandlersClosure {
+        [AuthErrorHandler()]
+    }
+    .build()
 ```
-Then describe your API requests like these
+Then describe your API requests like these. It is a generic way to declare requests and their execution.
 ```swift
-func getUser() -> Observable<GithubUser> {
+func getUser(username: String) -> Result<RageResponse, RageError> -> () {
     return client.get("/users/{user}")
-    .path("user", "PavelKorolev")
-    .executeObjectObservable()
+        .path("user", username)
+        .enqueue()
 }
 
-func getOrgRepositories() -> Observable<[GithubRepository]> {
+func getRepositoriesForOrganization(organizationTitle: String) -> Result<RageResponse, RageError> -> () {
     return client.get("/orgs/{org}/repos")
-    .path("org", "gspd-mobi")
-    .executeObjectObservable()
+        .path("org", organizationTitle)
+        .enqueue()
+}
+```
+
+Using both **RxSwift** and **ObjectMapper** you can declare API in such awesome way.
+```swift
+func getUser(username: String) -> Observable<GithubUser> {
+    return client.get("/users/{user}")
+        .path("user", username)
+        .executeObjectObservable()
+}
+
+func getRepositoriesForOrganization(organizationTitle: String) -> Observable<[GithubRepository]> {
+    return client.get("/orgs/{org}/repos")
+        .path("org", organizationTitle)
+        .executeObjectObservable()
 }
 ```
 That's it. Compact but powerful.
@@ -40,50 +65,6 @@ pod 'Rage',	'~> 0.5.0'
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```
-
-## Configuration ##
-### Client ###
-```swift
-.withBaseUrl(url: String) // Required. Url to use in all requests made with this client.
-.withLogLevel(logLevel: LogLevel) // Changes log level (.None - default, .Medium, .Full).
-.withTimeoutMillis(timeoutMillis: Int) // Changes timeout in milliseconds for each request made with this client.
-```
-### Create request description ###
-```swift
-// All these methods create request with corresponding HTTP Methods and path
-.get(path: String?)
-.post(path: String?)
-.put(path: String?)
-.delete(path: String?)
-.head(path: String?)
-.customMethod(method: String, path: String?) // Use this method when there is no needed method in predefined.
-```
-### Configuring request ###
-```swift
-.query<T>(key: String, _ value: T?) // Adds query parameter to current request.
-.path<T>(key: String, _ value: T) // Adds path parameter to current request. Path parameter value replaces "{key}" substring in method path.
-.bodyData(value: NSData) // Adds body in NSData format to current request.
-.bodyString(value: String) // Adds body in String format to current request.
-.bodyJson(value: Mappable) // Adds body in JSON format mapped from value object.
-.header(key: String, _ value: String) // Adds header to current request.
-
-.withTimeoutMillis(timeoutMillis: Int) // Used to set timeout in milliseconds for this single request.
-```
-
-### Making request ###
-```swift
-.requestJson<T:Mappable>() -> Observable<T> // Returns Observable of objects of type T, which is Mappable, so parsed from JSON via ObjectMapper
-.requestJson<T:Mappable>() -> Observable<[T]> // Same function overloaded to return Observable of array of type [T]
-.requestString() -> Observable<String> // Returns Observable of Strings
-.requestData() -> Observable<NSData> // Returns Observable of NSData
-.syncCall() -> (NSData?, NSURLResponse?, NSError?) // Returns tuple of data, response and error directly from NSURLSession request made synchronously.
-```
-
-## Roadmap ##
-* Code refactoring
-* Unit tests coverage
-* Carthage support
-* Documentation
 
 License
 -------

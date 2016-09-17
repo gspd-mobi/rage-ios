@@ -22,7 +22,7 @@ class MyAuthenticator: Authenticator {
 
 }
 
-func doRequest() {
+func doRequestWithClientAuth() {
     let client = Rage.builderWithBaseUrl("http://example.com")
         .withAuthenticator(MyAuthenticator()) // Providing Authenticator to client while building.
         .build()
@@ -31,11 +31,11 @@ func doRequest() {
         .execute()
 }
 
-func doRequest() {
+func doRequestWithRequestAuth() {
      let client = Rage.builderWithBaseUrl("http://example.com")
         .build() // There is no client wide authenticator
      let resultError = client.get("/method")
-        .authorized() // Error here because there is no authenticator
+        .authorized() // Error here because there is no authenticator.
         .execute()
      let resultOk = client.get("/method")
         .authorized(MyAuthenticator()) // Everything is ok. authorizeRequest function will be applied to this request.
