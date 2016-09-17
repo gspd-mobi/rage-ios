@@ -15,6 +15,7 @@ target 'Rage' do
 end
 
 target 'RageTests' do
+    common_pods
     pod 'Quick'
     pod 'Nimble'
 end

@@ -158,8 +158,8 @@ public class RageRequest: Call {
     }
 
     func url() -> String {
-        return ParamsBuilder.buildUrlString(self.baseUrl,
-                path: self.methodPath ?? "",
+        return ParamsBuilder().buildUrlString(self.baseUrl,
+                path: self.methodPath,
                 queryParameters: self.queryParameters,
                 pathParameters: self.pathParameters)
     }

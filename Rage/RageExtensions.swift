@@ -35,11 +35,19 @@ extension NSData {
 
 }
 
+extension NSCharacterSet {
+
+    class func URLQueryParameterAllowedCharacterSet() -> Self {
+        return self.init(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?")
+    }
+
+}
+
 extension String {
 
     func urlEncoded() -> String {
         guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(
-                .URLHostAllowedCharacterSet()) else {
+                .URLQueryParameterAllowedCharacterSet()) else {
             preconditionFailure("Error while encoding string \"\(self)\"")
         }
         return encodedString

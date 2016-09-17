@@ -2,7 +2,7 @@ import Foundation
 
 public class RageClient {
 
-    var defaultConfiguration: RageClientConfiguration
+    let defaultConfiguration: RageClientConfiguration
 
     init(defaultConfiguration: RageClientConfiguration) {
         self.defaultConfiguration = defaultConfiguration

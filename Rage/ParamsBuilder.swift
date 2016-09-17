@@ -2,11 +2,11 @@ import Foundation
 
 public class ParamsBuilder {
 
-    class func buildUrlString(baseUrl: String,
-                              path: String,
+    func buildUrlString(baseUrl: String,
+                              path: String?,
                               queryParameters: [String:String],
                               pathParameters: [String:String]) -> String {
-        var pathString = path
+        var pathString = path ?? ""
 
         for (key, value) in pathParameters {
             let placeholderString = "{\(key)}"
@@ -29,7 +29,7 @@ public class ParamsBuilder {
         return baseUrl + pathString + queryParametersString
     }
 
-    class func buildUrlEncodedString(fieldParameters: [String:FieldParameter]) -> String {
+    func buildUrlEncodedString(fieldParameters: [String:FieldParameter]) -> String {
         var fieldsString = ""
         for (key, value) in fieldParameters {
             if !fieldsString.isEmpty {

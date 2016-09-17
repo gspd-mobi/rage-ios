@@ -50,7 +50,7 @@ public class FormUrlEncodedRequest: RageRequest {
     }
 
     public override func execute() -> Result<RageResponse, RageError> {
-        body = ParamsBuilder.buildUrlEncodedString(fieldParameters)
+        body = ParamsBuilder().buildUrlEncodedString(fieldParameters)
         .dataUsingEncoding(NSUTF8StringEncoding)
         return super.execute()
     }
