@@ -38,7 +38,8 @@ extension NSData {
 extension NSCharacterSet {
 
     class func URLQueryParameterAllowedCharacterSet() -> Self {
-        return self.init(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?")
+        let charsString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?"
+        return self.init(charactersInString: charsString)
     }
 
 }

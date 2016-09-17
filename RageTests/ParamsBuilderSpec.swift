@@ -84,37 +84,42 @@ class ParamsBuilderSpec: QuickSpec {
                         path: nil,
                         queryParameters: ["param": "!\"#$%&'()*+,-./"],
                         pathParameters: [:])
-                expect(url).to(equal("http://example.com/api?param=%21%22%23%24%25%26%27%28%29%2A%2B%2C-./"))
+                let exp = "http://example.com/api?param=%21%22%23%24%25%26%27%28%29%2A%2B%2C-./"
+                expect(url).to(equal(exp))
             }
         }
 
         describe("url builder") {
             let builder = ParamsBuilder()
-            
+
             it("can build url encoded string with no field parameters") {
                 let encodedString = builder.stringFromFieldParameters([:])
                 expect(encodedString).to(equal(""))
             }
 
             it("can build url encoded string with 1 field parameter") {
-                let encodedString = builder.stringFromFieldParameters(["username": FieldParameter(value: "paul_k")])
+                let encodedString = builder.stringFromFieldParameters(
+                        ["username": FieldParameter(value: "paul_k")])
                 expect(encodedString).to(equal("username=paul_k"))
             }
 
             it("can build url encoded string with 2 field parameters") {
-                let encodedString = builder.stringFromFieldParameters(["username": FieldParameter(value: "paul_k"),
-                                                                       "password": FieldParameter(value: "pa  word")])
+                let encodedString = builder.stringFromFieldParameters(
+                        ["username": FieldParameter(value: "paul_k"),
+                         "password": FieldParameter(value: "pa  word")])
                 expect(encodedString).to(equal("password=pa  word&username=paul_k"))
             }
 
             it("can build url encoded string with 1 encoded field parameter") {
-                let encodedString = builder.stringFromFieldParameters(["password": FieldParameter(value: "pa  word", encoded: true)])
+                let encodedString = builder.stringFromFieldParameters(
+                        ["password": FieldParameter(value: "pa  word", encoded: true)])
                 expect(encodedString).to(equal("password=pa%20%20word"))
             }
 
             it("can build url encoded string with 2 mixed field parameters") {
-                let encodedString = builder.stringFromFieldParameters(["username": FieldParameter(value: "paul_k"),
-                                                                       "password": FieldParameter(value: "pa  word", encoded: true)])
+                let encodedString = builder.stringFromFieldParameters(
+                        ["username": FieldParameter(value: "paul_k"),
+                         "password": FieldParameter(value: "pa  word", encoded: true)])
                 expect(encodedString).to(equal("password=pa%20%20word&username=paul_k"))
             }
         }

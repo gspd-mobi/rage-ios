@@ -4,7 +4,7 @@ extension ContentType: Equatable {
 
 }
 
-public func ==(lhs: ContentType, rhs: ContentType) -> Bool {
+public func == (lhs: ContentType, rhs: ContentType) -> Bool {
     switch (lhs, rhs) {
     case (.json, .json):
         return true

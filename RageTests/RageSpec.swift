@@ -25,14 +25,17 @@ class RageSpec: QuickSpec {
 
             it("can add default header") {
                 builder.withHeader("Authorization", "Bearer someoauthtokenstring")
-                expect(builder.config.headers["Authorization"]).to(equal("Bearer someoauthtokenstring"))
+                expect(builder.config.headers["Authorization"])
+                    .to(equal("Bearer someoauthtokenstring"))
             }
 
             it("can add default headers with dictionary") {
                 builder.withHeaderDictionary([
                         "SomeOtherHeader": "someotherheadervalue"])
-                expect(builder.config.headers["Authorization"]).to(equal("Bearer someoauthtokenstring"))
-                expect(builder.config.headers["SomeOtherHeader"]).to(equal("someotherheadervalue"))
+                expect(builder.config.headers["Authorization"])
+                    .to(equal("Bearer someoauthtokenstring"))
+                expect(builder.config.headers["SomeOtherHeader"])
+                    .to(equal("someotherheadervalue"))
             }
 
             it("can add plugin") {

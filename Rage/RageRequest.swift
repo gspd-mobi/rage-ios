@@ -10,12 +10,11 @@ public class RageRequest: Call {
     var pathParameters: [String:String] = [:]
     var headers: [String:String] = [:]
 
-    var errorHandlers: [ErrorHandler] = []
-
     var authenticator: Authenticator?
+    var errorHandlers: [ErrorHandler] = []
+    var plugins: [RagePlugin] = []
 
     var timeoutMillis: Int = 60 * 1000
-    var plugins: [RagePlugin] = []
 
     var stubData: StubData?
 
@@ -99,7 +98,7 @@ public class RageRequest: Call {
         return authorized()
     }
 
-    public func authorized(authErrorHandling: Bool = true) -> RageRequest {
+    public func authorized() -> RageRequest {
         if let safeAuthenticator = authenticator {
             return safeAuthenticator.authorizeRequest(self)
         } else {
@@ -201,25 +200,6 @@ public class RageRequest: Call {
         return result
     }
 
-    private func sendPluginsWillSendRequest() {
-        for plugin in plugins {
-            plugin.willSendRequest(self)
-        }
-    }
-
-    private func sendPluginsDidSendRequest(rawRequest: NSURLRequest) {
-        for plugin in plugins {
-            plugin.didSendRequest(self, rawRequest: rawRequest)
-        }
-    }
-
-    private func sendPluginsDidReceiveResponse(rageResponse: RageResponse,
-                                               rawRequest: NSURLRequest) {
-        for plugin in plugins {
-            plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
-        }
-    }
-
     public func enqueue(completion: Result<RageResponse, RageError> -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
             let result = self.execute()
@@ -239,6 +219,29 @@ public class RageRequest: Call {
         request.HTTPMethod = httpMethod.stringValue()
         return request
     }
+
+    // MARK: Plugins
+
+    private func sendPluginsWillSendRequest() {
+        for plugin in plugins {
+            plugin.willSendRequest(self)
+        }
+    }
+
+    private func sendPluginsDidSendRequest(rawRequest: NSURLRequest) {
+        for plugin in plugins {
+            plugin.didSendRequest(self, rawRequest: rawRequest)
+        }
+    }
+
+    private func sendPluginsDidReceiveResponse(rageResponse: RageResponse,
+                                               rawRequest: NSURLRequest) {
+        for plugin in plugins {
+            plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
+        }
+    }
+
+    // MARK: Stub
 
     func isStubbed() -> Bool {
         guard let s = stubData else {

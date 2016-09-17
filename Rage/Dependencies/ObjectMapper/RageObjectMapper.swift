@@ -4,7 +4,7 @@ import ObjectMapper
 extension BodyRageRequest {
 
     static let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
-    
+
     public func bodyJson(value: Mappable) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)

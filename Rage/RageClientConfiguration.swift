@@ -8,7 +8,9 @@ public class RageClientConfiguration {
     var authenticator: Authenticator?
 
     var plugins: [RagePlugin] = []
-    var errorsHandlersClosure: () -> [ErrorHandler] = {[]}
+    var errorsHandlersClosure: () -> [ErrorHandler] = {
+        []
+    }
 
     init(baseUrl: String) {
         self.baseUrl = baseUrl

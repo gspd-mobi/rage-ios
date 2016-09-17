@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		52FA48B02BEE3892D8EE8E88 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4FB44182B4551825A6968F /* Pods_RageExample.framework */; };
 		5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
-		5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */; };
+		5D7AA0D4A46C2764512048AD /* UrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */; };
 		5D7AA12273A3D6F2878DCDFC /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA014546BC9C0AD6E0557 /* ContentType.swift */; };
 		5D7AA184A12590445FB241F7 /* RxSwiftAndObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA3EBB7A7D1F3AB3CD90E /* RxSwiftAndObjectMapper.swift */; };
-		5D7AA1B1557BE959038A39A3 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */; };
+		5D7AA1B1557BE959038A39A3 /* UrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */; };
 		5D7AA1C68311D857580BD6B5 /* StubMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA30C600E591FBF47B181 /* StubMode.swift */; };
 		5D7AA1E642193FC1EE55D80F /* MultipartRageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA538C6E4F5A3638AF790 /* MultipartRageRequest.swift */; };
 		5D7AA1E74DF926531459229F /* Rage.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AA4AD068266FB626E0B66 /* Rage.podspec */; };
@@ -158,7 +158,7 @@
 		5D7AA8083F5452317A215EE1 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		5D7AA94210E97028A6ADA16E /* ActivityIndicatorPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPlugin.swift; sourceTree = "<group>"; };
 		5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlBuilder.swift; sourceTree = "<group>"; };
 		5D7AAA2ED83599A807D03DD6 /* Rage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rage.swift; sourceTree = "<group>"; };
 		5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
 		5D7AAABA02C265EC48DE010E /* RageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageResponse.swift; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 				5D7AA30C600E591FBF47B181 /* StubMode.swift */,
 				5D7AA16F930E63B5C4E5089E /* StubData.swift */,
 				5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */,
-				5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */,
+				5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -714,7 +714,7 @@
 				5D7AAF746650337B337CE2B0 /* TestAuthenticator.swift in Sources */,
 				5D7AA4E0F1802A3257DB3B1C /* TestPlugin.swift in Sources */,
 				5D7AA2CF1FDEAB219F857B1A /* TestErrorHandler.swift in Sources */,
-				5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */,
+				5D7AA0D4A46C2764512048AD /* UrlBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,7 +756,7 @@
 				5D7AA9D696C82DFE5CEFE340 /* TestAuthenticator.swift in Sources */,
 				5D7AA2E302FE50515C0F2A0D /* TestPlugin.swift in Sources */,
 				5D7AA6066364F6F125D46980 /* TestErrorHandler.swift in Sources */,
-				5D7AA1B1557BE959038A39A3 /* URLBuilder.swift in Sources */,
+				5D7AA1B1557BE959038A39A3 /* UrlBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

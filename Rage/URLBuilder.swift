@@ -16,19 +16,19 @@ class URLBuilder {
         }
         return url
     }
-    
+
     func buildUrlString(baseUrl: String,
                         path: String?,
                         queryParameters: [String:String],
                         pathParameters: [String:String]) -> String {
         var pathString = path ?? ""
-        
+
         for (key, value) in pathParameters {
             let placeholderString = "{\(key)}"
-            pathString = pathString.stringByReplacingOccurrencesOfString(placeholderString,
-                                                                         withString: value.urlEncoded())
+            pathString = pathString.stringByReplacingOccurrencesOfString(
+                    placeholderString, withString: value.urlEncoded())
         }
-        
+
         var queryParametersString = ""
         for (key, value) in queryParameters {
             if !queryParametersString.isEmpty {
@@ -36,11 +36,11 @@ class URLBuilder {
             }
             queryParametersString += "\(key.urlEncoded())=\(value.urlEncoded())"
         }
-        
+
         if !queryParametersString.isEmpty {
             queryParametersString = "?" + queryParametersString
         }
-        
+
         return baseUrl + pathString + queryParametersString
     }
 

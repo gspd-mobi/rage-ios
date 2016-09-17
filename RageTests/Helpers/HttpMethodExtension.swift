@@ -4,7 +4,7 @@ extension HttpMethod: Equatable {
 
 }
 
-public func ==(lhs: HttpMethod, rhs: HttpMethod) -> Bool {
+public func == (lhs: HttpMethod, rhs: HttpMethod) -> Bool {
     switch (lhs, rhs) {
     case (.GET, .GET),
          (.POST, .POST),

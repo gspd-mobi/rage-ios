@@ -7,7 +7,8 @@ class RageClientSpec: QuickSpec {
     override func spec() {
         describe("rage client can create requests") {
 
-            let client = RageClient(defaultConfiguration: RageClientConfiguration(baseUrl: "http://example.com"))
+            let client = RageClient(defaultConfiguration:
+                RageClientConfiguration(baseUrl: "http://example.com"))
 
             it("can make get request with no path") {
                 let request = client.get()
