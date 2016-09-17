@@ -170,6 +170,7 @@
 		5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D7AAD25133CE41969B1B048 /* RageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRequest.swift; sourceTree = "<group>"; };
+		5D7AAD2BF3800BCF64DF1369 /* Authorization.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Authorization.md; path = Documentation/Authorization.md; sourceTree = "<group>"; };
 		5D7AAD6A0C8804A7E2AC02FB /* LoggingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingPlugin.swift; sourceTree = "<group>"; };
 		5D7AADAF06FD47162958627D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5D7AAE438A7955F7C8A06871 /* RageRxSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRxSwift.swift; sourceTree = "<group>"; };
@@ -303,6 +304,7 @@
 				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
 				B723C0705F4746457B3A0F69 /* Pods */,
 				6F21BF15F9C4BCDB36CE9BFF /* Frameworks */,
+				5D7AAD2BF3800BCF64DF1369 /* Authorization.md */,
 			);
 			sourceTree = "<group>";
 		};
