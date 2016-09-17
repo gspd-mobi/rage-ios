@@ -37,12 +37,7 @@ public class MultipartRageRequest: RageRequest {
     }
 
     override public func rawRequest() -> NSURLRequest {
-        let urlString = url()
-        let optionalUrl = NSURL(string: urlString)
-        guard let url = optionalUrl else {
-            preconditionFailure(self.wrongUrlErrorMessage)
-        }
-
+        let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(URL: url)
         let boundary = customBoundary ?? generateBoundary()
         for (key, value) in headers {

@@ -3,10 +3,6 @@ import Result
 
 public class RageRequest: Call {
 
-    let jsonParsingErrorMessage = "Couldn't parse object from JSON"
-    let wrongUrlErrorMessage = "Wrong url provided for request"
-    let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
-
     var httpMethod: HttpMethod
     var baseUrl: String
     var methodPath: String?
@@ -157,13 +153,6 @@ public class RageRequest: Call {
         return RageError(type: .Raw, rageResponse: rageResponse)
     }
 
-    func url() -> String {
-        return ParamsBuilder().buildUrlString(self.baseUrl,
-                path: self.methodPath,
-                queryParameters: self.queryParameters,
-                pathParameters: self.pathParameters)
-    }
-
     // MARK: Complex request abstractions
 
     public func withBody() -> BodyRageRequest {
@@ -242,12 +231,7 @@ public class RageRequest: Call {
     }
 
     public func rawRequest() -> NSURLRequest {
-        let urlString = url()
-        let optionalUrl = NSURL(string: urlString)
-        guard let url = optionalUrl else {
-            preconditionFailure(self.wrongUrlErrorMessage)
-        }
-
+        let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(URL: url)
         for (key, value) in headers {
             request.addValue(value, forHTTPHeaderField: key)

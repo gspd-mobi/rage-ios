@@ -4,6 +4,8 @@ import ObjectMapper
 
 extension RageRequest {
 
+    static let jsonParsingErrorMessage = "Couldn't parse object from JSON"
+    
     public func executeObjectObservable<T: Mappable>() -> Observable<T> {
         return Observable<T>.create {
             subscriber in
@@ -17,7 +19,7 @@ extension RageRequest {
                     subscriber.onCompleted()
                 } else {
                     subscriber.onError(RageError(type: .Configuration,
-                            message: self.jsonParsingErrorMessage))
+                            message: RageRequest.jsonParsingErrorMessage))
                 }
                 break
             case .Failure(let error):
@@ -42,7 +44,7 @@ extension RageRequest {
                     subscriber.onCompleted()
                 } else {
                     subscriber.onError(RageError(type: .Configuration,
-                            message: self.jsonParsingErrorMessage))
+                            message: RageRequest.jsonParsingErrorMessage))
                 }
                 break
             case .Failure(let error):

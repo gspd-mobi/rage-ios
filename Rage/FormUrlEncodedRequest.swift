@@ -50,18 +50,13 @@ public class FormUrlEncodedRequest: RageRequest {
     }
 
     public override func execute() -> Result<RageResponse, RageError> {
-        body = ParamsBuilder().buildUrlEncodedString(fieldParameters)
+        body = ParamsBuilder().stringFromFieldParameters(fieldParameters)
         .dataUsingEncoding(NSUTF8StringEncoding)
         return super.execute()
     }
 
     public override func rawRequest() -> NSURLRequest {
-        let urlString = url()
-        let optionalUrl = NSURL(string: urlString)
-        guard let url = optionalUrl else {
-            preconditionFailure(self.wrongUrlErrorMessage)
-        }
-
+        let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(URL: url)
         for (key, value) in headers {
             request.addValue(value, forHTTPHeaderField: key)
