@@ -36,7 +36,7 @@ public class RageClient {
         return createRequest(HttpMethod.CUSTOM(method), path: path)
     }
 
-    private func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
+    func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
         let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
                 httpMethod: httpMethod,
                 path: path)
