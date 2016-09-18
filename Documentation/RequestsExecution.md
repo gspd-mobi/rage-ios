@@ -25,6 +25,7 @@ request.enqueue {
     (result: Result<RageResponse, RageError>) in
     // Handle result
 }
+```
 
 ## NSURLRequest ##
 If you use Rage only as request building tool and don't want it to execute request inside then you can get `NSURLRequest` from `RageRequest`
@@ -42,4 +43,4 @@ let dataObservable: Observable<NSData> = request.executeDataObservable()
 let stringObservable: Observable<String> = request.executeStringObservable()
 // Subscribe to observables to execute request.
 ```
-Read more about using *RxSwift* with rage in *RxSwift* documentation page.
+Read more about using **RxSwift** with Rage in **RxSwift** documentation page.
