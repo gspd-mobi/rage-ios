@@ -34,15 +34,14 @@ public class Rage {
         }
 
         public func withHeaderDictionary(dictionary: [String:String]) -> Builder {
-            dictionary.forEach {
-                (key, value) in
+            for (key, value) in dictionary {
                 config.headers[key] = value
             }
             return self
         }
 
-        public func withPlugin(ragePlugin: RagePlugin) -> Builder {
-            config.plugins.append(ragePlugin)
+        public func withPlugin(plugin: RagePlugin) -> Builder {
+            config.plugins.append(plugin)
             return self
         }
 

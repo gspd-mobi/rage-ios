@@ -27,18 +27,26 @@ let client = Rage.builderWithBaseUrl("https://api.github.com")
     }
     .build()
 ```
-Then describe your API requests like these. It is a generic way to declare requests and their execution.
+Then describe your API requests like these. It is a generic way to declare requests and their background execution.
 ```swift
-func getUser(username: String) -> Result<RageResponse, RageError> -> () {
-    return client.get("/users/{user}")
+func getUser(username: String, completion: Result<RageResponse, RageError> -> ()) {
+    client.get("/users/{user}")
         .path("user", username)
-        .enqueue()
+        .enqueue(completion)
 }
 
-func getRepositoriesForOrganization(organizationTitle: String) -> Result<RageResponse, RageError> -> () {
+// Async
+func getRepositoriesForOrganization(organizationTitle: String, completion: Result<RageResponse, RageError> -> ()) {
+    client.get("/orgs/{org}/repos")
+        .path("org", organizationTitle)
+        .enqueue(completion)
+}
+
+// Sync
+func getRepositoriesForOrganizationSync(organizationTitle: String) -> Result<RageResponse, RageError> {
     return client.get("/orgs/{org}/repos")
         .path("org", organizationTitle)
-        .enqueue()
+        .execute()
 }
 ```
 
@@ -62,6 +70,9 @@ That's it. Compact but powerful.
 Add these dependencies to Podfile and `pod install`
 ```ruby
 pod 'Rage',	'~> 0.5.0'
+```
+If you want to use RxSwift and ObjectMapper features add them to Podfile too.
+```ruby
 pod 'RxSwift',	'~> 2.0'
 pod 'ObjectMapper', '~> 1.3'
 ```

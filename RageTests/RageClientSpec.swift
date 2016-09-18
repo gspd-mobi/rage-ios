@@ -113,7 +113,7 @@ class RageClientSpec: QuickSpec {
                 }
                 let client = RageClient(defaultConfiguration: config)
 
-                let request = client.createRequest(.GET, path: "/method")
+                let request = client.createRequestWithHttpMethod(.GET, path: "/method")
 
                 expect(request.timeoutMillis).to(equal(999))
 

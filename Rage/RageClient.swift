@@ -9,34 +9,34 @@ public class RageClient {
     }
 
     public func get(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.GET, path: path)
+        return createRequestWithHttpMethod(HttpMethod.GET, path: path)
     }
 
     public func post(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.POST, path: path)
+        return createRequestWithHttpMethod(HttpMethod.POST, path: path)
     }
 
     public func put(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.PUT, path: path)
+        return createRequestWithHttpMethod(HttpMethod.PUT, path: path)
     }
 
     public func delete(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.DELETE, path: path)
+        return createRequestWithHttpMethod(HttpMethod.DELETE, path: path)
     }
 
     public func head(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.HEAD, path: path)
+        return createRequestWithHttpMethod(HttpMethod.HEAD, path: path)
     }
 
     public func patch(path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.PATCH, path: path)
+        return createRequestWithHttpMethod(HttpMethod.PATCH, path: path)
     }
 
     public func customMethod(method: String, path: String? = nil) -> RageRequest {
-        return createRequest(HttpMethod.CUSTOM(method), path: path)
+        return createRequestWithHttpMethod(HttpMethod.CUSTOM(method), path: path)
     }
 
-    func createRequest(httpMethod: HttpMethod, path: String?) -> RageRequest {
+    func createRequestWithHttpMethod(httpMethod: HttpMethod, path: String?) -> RageRequest {
         let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
                 httpMethod: httpMethod,
                 path: path)
