@@ -2,6 +2,7 @@ Requests Customization
 =============================
 Client provides `baseUrl` to request when creating it. It says is it GET/POST/PUT/any request and what is the relative path of this request.
 So basically without additional customization we can create requests like `GET http://example.com/method`.
+
 How do we customize it?
 
 ## We have request ##
@@ -13,7 +14,9 @@ let request = client.get("/method")
 
 ## Query parameters ##
 Query parameters appear as string like `key1=value1&key2=value2` written with leading question mark `?` in url request.
+
 `http://example.com/method?key1=value1&key2=value2`
+
 How do we add them?
 ```swift
 request.query("key1","value1")
@@ -35,6 +38,7 @@ request.path("pathParam","pathValue")
 
 ## Headers ##
 It's possible when one single request should have some special header.
+
 How do we add headers for requests in Rage?
 ```swift
 request.header("SomeNewHeader", "Some-New-Header-Value-Whatever")
