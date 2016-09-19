@@ -13,6 +13,7 @@ extension BodyRageRequest {
         guard let json = value.toJSONString() else {
             return self
         }
+        contentType(.json)
         return bodyString(json)
     }
 

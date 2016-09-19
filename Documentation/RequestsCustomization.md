@@ -24,6 +24,7 @@ request.query("key1","value1")
 // or using dictionary which is useful when you want to add more than one query parameter
 request.queryDictionary(["key1": "value1", "key2":"value2"])
 ```
+Note that if you pass `nil` as query parameter value it will not be added to url string.
 
 ## Path parameters ##
 Path parameters appear as part of provided url like `http://example.com/method/pathParam/subMethod`.
@@ -45,6 +46,7 @@ request.header("SomeNewHeader", "Some-New-Header-Value-Whatever")
 // or using dictionary which is useful when you want to add more than one headers
 request.headerDictionary(["SomeNewHeader": "Some-New-Header-Value-Whatever", "Header2": "HeaderValue2"])
 ```
+Note that if you pass `nil` as header value it will not be added to request.
 
 ## URL changing ##
 You can change even this single request `baseUrl` if you need it.

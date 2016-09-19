@@ -67,7 +67,7 @@ func getRepositoriesForOrganization(organizationTitle: String) -> Observable<[Gi
 That's it. Compact but powerful.
 
 ## Installation (CocoaPods) ##
-Add these dependencies to Podfile and `pod install`
+Add this dependency to Podfile and `pod install`
 ```ruby
 pod 'Rage',	'~> 0.5.0'
 ```
