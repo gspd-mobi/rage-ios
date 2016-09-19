@@ -27,6 +27,7 @@ public class FormUrlEncodedRequest: RageRequest {
         self.authenticator = request.authenticator
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
+        contentType(.urlEncoded)
     }
 
     public func field<T>(key: String, _ value: T?, encoded: Bool = false) -> FormUrlEncodedRequest {
