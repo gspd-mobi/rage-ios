@@ -25,7 +25,7 @@ request.stub("String Stub", mode: .immediate)
 ```
 
 ## String as stub ##
-If you use **ObjectMapper* you can set object as stub. It will be serialized to json and will return as response.
+If you use **ObjectMapper** you can set object as stub. It will be serialized to json and will return as response.
 ```swift
 let user = User(name: "Alice") // Where User: Mappable
 request.stub(user, mode: .immediate)

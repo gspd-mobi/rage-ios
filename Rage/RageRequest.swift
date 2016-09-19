@@ -191,10 +191,10 @@ public class RageRequest: Call {
             return .Success(rageResponse)
         }
         let rageError = createErrorFromResponse(rageResponse)
-        let result: Result<RageResponse, RageError> = .Failure(rageError)
+        var result: Result<RageResponse, RageError> = .Failure(rageError)
         for handler in errorHandlers {
             if handler.enabled && handler.canHandleError(rageError) {
-                return handler.handleErrorForRequest(self, result: result)
+                result = handler.handleErrorForRequest(self, result: result)
             }
         }
         return result
