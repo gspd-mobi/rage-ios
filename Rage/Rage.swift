@@ -1,12 +1,12 @@
 import Foundation
 
-public class Rage {
+open class Rage {
 
-    private init() {
+    fileprivate init() {
         // No operations.
     }
 
-    public class func builderWithBaseUrl(baseUrl: String) -> Builder {
+    open class func builderWithBaseUrl(_ baseUrl: String) -> Builder {
         return Builder(baseUrl: baseUrl)
     }
 
@@ -14,43 +14,44 @@ public class Rage {
 
         let config: RageClientConfiguration
 
-        private init(baseUrl: String) {
+        fileprivate init(baseUrl: String) {
             config = RageClientConfiguration(baseUrl: baseUrl)
         }
 
-        public func withContentType(contentType: ContentType) -> Builder {
+        public func withContentType(_ contentType: ContentType) -> Builder {
             config.contentType = contentType
             return self
         }
 
-        public func withTimeoutMillis(timeoutMillis: Int) -> Builder {
+        public func withTimeoutMillis(_ timeoutMillis: Int) -> Builder {
             config.timeoutMillis = timeoutMillis
             return self
         }
 
-        public func withHeader(key: String, _ value: String) -> Builder {
+        public func withHeader(_ key: String, _ value: String) -> Builder {
             config.headers[key] = value
             return self
         }
 
-        public func withHeaderDictionary(dictionary: [String:String]) -> Builder {
+        public func withHeaderDictionary(_ dictionary: [String:String]) -> Builder {
             for (key, value) in dictionary {
                 config.headers[key] = value
             }
             return self
         }
 
-        public func withPlugin(plugin: RagePlugin) -> Builder {
+        public func withPlugin(_ plugin: RagePlugin) -> Builder {
             config.plugins.append(plugin)
             return self
         }
 
-        public func withAuthenticator(authenticator: Authenticator?) -> Builder {
+        public func withAuthenticator(_ authenticator: Authenticator?) -> Builder {
             config.authenticator = authenticator
             return self
         }
 
-        public func withErrorsHandlersClosure(closure: () -> [ErrorHandler]) -> Builder {
+        public func withErrorsHandlersClosure(_ closure: @escaping () -> [ErrorHandler])
+                -> Builder {
             config.errorsHandlersClosure = closure
             return self
         }

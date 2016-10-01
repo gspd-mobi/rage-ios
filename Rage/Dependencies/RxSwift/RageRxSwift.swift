@@ -10,45 +10,45 @@ extension RageRequest {
             let result = self.execute()
 
             switch result {
-            case .Success(let response):
+            case .success(let response):
                 guard let data = response.data else {
-                    subscriber.onError(RageError(type: RageErrorType.EmptyNetworkResponse))
-                    return NopDisposable.instance
+                    subscriber.onError(RageError(type: RageErrorType.emptyNetworkResponse))
+                    return Disposables.create()
                 }
 
-                let resultString = String(data: data, encoding: NSUTF8StringEncoding)!
+                let resultString = String(data: data, encoding: String.Encoding.utf8)!
                 subscriber.onNext(resultString)
                 subscriber.onCompleted()
                 break
-            case .Failure(let error):
+            case .failure(let error):
                 subscriber.onError(error)
                 break
             }
 
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
 
-    public func executeDataObservable() -> Observable<NSData> {
-        return Observable<NSData>.create {
+    public func executeDataObservable() -> Observable<Data> {
+        return Observable<Data>.create {
             subscriber in
             let result = self.execute()
 
             switch result {
-            case .Success(let response):
+            case .success(let response):
                 guard let data = response.data else {
-                    subscriber.onError(RageError(type: RageErrorType.EmptyNetworkResponse))
-                    return NopDisposable.instance
+                    subscriber.onError(RageError(type: RageErrorType.emptyNetworkResponse))
+                    return Disposables.create()
                 }
                 subscriber.onNext(data)
                 subscriber.onCompleted()
                 break
-            case .Failure(let error):
+            case .failure(let error):
                 subscriber.onError(error)
                 break
             }
 
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
 

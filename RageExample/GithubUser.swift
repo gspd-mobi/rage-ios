@@ -21,7 +21,7 @@ class GithubUser: Mappable {
         self.email = email
     }
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
 
     }
 

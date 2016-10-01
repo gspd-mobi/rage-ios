@@ -1,20 +1,20 @@
 import Foundation
 
 public enum RageErrorType {
-    case Raw
-    case EmptyNetworkResponse
-    case Configuration
-    case Http
-    case NetworkError
+    case raw
+    case emptyNetworkResponse
+    case configuration
+    case http
+    case networkError
 }
 
-public class RageError: ErrorType {
+open class RageError: Error {
 
-    public let type: RageErrorType
+    open let type: RageErrorType
 
-    public var rageResponse: RageResponse? = nil
+    open var rageResponse: RageResponse? = nil
 
-    public var message: String? = nil
+    open var message: String? = nil
 
     init(type: RageErrorType, rageResponse: RageResponse?) {
         self.rageResponse = rageResponse

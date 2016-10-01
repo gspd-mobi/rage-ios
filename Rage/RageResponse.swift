@@ -1,13 +1,13 @@
 import Foundation
 
-public class RageResponse {
+open class RageResponse {
 
-    public let request: RageRequest
-    public let data: NSData?
-    public let response: NSURLResponse?
-    public let error: NSError?
+    open let request: RageRequest
+    open let data: Data?
+    open let response: URLResponse?
+    open let error: NSError?
 
-    init(request: RageRequest, data: NSData?, response: NSURLResponse?, error: NSError?) {
+    init(request: RageRequest, data: Data?, response: URLResponse?, error: NSError?) {
         self.request = request
         self.data = data
         self.response = response
@@ -19,7 +19,7 @@ public class RageResponse {
 extension RageResponse {
 
     func statusCode() -> Int? {
-        if let httpResponse = response as? NSHTTPURLResponse {
+        if let httpResponse = response as? HTTPURLResponse {
             return httpResponse.statusCode
         }
         if let safeError = error {

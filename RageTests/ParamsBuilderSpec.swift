@@ -4,6 +4,7 @@ import Nimble
 
 class ParamsBuilderSpec: QuickSpec {
 
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("url builder") {
             let builder = URLBuilder()
@@ -44,7 +45,7 @@ class ParamsBuilderSpec: QuickSpec {
                         path: "/someRequest",
                         queryParameters: ["name": "Paul", "age": "24"],
                         pathParameters: [:])
-                expect(url).to(equal("http://example.com/api/someRequest?age=24&name=Paul"))
+                expect(url).to(equal("http://example.com/api/someRequest?name=Paul&age=24"))
             }
 
             it("can build url with 1 path param") {
@@ -100,6 +101,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url encoded string with 1 field parameter") {
                 let encodedString = builder.stringFromFieldParameters(
                         ["username": FieldParameter(value: "paul_k")])
+                print("encoded string here \(encodedString)")
                 expect(encodedString).to(equal("username=paul_k"))
             }
 
@@ -107,7 +109,7 @@ class ParamsBuilderSpec: QuickSpec {
                 let encodedString = builder.stringFromFieldParameters(
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word")])
-                expect(encodedString).to(equal("password=pa  word&username=paul_k"))
+                expect(encodedString).to(equal("username=paul_k&password=pa  word"))
             }
 
             it("can build url encoded string with 1 encoded field parameter") {
@@ -120,7 +122,7 @@ class ParamsBuilderSpec: QuickSpec {
                 let encodedString = builder.stringFromFieldParameters(
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word", encoded: true)])
-                expect(encodedString).to(equal("password=pa%20%20word&username=paul_k"))
+                expect(encodedString).to(equal("username=paul_k&password=pa%20%20word"))
             }
         }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-public class MultipartRageRequest: RageRequest {
+open class MultipartRageRequest: RageRequest {
 
     var parts = [String: TypedObject]()
     var customBoundary: String?
@@ -15,30 +15,30 @@ public class MultipartRageRequest: RageRequest {
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
 
-        contentType(.multipartFormData)
+        _ = contentType(.multipartFormData)
     }
 
-    public func part(object: TypedObject?, name: String) -> MultipartRageRequest {
+    open func part(_ object: TypedObject?, name: String) -> MultipartRageRequest {
         guard let safeObject = object else {
-            parts.removeValueForKey(name)
+            parts.removeValue(forKey: name)
             return self
         }
         parts[name] = safeObject
         return self
     }
 
-    public func withCustomBoundary(boundary: String?) -> MultipartRageRequest {
+    open func withCustomBoundary(_ boundary: String?) -> MultipartRageRequest {
         self.customBoundary = boundary
         return self
     }
 
-    private func generateBoundary() -> String {
-        return "----rage.boundary-\(NSUUID().UUIDString)"
+    fileprivate func generateBoundary() -> String {
+        return "----rage.boundary-\(UUID().uuidString)"
     }
 
-    override public func rawRequest() -> NSURLRequest {
+    override open func rawRequest() -> URLRequest {
         let url = URLBuilder().fromRequest(self)
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         let boundary = customBoundary ?? generateBoundary()
         for (key, value) in headers {
             if key == "Content-Type" {
@@ -47,21 +47,21 @@ public class MultipartRageRequest: RageRequest {
                 request.addValue(value, forHTTPHeaderField: key)
             }
         }
-        request.HTTPMethod = httpMethod.stringValue()
+        request.httpMethod = httpMethod.stringValue()
 
         if httpMethod.hasBody() {
-            request.HTTPBody = createBodyWithBoundary(boundary)
+            request.httpBody = createBodyWithBoundary(boundary)
         }
-        return request
+        return request as URLRequest
     }
 
-    private func createBodyWithBoundary(boundary: String) -> NSData {
+    fileprivate func createBodyWithBoundary(_ boundary: String) -> Data {
         let body = NSMutableData()
 
         let boundaryData = "\(boundary)"
-        .dataUsingEncoding(NSUTF8StringEncoding)
+        .data(using: String.Encoding.utf8)
 
-        let extraDashesData = "--".dataUsingEncoding(NSUTF8StringEncoding)
+        let extraDashesData = "--".data(using: String.Encoding.utf8)
 
         for (key, value) in parts {
             guard let safeBoundaryData = boundaryData else {
@@ -75,32 +75,32 @@ public class MultipartRageRequest: RageRequest {
 
             guard let contentDispositionData =
             "Content-Disposition: form-data; name=\"\(key)\"\(fileString)\r\n"
-            .dataUsingEncoding(NSUTF8StringEncoding) else {
+            .data(using: String.Encoding.utf8) else {
                 break
             }
             guard let contentTypeData = "Content-Type: \(value.mimeType)\r\n"
-            .dataUsingEncoding(NSUTF8StringEncoding) else {
+            .data(using: String.Encoding.utf8) else {
                 break
             }
-            guard let lineTerminatorData = "\r\n".dataUsingEncoding(NSUTF8StringEncoding) else {
+            guard let lineTerminatorData = "\r\n".data(using: String.Encoding.utf8) else {
                 break
             }
 
-            body.appendData(safeBoundaryData)
-            body.appendData(lineTerminatorData)
-            body.appendData(contentDispositionData)
-            body.appendData(contentTypeData)
-            body.appendData(lineTerminatorData)
-            body.appendData(value.object)
-            body.appendData(lineTerminatorData)
+            body.append(safeBoundaryData)
+            body.append(lineTerminatorData)
+            body.append(contentDispositionData)
+            body.append(contentTypeData)
+            body.append(lineTerminatorData)
+            body.append(value.object as Data)
+            body.append(lineTerminatorData)
         }
         if let safeBoundaryData = boundaryData {
-            body.appendData(safeBoundaryData)
+            body.append(safeBoundaryData)
         }
         if let safeExtraDashesData = extraDashesData {
-            body.appendData(safeExtraDashesData)
+            body.append(safeExtraDashesData)
         }
-        return body
+        return body as Data
     }
 
 }

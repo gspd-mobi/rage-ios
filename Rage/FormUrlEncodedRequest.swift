@@ -1,7 +1,7 @@
 import Foundation
 import Result
 
-public class FieldParameter {
+open class FieldParameter {
 
     var encoded: Bool = false
     var value: String
@@ -13,10 +13,10 @@ public class FieldParameter {
 
 }
 
-public class FormUrlEncodedRequest: RageRequest {
+open class FormUrlEncodedRequest: RageRequest {
 
     var fieldParameters = [String: FieldParameter]()
-    var body: NSData?
+    var body: Data?
 
     public init(from request: RageRequest) {
         super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl)
@@ -27,48 +27,49 @@ public class FormUrlEncodedRequest: RageRequest {
         self.authenticator = request.authenticator
         self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
-        contentType(.urlEncoded)
+        _ = contentType(.urlEncoded)
     }
 
-    public func field<T>(key: String, _ value: T?, encoded: Bool = false) -> FormUrlEncodedRequest {
+    open func field<T>(_ key: String, _ value: T?, encoded: Bool = false) -> FormUrlEncodedRequest {
         guard let safeObject = value else {
-            fieldParameters.removeValueForKey(key)
+            fieldParameters.removeValue(forKey: key)
             return self
         }
-        fieldParameters[key] = FieldParameter(value: String(safeObject), encoded: encoded)
+        fieldParameters[key] = FieldParameter(value: String(describing: safeObject),
+            encoded: encoded)
         return self
     }
 
-    public func fieldDictionary(dictionary: [String: FieldParameter?]) -> FormUrlEncodedRequest {
+    open func fieldDictionary(_ dictionary: [String: FieldParameter?]) -> FormUrlEncodedRequest {
         for (key, value) in dictionary {
             if let safeObject = value {
                 fieldParameters[key] = safeObject
             } else {
-                fieldParameters.removeValueForKey(key)
+                fieldParameters.removeValue(forKey: key)
             }
         }
         return self
     }
 
-    public override func execute() -> Result<RageResponse, RageError> {
+    open override func execute() -> Result<RageResponse, RageError> {
         body = ParamsBuilder().stringFromFieldParameters(fieldParameters)
-        .dataUsingEncoding(NSUTF8StringEncoding)
+        .data(using: String.Encoding.utf8)
         return super.execute()
     }
 
-    public override func rawRequest() -> NSURLRequest {
+    open override func rawRequest() -> URLRequest {
         let url = URLBuilder().fromRequest(self)
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         for (key, value) in headers {
             request.addValue(value, forHTTPHeaderField: key)
         }
-        request.HTTPMethod = httpMethod.stringValue()
+        request.httpMethod = httpMethod.stringValue()
 
         if httpMethod.hasBody() {
-            request.HTTPBody = body
+            request.httpBody = body
         }
 
-        return request
+        return request as URLRequest
     }
 
 }

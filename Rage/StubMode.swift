@@ -8,7 +8,7 @@ public enum StubMode {
 
     func delay() -> Int {
         switch self {
-        case delayed(let delayMillis):
+        case .delayed(let delayMillis):
             return delayMillis
         default:
             return 0

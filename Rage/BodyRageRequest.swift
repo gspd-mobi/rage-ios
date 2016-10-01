@@ -1,9 +1,9 @@
 import Foundation
 import Result
 
-public class BodyRageRequest: RageRequest {
+open class BodyRageRequest: RageRequest {
 
-    var body: NSData?
+    var body: Data?
 
     public init(from request: RageRequest) {
         super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl)
@@ -16,29 +16,29 @@ public class BodyRageRequest: RageRequest {
         self.plugins = request.plugins
     }
 
-    public func bodyData(value: NSData) -> BodyRageRequest {
+    open func bodyData(_ value: Data) -> BodyRageRequest {
         body = value
         return self
     }
 
-    public func bodyString(value: String) -> BodyRageRequest {
-        body = value.dataUsingEncoding(NSUTF8StringEncoding)
+    open func bodyString(_ value: String) -> BodyRageRequest {
+        body = value.data(using: String.Encoding.utf8)
         return self
     }
 
-    public override func rawRequest() -> NSURLRequest {
+    open override func rawRequest() -> URLRequest {
         let url = URLBuilder().fromRequest(self)
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         for (key, value) in headers {
             request.addValue(value, forHTTPHeaderField: key)
         }
-        request.HTTPMethod = httpMethod.stringValue()
+        request.httpMethod = httpMethod.stringValue()
 
         if httpMethod.hasBody() {
-            request.HTTPBody = body
+            request.httpBody = body
         }
 
-        return request
+        return request as URLRequest
     }
 
 }

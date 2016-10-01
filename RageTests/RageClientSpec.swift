@@ -4,6 +4,7 @@ import Nimble
 
 class RageClientSpec: QuickSpec {
 
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("rage client can create requests") {
 
@@ -12,85 +13,85 @@ class RageClientSpec: QuickSpec {
 
             it("can make get request with no path") {
                 let request = client.get()
-                expect(request.httpMethod).to(equal(HttpMethod.GET))
+                expect(request.httpMethod).to(equal(HttpMethod.get))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make get request with path") {
                 let request = client.get("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.GET))
+                expect(request.httpMethod).to(equal(HttpMethod.get))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make post request with no path") {
                 let request = client.post()
-                expect(request.httpMethod).to(equal(HttpMethod.POST))
+                expect(request.httpMethod).to(equal(HttpMethod.post))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make post request with path") {
                 let request = client.post("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.POST))
+                expect(request.httpMethod).to(equal(HttpMethod.post))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make put request with no path") {
                 let request = client.put()
-                expect(request.httpMethod).to(equal(HttpMethod.PUT))
+                expect(request.httpMethod).to(equal(HttpMethod.put))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make put request with path") {
                 let request = client.put("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.PUT))
+                expect(request.httpMethod).to(equal(HttpMethod.put))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make delete request with no path") {
                 let request = client.delete()
-                expect(request.httpMethod).to(equal(HttpMethod.DELETE))
+                expect(request.httpMethod).to(equal(HttpMethod.delete))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make delete request with path") {
                 let request = client.delete("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.DELETE))
+                expect(request.httpMethod).to(equal(HttpMethod.delete))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make head request with no path") {
                 let request = client.head()
-                expect(request.httpMethod).to(equal(HttpMethod.HEAD))
+                expect(request.httpMethod).to(equal(HttpMethod.head))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make head request with path") {
                 let request = client.head("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.HEAD))
+                expect(request.httpMethod).to(equal(HttpMethod.head))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make patch request with no path") {
                 let request = client.patch()
-                expect(request.httpMethod).to(equal(HttpMethod.PATCH))
+                expect(request.httpMethod).to(equal(HttpMethod.patch))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make patch request with path") {
                 let request = client.patch("/method")
-                expect(request.httpMethod).to(equal(HttpMethod.PATCH))
+                expect(request.httpMethod).to(equal(HttpMethod.patch))
                 expect(request.methodPath).to(equal("/method"))
             }
 
             it("can make custom http method request with no path") {
                 let request = client.customMethod("SOMECUSTOMHTTPMETHOD")
-                expect(request.httpMethod).to(equal(HttpMethod.CUSTOM("SOMECUSTOMHTTPMETHOD")))
+                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD")))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make custom http method request with path") {
                 let request = client.customMethod("SOMECUSTOMHTTPMETHOD", path: "/method")
-                expect(request.httpMethod).to(equal(HttpMethod.CUSTOM("SOMECUSTOMHTTPMETHOD")))
+                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD")))
                 expect(request.methodPath).to(equal("/method"))
             }
 
@@ -113,7 +114,7 @@ class RageClientSpec: QuickSpec {
                 }
                 let client = RageClient(defaultConfiguration: config)
 
-                let request = client.createRequestWithHttpMethod(.GET, path: "/method")
+                let request = client.createRequestWithHttpMethod(.get, path: "/method")
 
                 expect(request.timeoutMillis).to(equal(999))
 

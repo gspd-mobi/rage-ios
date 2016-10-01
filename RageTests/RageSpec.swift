@@ -14,23 +14,23 @@ class RageSpec: QuickSpec {
 
             let builder = Rage.builderWithBaseUrl("http://example.com")
             it("can set content type") {
-                builder.withContentType(ContentType.json)
+                _ = builder.withContentType(ContentType.json)
                 expect(builder.config.contentType).to(equal(ContentType.json))
             }
 
             it("can set timeout") {
-                builder.withTimeoutMillis(1000)
+                _ = builder.withTimeoutMillis(1000)
                 expect(builder.config.timeoutMillis).to(equal(1000))
             }
 
             it("can add default header") {
-                builder.withHeader("Authorization", "Bearer someoauthtokenstring")
+                _ = builder.withHeader("Authorization", "Bearer someoauthtokenstring")
                 expect(builder.config.headers["Authorization"])
                     .to(equal("Bearer someoauthtokenstring"))
             }
 
             it("can add default headers with dictionary") {
-                builder.withHeaderDictionary([
+                _ = builder.withHeaderDictionary([
                         "SomeOtherHeader": "someotherheadervalue"])
                 expect(builder.config.headers["Authorization"])
                     .to(equal("Bearer someoauthtokenstring"))
@@ -40,20 +40,20 @@ class RageSpec: QuickSpec {
 
             it("can add plugin") {
                 let plugin = TestPlugin()
-                builder.withPlugin(plugin)
+                _ = builder.withPlugin(plugin)
                 expect(builder.config.plugins.count).to(equal(1))
             }
 
             it("can set authenticator") {
                 let auth = TestAuthenticator()
-                builder.withAuthenticator(auth)
+                _ = builder.withAuthenticator(auth)
                 expect(builder.config.authenticator).toNot(beNil())
             }
 
             it("can set error handlers closure") {
                 expect(builder.config.errorsHandlersClosure()).to(beEmpty())
                 let testErrorHandler = TestErrorHandler()
-                builder.withErrorsHandlersClosure {
+                _ = builder.withErrorsHandlersClosure {
                     [testErrorHandler]
                 }
                 expect(builder.config.errorsHandlersClosure().count).to(equal(1))

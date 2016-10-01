@@ -2,23 +2,23 @@ import Foundation
 
 public protocol RagePlugin {
 
-    func willSendRequest(request: RageRequest)
-    func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest)
-    func didSendRequest(request: RageRequest, rawRequest: NSURLRequest)
+    func willSendRequest(_ request: RageRequest)
+    func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest)
+    func didSendRequest(_ request: RageRequest, rawRequest: URLRequest)
 
 }
 
 public extension RagePlugin {
 
-    func willSendRequest(request: RageRequest) {
+    func willSendRequest(_ request: RageRequest) {
 
     }
 
-    func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest) {
+    func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest) {
 
     }
 
-    func didSendRequest(request: RageRequest, rawRequest: NSURLRequest) {
+    func didSendRequest(_ request: RageRequest, rawRequest: URLRequest) {
 
     }
 

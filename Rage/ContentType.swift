@@ -8,13 +8,13 @@ public enum ContentType {
 
     func stringValue() -> String {
         switch self {
-        case json:
+        case .json:
             return "application/json"
-        case urlEncoded:
+        case .urlEncoded:
             return "application/x-www-form-urlencoded"
-        case multipartFormData:
+        case .multipartFormData:
             return "multipart/form-data"
-        case custom(let value):
+        case .custom(let value):
             return value
         }
     }

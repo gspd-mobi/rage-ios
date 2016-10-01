@@ -7,7 +7,7 @@ var token = "token1"
 
 class MyAuthenticator: Authenticator {
 
-    func authorizeRequest(request: RageRequest) -> RageRequest {
+    func authorizeRequest(_ request: RageRequest) -> RageRequest {
         return request.header("Authorization", "Bearer \(token)")
     }
 
@@ -17,22 +17,22 @@ class AuthErrorHandler: ErrorHandler {
 
     var enabled = true
 
-    func canHandleError(error: RageError) -> Bool {
+    func canHandleError(_ error: RageError) -> Bool {
         return error.statusCode() == 401
     }
 
-    func handleErrorForRequest(request: RageRequest,
+    func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
                     -> Result<RageResponse, RageError> {
         switch ExampleAPI.sharedInstance.authSync() {
-        case .Success(let response):
+        case .success(let response):
             guard let data = response.data else {
                 break
             }
-            token = String(data: data, encoding: NSUTF8StringEncoding)!
+            token = String(data: data, encoding: String.Encoding.utf8)!
             self.enabled = false
             return request.authorized().execute()
-        case .Failure(let error):
+        case .failure(let error):
             // Logout logic / opening login screen or something
             print(error.description())
             break
@@ -87,11 +87,11 @@ class ExampleAPI {
     func multipartRegister() -> Observable<String> {
         return client.post("/register")
         .multipart()
-        .part(TypedObject("123".dataUsingEncoding(NSUTF8StringEncoding)!,
+        .part(TypedObject("123".data(using: String.Encoding.utf8)!,
                 mimeType: "application/text"), name: "smth1")
-        .part(TypedObject("456".dataUsingEncoding(NSUTF8StringEncoding)!,
+        .part(TypedObject("456".data(using: String.Encoding.utf8)!,
                 mimeType: "application/text", fileName: "digits.txt"), name: "smth2")
-        .part(TypedObject("{\"smth\":123}".dataUsingEncoding(NSUTF8StringEncoding)!,
+        .part(TypedObject("{\"smth\":123}".data(using: String.Encoding.utf8)!,
                 mimeType: "application/json"), name: "smth3")
         .stub("{}")
         .executeStringObservable()
@@ -141,7 +141,7 @@ class ExampleAPI {
         .executeObjectObservable()
     }
 
-    func postUser(user: GithubUser) -> Observable<String> {
+    func postUser(_ user: GithubUser) -> Observable<String> {
         return client.post("/users")
         .withBody()
         .bodyJson(user)

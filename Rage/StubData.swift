@@ -3,9 +3,9 @@ import Foundation
 class StubData {
 
     var mode: StubMode
-    var data: NSData
+    var data: Data
 
-    init(data: NSData, mode: StubMode) {
+    init(data: Data, mode: StubMode) {
         self.data = data
         self.mode = mode
     }

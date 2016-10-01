@@ -12,22 +12,22 @@ extension RageRequest {
             let result = self.execute()
 
             switch result {
-            case .Success(let response):
+            case .success(let response):
                 let parsedObject: T? = response.data?.parseJson()
                 if let resultObject = parsedObject {
                     subscriber.onNext(resultObject)
                     subscriber.onCompleted()
                 } else {
-                    subscriber.onError(RageError(type: .Configuration,
+                    subscriber.onError(RageError(type: .configuration,
                             message: RageRequest.jsonParsingErrorMessage))
                 }
                 break
-            case .Failure(let error):
+            case .failure(let error):
                 subscriber.onError(error)
                 break
             }
 
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
 
@@ -37,21 +37,21 @@ extension RageRequest {
             let result = self.execute()
 
             switch result {
-            case .Success(let response):
+            case .success(let response):
                 let parsedObject: [T]? = response.data?.parseJsonArray()
                 if let resultObject = parsedObject {
                     subscriber.onNext(resultObject)
                     subscriber.onCompleted()
                 } else {
-                    subscriber.onError(RageError(type: .Configuration,
+                    subscriber.onError(RageError(type: .configuration,
                             message: RageRequest.jsonParsingErrorMessage))
                 }
                 break
-            case .Failure(let error):
+            case .failure(let error):
                 subscriber.onError(error)
                 break
             }
-            return NopDisposable.instance
+            return Disposables.create()
         }
     }
 

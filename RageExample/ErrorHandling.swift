@@ -2,7 +2,7 @@ import Foundation
 import Rage
 import ObjectMapper
 
-extension ErrorType {
+extension Error {
 
     func description() -> String {
         guard let rageError = self as? RageError else {
@@ -17,30 +17,30 @@ extension RageError {
 
     func description() -> String {
         switch self.type {
-        case .Raw:
+        case .raw:
             return rageResponse?.error?.localizedDescription ?? ""
-        case .EmptyNetworkResponse:
+        case .emptyNetworkResponse:
             return "Empty network response"
-        case .Configuration:
+        case .configuration:
             return message ?? ""
-        case .Http:
+        case .http:
             guard let data = rageResponse?.data else {
                 return "No data returned"
             }
             let githubError: GithubError? = data.parseJson()
             return githubError?.message ?? ""
-        case .NetworkError:
+        case .networkError:
             return "No internet connection"
         }
     }
 
 }
 
-extension NSData {
+extension Data {
 
     func parseJson<T: Mappable>() -> T? {
-        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
-        guard let b = Mapper<T>().map(resultString) else {
+        let resultString = String(data: self, encoding: String.Encoding.utf8)!
+        guard let b = Mapper<T>().map(JSONString: resultString) else {
             return nil
         }
         return b

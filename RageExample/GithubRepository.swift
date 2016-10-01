@@ -15,7 +15,7 @@ class GithubRepository: Mappable {
         // No operations.
     }
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
 
     }
 

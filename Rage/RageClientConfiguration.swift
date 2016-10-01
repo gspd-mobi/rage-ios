@@ -1,6 +1,6 @@
 import Foundation
 
-public class RageClientConfiguration {
+open class RageClientConfiguration {
     var baseUrl: String
     var timeoutMillis: Int = 60 * 1000
     var headers: [String:String] = [:]

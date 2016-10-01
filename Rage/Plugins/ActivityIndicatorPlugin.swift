@@ -1,17 +1,17 @@
 import UIKit
 
-public class ActivityIndicatorPlugin: RagePlugin {
+open class ActivityIndicatorPlugin: RagePlugin {
 
     public init() {
         // No operations.
     }
 
-    public func willSendRequest(request: RageRequest) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    open func willSendRequest(_ request: RageRequest) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
 
-    public func didReceiveResponse(response: RageResponse, rawRequest: NSURLRequest) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    open func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 
 }

@@ -5,9 +5,9 @@ public protocol ErrorHandler {
 
     var enabled: Bool { get set }
 
-    func canHandleError(error: RageError) -> Bool
+    func canHandleError(_ error: RageError) -> Bool
 
-    func handleErrorForRequest(request: RageRequest,
+    func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
         -> Result<RageResponse, RageError>
 
@@ -15,11 +15,11 @@ public protocol ErrorHandler {
 
 public extension ErrorHandler {
 
-    func canHandleError(error: RageError) -> Bool {
+    func canHandleError(_ error: RageError) -> Bool {
         return false
     }
 
-    func handleErrorForRequest(request: RageRequest,
+    func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
         -> Result<RageResponse, RageError> {
         return result

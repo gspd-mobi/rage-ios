@@ -5,7 +5,7 @@ extension BodyRageRequest {
 
     static let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
 
-    public func bodyJson(value: Mappable) -> BodyRageRequest {
+    public func bodyJson(_ value: Mappable) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
         }
@@ -13,7 +13,7 @@ extension BodyRageRequest {
         guard let json = value.toJSONString() else {
             return self
         }
-        contentType(.json)
+        _ = contentType(.json)
         return bodyString(json)
     }
 
@@ -21,7 +21,7 @@ extension BodyRageRequest {
 
 extension RageRequest {
 
-    public func stub(value: Mappable, mode: StubMode = .immediate) -> RageRequest {
+    public func stub(_ value: Mappable, mode: StubMode = .immediate) -> RageRequest {
         guard let json = value.toJSONString() else {
             return self
         }
@@ -30,19 +30,19 @@ extension RageRequest {
 
 }
 
-extension NSData {
+extension Data {
 
     func parseJson<T: Mappable>() -> T? {
-        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
-        guard let b = Mapper<T>().map(resultString) else {
+        let resultString = String(data: self, encoding: String.Encoding.utf8)!
+        guard let b = Mapper<T>().map(JSONString: resultString) else {
             return nil
         }
         return b
     }
 
     func parseJsonArray<T: Mappable>() -> [T]? {
-        let resultString = String(data: self, encoding: NSUTF8StringEncoding)!
-        guard let b = Mapper<T>().mapArray(resultString) else {
+        let resultString = String(data: self, encoding: String.Encoding.utf8)!
+        guard let b = Mapper<T>().mapArray(JSONString: resultString) else {
             return nil
         }
         return b
@@ -52,11 +52,11 @@ extension NSData {
 
 extension TypedObject {
 
-    class func fromJsonObject(object: Mappable) -> TypedObject? {
+    class func fromJsonObject(_ object: Mappable) -> TypedObject? {
         guard let json = object.toJSONString() else {
             return nil
         }
-        guard let data = json.dataUsingEncoding(NSUTF8StringEncoding) else {
+        guard let data = json.data(using: String.Encoding.utf8) else {
             return nil
         }
         return TypedObject(data, mimeType: "application/json")

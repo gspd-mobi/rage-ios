@@ -1,32 +1,32 @@
 import Foundation
 
-extension NSURLSession {
+extension URLSession {
 
-    func syncTask(request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?) {
-        var data: NSData?, response: NSURLResponse?, error: NSError?
+    func syncTask(_ request: URLRequest) -> (Data?, URLResponse?, NSError?) {
+        var data: Data?, response: URLResponse?, error: NSError?
 
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
 
-        dataTaskWithRequest(request) {
-            data = $0; response = $1; error = $2
-            dispatch_semaphore_signal(semaphore)
-        }.resume()
+        dataTask(with: request, completionHandler: {
+            data = $0; response = $1; error = $2 as NSError?
+            semaphore.signal()
+        }) .resume()
 
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
         return (data, response, error)
     }
 
 }
 
-extension NSData {
+extension Data {
 
     func prettyJson() -> String? {
         do {
-            let jsonData = try NSJSONSerialization
-            .JSONObjectWithData(self, options: NSJSONReadingOptions())
-            let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
-            let string = String(data: data, encoding: NSUTF8StringEncoding)
+            let jsonData = try JSONSerialization
+            .jsonObject(with: self, options: JSONSerialization.ReadingOptions())
+            let data = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+            let string = String(data: data, encoding: String.Encoding.utf8)
             return string
         } catch {
             return ""
@@ -35,11 +35,11 @@ extension NSData {
 
 }
 
-extension NSCharacterSet {
+extension CharacterSet {
 
-    class func URLQueryParameterAllowedCharacterSet() -> Self {
+    static func URLQueryParameterAllowedCharacterSet() -> CharacterSet {
         let charsString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?"
-        return self.init(charactersInString: charsString)
+        return self.init(charactersIn: charsString)
     }
 
 }
@@ -47,8 +47,8 @@ extension NSCharacterSet {
 extension String {
 
     func urlEncoded() -> String {
-        guard let encodedString = self.stringByAddingPercentEncodingWithAllowedCharacters(
-                .URLQueryParameterAllowedCharacterSet()) else {
+        guard let encodedString = self.addingPercentEncoding(
+                withAllowedCharacters: .URLQueryParameterAllowedCharacterSet()) else {
             preconditionFailure("Error while encoding string \"\(self)\"")
         }
         return encodedString

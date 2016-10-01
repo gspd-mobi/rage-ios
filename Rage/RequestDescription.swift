@@ -1,6 +1,6 @@
 import Foundation
 
-public class RequestDescription {
+open class RequestDescription {
     var httpMethod: HttpMethod
     var baseUrl: String
     var path: String?

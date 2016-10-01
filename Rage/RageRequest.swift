@@ -1,7 +1,7 @@
 import Foundation
 import Result
 
-public class RageRequest: Call {
+open class RageRequest: Call {
 
     var httpMethod: HttpMethod
     var baseUrl: String
@@ -40,65 +40,65 @@ public class RageRequest: Call {
 
     // MARK: Parameters
 
-    public func url(url: String) -> RageRequest {
+    open func url(_ url: String) -> RageRequest {
         self.baseUrl = url
         return self
     }
 
-    public func query<T>(key: String, _ value: T?) -> RageRequest {
+    open func query<T>(_ key: String, _ value: T?) -> RageRequest {
         guard let safeValue = value else {
-            queryParameters.removeValueForKey(key)
+            queryParameters.removeValue(forKey: key)
             return self
         }
-        queryParameters[key] = String(safeValue)
+        queryParameters[key] = String(describing: safeValue)
         return self
     }
 
-    public func queryDictionary<T>(dictionary: [String:T?]) -> RageRequest {
+    open func queryDictionary<T>(_ dictionary: [String:T?]) -> RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
-                queryParameters[key] = String(safeValue)
+                queryParameters[key] = String(describing: safeValue)
             }
         }
         return self
     }
 
-    public func path<T>(key: String, _ value: T) -> RageRequest {
-        pathParameters[key] = String(value)
+    open func path<T>(_ key: String, _ value: T) -> RageRequest {
+        pathParameters[key] = String(describing: value)
         return self
     }
 
-    public func header(key: String, _ value: String?) -> RageRequest {
+    open func header(_ key: String, _ value: String?) -> RageRequest {
         guard let safeValue = value else {
-            headers.removeValueForKey(key)
+            headers.removeValue(forKey: key)
             return self
         }
         headers[key] = safeValue
         return self
     }
 
-    public func headerDictionary(dictionary: [String:String?]) -> RageRequest {
+    open func headerDictionary(_ dictionary: [String:String?]) -> RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
                 headers[key] = safeValue
             } else {
-                headers.removeValueForKey(key)
+                headers.removeValue(forKey: key)
             }
         }
         return self
     }
 
-    public func contentType(contentType: ContentType) -> RageRequest {
+    open func contentType(_ contentType: ContentType) -> RageRequest {
         self.headers["Content-Type"] = contentType.stringValue()
         return self
     }
 
-    public func authorized(authenticator: Authenticator) -> RageRequest {
+    open func authorized(_ authenticator: Authenticator) -> RageRequest {
         self.authenticator = authenticator
         return authorized()
     }
 
-    public func authorized() -> RageRequest {
+    open func authorized() -> RageRequest {
         if let safeAuthenticator = authenticator {
             return safeAuthenticator.authorizeRequest(self)
         } else {
@@ -106,69 +106,69 @@ public class RageRequest: Call {
         }
     }
 
-    public func stub(data: NSData, mode: StubMode = .immediate) -> RageRequest {
+    open func stub(_ data: Data, mode: StubMode = .immediate) -> RageRequest {
         self.stubData = StubData(data: data, mode: mode)
         return self
     }
 
-    public func stub(string: String, mode: StubMode = .immediate) -> RageRequest {
-        guard let data = string.dataUsingEncoding(NSUTF8StringEncoding) else {
+    open func stub(_ string: String, mode: StubMode = .immediate) -> RageRequest {
+        guard let data = string.data(using: String.Encoding.utf8) else {
             return self
         }
         return self.stub(data, mode: mode)
     }
 
-    public func withErrorHandlers(handlers: [ErrorHandler]) -> RageRequest {
+    open func withErrorHandlers(_ handlers: [ErrorHandler]) -> RageRequest {
         self.errorHandlers = handlers
         return self
     }
 
     // MARK: Configurations
 
-    public func withTimeoutMillis(timeoutMillis: Int) -> RageRequest {
+    open func withTimeoutMillis(_ timeoutMillis: Int) -> RageRequest {
         self.timeoutMillis = timeoutMillis
         return self
     }
 
     // MARK: Requests
 
-    func createSession() -> NSURLSession {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+    func createSession() -> URLSession {
+        let configuration = URLSessionConfiguration.default
         let timeoutSeconds = Double(timeoutMillis) / 1000.0
         configuration.timeoutIntervalForRequest = timeoutSeconds
         configuration.timeoutIntervalForResource = timeoutSeconds
 
-        return NSURLSession(configuration: configuration)
+        return URLSession(configuration: configuration)
     }
 
-    func createErrorFromResponse(rageResponse: RageResponse) -> RageError {
-        if rageResponse.error == nil && rageResponse.data?.length ?? 0 == 0 {
-            return RageError(type: .EmptyNetworkResponse)
+    func createErrorFromResponse(_ rageResponse: RageResponse) -> RageError {
+        if rageResponse.error == nil && rageResponse.data?.count ?? 0 == 0 {
+            return RageError(type: .emptyNetworkResponse)
         }
         if rageResponse.error == nil {
-            return RageError(type: .Http, rageResponse: rageResponse)
+            return RageError(type: .http, rageResponse: rageResponse)
         }
 
-        return RageError(type: .Raw, rageResponse: rageResponse)
+        return RageError(type: .raw, rageResponse: rageResponse)
     }
 
     // MARK: Complex request abstractions
 
-    public func withBody() -> BodyRageRequest {
+    open func withBody() -> BodyRageRequest {
         return BodyRageRequest(from: self)
     }
 
-    public func multipart() -> MultipartRageRequest {
+    open func multipart() -> MultipartRageRequest {
         return MultipartRageRequest(from: self)
     }
 
-    public func formUrlEncoded() -> FormUrlEncodedRequest {
+    open func formUrlEncoded() -> FormUrlEncodedRequest {
         return FormUrlEncodedRequest(from: self)
     }
 
     // MARK: Executing
 
-    public func execute() -> Result<RageResponse, RageError> {
+    open func execute() -> Result<RageResponse, RageError> {
         sendPluginsWillSendRequest()
 
         let request = rawRequest()
@@ -178,7 +178,7 @@ public class RageRequest: Call {
         if let s = getStubData() {
             let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
             sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
-            return .Success(rageResponse)
+            return .success(rageResponse)
         }
 
         let session = createSession()
@@ -188,10 +188,10 @@ public class RageRequest: Call {
         sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
 
         if rageResponse.isSuccess() {
-            return .Success(rageResponse)
+            return .success(rageResponse)
         }
         let rageError = createErrorFromResponse(rageResponse)
-        var result: Result<RageResponse, RageError> = .Failure(rageError)
+        var result: Result<RageResponse, RageError> = .failure(rageError)
         for handler in errorHandlers {
             if handler.enabled && handler.canHandleError(rageError) {
                 result = handler.handleErrorForRequest(self, result: result)
@@ -200,42 +200,42 @@ public class RageRequest: Call {
         return result
     }
 
-    public func enqueue(completion: Result<RageResponse, RageError> -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+    open func enqueue(_ completion: (Result<RageResponse, RageError>) -> ()) {
+        DispatchQueue.global(qos: .background).async(execute: {
             let result = self.execute()
 
-            dispatch_async(dispatch_get_main_queue(), {
-                return result
+            DispatchQueue.main.async(execute: {
+                return _ = result
             })
         })
     }
 
-    public func rawRequest() -> NSURLRequest {
+    open func rawRequest() -> URLRequest {
         let url = URLBuilder().fromRequest(self)
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         for (key, value) in headers {
             request.addValue(value, forHTTPHeaderField: key)
         }
-        request.HTTPMethod = httpMethod.stringValue()
-        return request
+        request.httpMethod = httpMethod.stringValue()
+        return request as URLRequest
     }
 
     // MARK: Plugins
 
-    private func sendPluginsWillSendRequest() {
+    fileprivate func sendPluginsWillSendRequest() {
         for plugin in plugins {
             plugin.willSendRequest(self)
         }
     }
 
-    private func sendPluginsDidSendRequest(rawRequest: NSURLRequest) {
+    fileprivate func sendPluginsDidSendRequest(_ rawRequest: URLRequest) {
         for plugin in plugins {
             plugin.didSendRequest(self, rawRequest: rawRequest)
         }
     }
 
-    private func sendPluginsDidReceiveResponse(rageResponse: RageResponse,
-                                               rawRequest: NSURLRequest) {
+    fileprivate func sendPluginsDidReceiveResponse(_ rageResponse: RageResponse,
+                                               rawRequest: URLRequest) {
         for plugin in plugins {
             plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
         }
@@ -255,7 +255,7 @@ public class RageRequest: Call {
         }
     }
 
-    private func getStubData() -> NSData? {
+    fileprivate func getStubData() -> Data? {
         guard let s = stubData else {
             return nil
         }
@@ -263,11 +263,11 @@ public class RageRequest: Call {
         case .never:
             return nil
         case .immediate:
-            return s.data
+            return s.data as Data
         case .delayed(let delayMillis):
             let seconds = Double(delayMillis) / 1000
-            NSThread.sleepForTimeInterval(seconds)
-            return s.data
+            Thread.sleep(forTimeInterval: seconds)
+            return s.data as Data
         }
     }
 

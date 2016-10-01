@@ -1,12 +1,12 @@
 import Foundation
 
-public class TypedObject {
+open class TypedObject {
 
     let mimeType: String
-    let object: NSData
+    let object: Data
     let fileName: String?
 
-    public init(_ object: NSData, mimeType: String, fileName: String? = nil) {
+    public init(_ object: Data, mimeType: String, fileName: String? = nil) {
         self.object = object
         self.mimeType = mimeType
         self.fileName = fileName

@@ -2,6 +2,6 @@ import Foundation
 
 public protocol Authenticator {
 
-    func authorizeRequest(request: RageRequest) -> RageRequest
+    func authorizeRequest(_ request: RageRequest) -> RageRequest
 
 }

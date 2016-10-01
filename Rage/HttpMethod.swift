@@ -1,37 +1,37 @@
 import Foundation
 
 public enum HttpMethod {
-    case GET
-    case POST
-    case PUT
-    case DELETE
-    case PATCH
-    case HEAD
-    case CUSTOM(String)
+    case get
+    case post
+    case put
+    case delete
+    case patch
+    case head
+    case custom(String)
 
     func stringValue() -> String {
         switch self {
-        case GET:
+        case .get:
             return "GET"
-        case POST:
+        case .post:
             return "POST"
-        case PUT:
+        case .put:
             return "PUT"
-        case DELETE:
+        case .delete:
             return "DELETE"
-        case PATCH:
+        case .patch:
             return "PATCH"
-        case HEAD:
+        case .head:
             return "HEAD"
-        case CUSTOM(let customMethod):
+        case .custom(let customMethod):
             return customMethod
         }
     }
 
     func hasBody() -> Bool {
         switch self {
-        case GET,
-             HEAD:
+        case .get,
+             .head:
             return false
         default:
             return true
