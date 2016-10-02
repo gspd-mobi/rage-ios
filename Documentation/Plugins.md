@@ -39,7 +39,7 @@ Usage with RageClient.
 ```swift
 let loggingPlugin = LoggingPlugin(logLevel: .full)
 rageClient.withPlugin(loggingPlugin)
-```swift
+```
 
 ## Activity Indicator Plugin ##
 Plugin which shows iOS activity indicator before request sent and hides it when response received.

@@ -8,7 +8,9 @@ pod 'ObjectMapper', '~> 2.0.0'
 Then you can use Rage ObjectMapper features. Basically all the same methods you can expect but using `Mappable` objects provided.
 
 ## Assuming we have Mappable object `GithubUser` ##
+```swift
 let user = GithubUser(name: "PavelKorolev")
+```
 
 ## Request Body ##
 ```swift
