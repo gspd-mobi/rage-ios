@@ -25,7 +25,6 @@
 		5D7AA395512C05CDB112EF45 /* HttpMethodExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAE6E67626F8054F85A65 /* HttpMethodExtension.swift */; };
 		5D7AA3B54CBE1FD1C08B7110 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA6010DF92B82EE914961 /* Authenticator.swift */; };
 		5D7AA4E0F1802A3257DB3B1C /* TestPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AACA3FA4BE9D444F80A91 /* TestPlugin.swift */; };
-		5D7AA514429D1E2EB500550F /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAF7D8DFE29DCB0D11F8E /* Call.swift */; };
 		5D7AA56BB54A1BAD12657245 /* ContentTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA3B0F3E8FCC8F4F2AB50 /* ContentTypeExtensions.swift */; };
 		5D7AA58BFA967DE7CAAED0DA /* TypedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAB714E0814604A077C4A /* TypedObject.swift */; };
 		5D7AA592A1050C33E405C623 /* RageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAD25133CE41969B1B048 /* RageRequest.swift */; };
@@ -37,7 +36,6 @@
 		5D7AA6A3A5E25DFC6D483156 /* RageRxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAE438A7955F7C8A06871 /* RageRxSwift.swift */; };
 		5D7AA6A83DA0681E0598C7FF /* GithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA3172D197A6B0C1366E3 /* GithubRepository.swift */; };
 		5D7AA6E653D9ACF6A3F7FB7E /* RageClientConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA7ED9B86E240CC9A6162 /* RageClientConfiguration.swift */; };
-		5D7AA71367EE286194D01F9A /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAF7D8DFE29DCB0D11F8E /* Call.swift */; };
 		5D7AA71420AAE6E571E2C9C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */; };
 		5D7AA734318F4A5BE91CAD75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AA7A338D139BDE07EB748 /* Main.storyboard */; };
 		5D7AA73BCD95EC4A56B60EF2 /* ActivityIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA94210E97028A6ADA16E /* ActivityIndicatorPlugin.swift */; };
@@ -179,7 +177,6 @@
 		5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D7AAD25133CE41969B1B048 /* RageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRequest.swift; sourceTree = "<group>"; };
-		5D7AAD2BF3800BCF64DF1369 /* Authorization.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Authorization.md; path = Documentation/Authorization.md; sourceTree = "<group>"; };
 		5D7AAD6A0C8804A7E2AC02FB /* LoggingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingPlugin.swift; sourceTree = "<group>"; };
 		5D7AADAF06FD47162958627D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5D7AAE438A7955F7C8A06871 /* RageRxSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRxSwift.swift; sourceTree = "<group>"; };
@@ -187,7 +184,6 @@
 		5D7AAE7B6F8D5EE0D8374396 /* FormUrlEncodedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormUrlEncodedRequest.swift; sourceTree = "<group>"; };
 		5D7AAEE25ABE680A25C3C18A /* RageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageError.swift; sourceTree = "<group>"; };
 		5D7AAEFA79B2FEA1359D6C36 /* ResponsesStub.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ResponsesStub.md; path = Documentation/ResponsesStub.md; sourceTree = "<group>"; };
-		5D7AAF7D8DFE29DCB0D11F8E /* Call.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		5D7AAFB531E4BA1EEB49D957 /* TestErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestErrorHandler.swift; sourceTree = "<group>"; };
 		815B5A2DFB173B797B737907 /* Pods-RageExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.release.xcconfig"; sourceTree = "<group>"; };
 		8A6748CC1D6B37200064467F /* Rage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +195,7 @@
 		8A6748F31D6B37620064467F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A6748F81D6B37620064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A6748FD1D6B3DC40064467F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8A9016A01DA110E20035820B /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = "<group>"; };
 		8B4FB44182B4551825A6968F /* Pods_RageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96D6E770F3431DCF81C8F188 /* Pods-Rage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.release.xcconfig"; sourceTree = "<group>"; };
 		B4D0C91482A46F570CED8ECD /* Pods-RageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RageTests/Pods-RageTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -313,6 +310,7 @@
 		8A6748C21D6B37200064467F = {
 			isa = PBXGroup;
 			children = (
+				8A9016A01DA110E20035820B /* Documentation */,
 				8A6748CE1D6B37200064467F /* Rage */,
 				8A6748DA1D6B37200064467F /* RageTests */,
 				8A6748EB1D6B37620064467F /* RageExample */,
@@ -324,7 +322,6 @@
 				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
 				B723C0705F4746457B3A0F69 /* Pods */,
 				6F21BF15F9C4BCDB36CE9BFF /* Frameworks */,
-				5D7AAD2BF3800BCF64DF1369 /* Authorization.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -359,7 +356,6 @@
 				5D7AA2A9761CF4E986A3C8C2 /* Plugins */,
 				5D7AA7ED9B86E240CC9A6162 /* RageClientConfiguration.swift */,
 				5D7AAB714E0814604A077C4A /* TypedObject.swift */,
-				5D7AAF7D8DFE29DCB0D11F8E /* Call.swift */,
 				5D7AA4AB5741E12AA09C9FE0 /* BodyRageRequest.swift */,
 				5D7AA538C6E4F5A3638AF790 /* MultipartRageRequest.swift */,
 				5D7AAE7B6F8D5EE0D8374396 /* FormUrlEncodedRequest.swift */,
@@ -726,7 +722,6 @@
 				5D7AA73BCD95EC4A56B60EF2 /* ActivityIndicatorPlugin.swift in Sources */,
 				5D7AA69614261312C65E718F /* RageClientConfiguration.swift in Sources */,
 				5D7AA837A3525EC3E7218520 /* TypedObject.swift in Sources */,
-				5D7AA71367EE286194D01F9A /* Call.swift in Sources */,
 				5D7AA6622ED2B991A9C1C8C6 /* BodyRageRequest.swift in Sources */,
 				5D7AA296D7038844004D5CC3 /* MultipartRageRequest.swift in Sources */,
 				5D7AAB7620F46F4200390CC4 /* FormUrlEncodedRequest.swift in Sources */,
@@ -766,7 +761,6 @@
 				5D7AAD1928E32B7E589CCE7A /* ActivityIndicatorPlugin.swift in Sources */,
 				5D7AA6E653D9ACF6A3F7FB7E /* RageClientConfiguration.swift in Sources */,
 				5D7AA58BFA967DE7CAAED0DA /* TypedObject.swift in Sources */,
-				5D7AA514429D1E2EB500550F /* Call.swift in Sources */,
 				5D7AAB6E969661328D3F457E /* BodyRageRequest.swift in Sources */,
 				5D7AA1E642193FC1EE55D80F /* MultipartRageRequest.swift in Sources */,
 				5D7AAF983974E2E04C03E5D6 /* FormUrlEncodedRequest.swift in Sources */,

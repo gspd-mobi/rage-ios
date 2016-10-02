@@ -16,25 +16,25 @@ class ViewController: UIViewController {
 
     func exampleRequest() {
         _ = ExampleAPI.sharedInstance.getOrganization()
-        .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .background))
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: {
-            (s) in
-            self.textView.text = "\(s)"
-        }, onError: {
-            (error: Error) in
+            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {
+                (s) in
+                self.textView.text = "\(s)"
+                }, onError: {
+                    (error: Error) in
 
-            let message = error.description()
+                    let message = error.description()
 
-            let alert = UIAlertController(title: "Error", message: message,
-                    preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok",
-                    style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Error", message: message,
+                                                  preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ok",
+                                                  style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
 
-        }, onCompleted: {
-        }, onDisposed: {
-        })
+                }, onCompleted: {
+                }, onDisposed: {
+            })
     }
 
 }

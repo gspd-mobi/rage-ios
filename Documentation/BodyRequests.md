@@ -21,9 +21,9 @@ request.body("String Body")
 ```
 You should call `contentType(_)` function for request to specify its Content-Type.
 
-### NSData as Body ###
+### Data as Body ###
 ```swift
-let data: NSData = createDataSomehow()
+let data: Data = createDataSomehow()
 request.body(data)
 ```
 You should call `contentType(_)` function for request to specify its Content-Type.

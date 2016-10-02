@@ -1,7 +1,7 @@
 import Foundation
 import Result
 
-open class RageRequest: Call {
+open class RageRequest {
 
     var httpMethod: HttpMethod
     var baseUrl: String
@@ -200,12 +200,63 @@ open class RageRequest: Call {
         return result
     }
 
-    open func enqueue(_ completion: (Result<RageResponse, RageError>) -> ()) {
+    open func executeString() -> Result<String, RageError> {
+        let result = self.execute()
+
+        switch result {
+        case .success(let response):
+            guard let data = response.data else {
+                return .failure(RageError(type: RageErrorType.emptyNetworkResponse))
+            }
+
+            let resultString = String(data: data, encoding: String.Encoding.utf8)!
+            return .success(resultString)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    open func executeData() -> Result<Data, RageError> {
+        let result = self.execute()
+
+        switch result {
+        case .success(let response):
+            guard let data = response.data else {
+                return .failure(RageError(type: RageErrorType.emptyNetworkResponse))
+            }
+
+            return .success(data)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    open func enqueue(_ completion: @escaping (Result<RageResponse, RageError>) -> ()) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result = self.execute()
 
             DispatchQueue.main.async(execute: {
-                return _ = result
+                completion(result)
+            })
+        })
+    }
+
+    open func enqueueString(_ completion: @escaping (Result<String, RageError>) -> ()) {
+        DispatchQueue.global(qos: .background).async(execute: {
+            let result = self.executeString()
+
+            DispatchQueue.main.async(execute: {
+                completion(result)
+            })
+        })
+    }
+
+    open func enqueueData(_ completion: @escaping (Result<Data, RageError>) -> ()) {
+        DispatchQueue.global(qos: .background).async(execute: {
+            let result = self.executeData()
+
+            DispatchQueue.main.async(execute: {
+                completion(result)
             })
         })
     }
@@ -235,7 +286,7 @@ open class RageRequest: Call {
     }
 
     fileprivate func sendPluginsDidReceiveResponse(_ rageResponse: RageResponse,
-                                               rawRequest: URLRequest) {
+                                                   rawRequest: URLRequest) {
         for plugin in plugins {
             plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
         }

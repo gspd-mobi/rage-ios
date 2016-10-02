@@ -104,6 +104,26 @@ class ExampleAPI {
         .executeStringObservable()
     }
 
+    func getOrganizationString() -> Result<String, RageError> {
+        return client.get("/orgs/{org}")
+            .path("org", "gspd-mobi")
+            .executeString()
+    }
+
+    func getOrgRepositoriesObject() -> Result<[GithubRepository], RageError> {
+        return client.get("/orgs/{org}/repos")
+            .path("org", "gspd-mobi")
+            .executeObject()
+    }
+
+    func getOrgRepositoriesAsync(completion:
+        @escaping (Result<[GithubRepository], RageError>) -> ()) {
+        client.get("/orgs/{org}/repos")
+            .path("org", "gspd-mobi")
+            .enqueueObject(completion)
+    }
+
+
     func getSomethingError() -> Observable<String> {
         return client.get("/orgs/{org}")
         .path("org", "gsasdasdasdasdas")

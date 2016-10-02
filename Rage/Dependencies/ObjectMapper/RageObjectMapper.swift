@@ -1,5 +1,6 @@
 import Foundation
 import ObjectMapper
+import Result
 
 extension BodyRageRequest {
 
@@ -28,6 +29,61 @@ extension RageRequest {
         return self.stub(json, mode: mode)
     }
 
+    open func executeObject<T: Mappable>() -> Result<T, RageError> {
+        let result = self.execute()
+
+        switch result {
+        case .success(let response):
+            let parsedObject: T? = response.data?.parseJson()
+            if let resultObject = parsedObject {
+                return .success(resultObject)
+            } else {
+                return .failure(RageError(type: .configuration,
+                                          message: RageRequest.jsonParsingErrorMessage))
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    open func executeObject<T: Mappable>() -> Result<[T], RageError> {
+        let result = self.execute()
+
+        switch result {
+        case .success(let response):
+            let parsedObject: [T]? = response.data?.parseJsonArray()
+            if let resultObject = parsedObject {
+                return .success(resultObject)
+            } else {
+                return .failure(RageError(type: .configuration,
+                                          message: RageRequest.jsonParsingErrorMessage))
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<T, RageError>) -> ()) {
+        DispatchQueue.global(qos: .background).async(execute: {
+            let result: Result<T, RageError> = self.executeObject()
+
+            DispatchQueue.main.async(execute: {
+                completion(result)
+            })
+        })
+    }
+
+    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<[T], RageError>) -> ()) {
+        DispatchQueue.global(qos: .background).async(execute: {
+            let result: Result<[T], RageError> = self.executeObject()
+
+            DispatchQueue.main.async(execute: {
+                completion(result)
+            })
+        })
+    }
+
+
 }
 
 extension Data {
@@ -50,10 +106,10 @@ extension Data {
 
 }
 
-extension TypedObject {
+extension Mappable {
 
-    class func fromJsonObject(_ object: Mappable) -> TypedObject? {
-        guard let json = object.toJSONString() else {
+    func typedObject() -> TypedObject? {
+        guard let json = toJSONString() else {
             return nil
         }
         guard let data = json.data(using: String.Encoding.utf8) else {

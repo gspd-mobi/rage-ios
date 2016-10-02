@@ -50,14 +50,14 @@ class AuthErrorHandler: ErrorHandler {
                     -> Result<RageResponse, RageError> {
         // Here is very simple example of retrying request once after repeated auth request
         switch ExampleAPI.sharedInstance.authSync() {
-        case .Success(let response):
+        case .success(let response):
             guard let data = response.data else {
                 break
             }
-            token = String(data: data, encoding: NSUTF8StringEncoding)!
+            token = String(data: data, encoding: String.Encoding.utf8)!
             self.enabled = false // We disable this handler to avoid infinite loop
             return request.authorized().execute()
-        case .Failure(let error):
+        case .failure(let error):
             // Logout logic / opening login screen or something
             print(error.description())
             break

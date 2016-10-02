@@ -1,10 +1,10 @@
 import Foundation
 
-public enum LogLevel {
-    case none
-    case basic
-    case medium
-    case full
+public enum LogLevel: Int {
+    case none = 0
+    case basic = 1
+    case medium = 2
+    case full = 3
 }
 
 open class LoggingPlugin: RagePlugin {
@@ -65,56 +65,103 @@ open class LoggingPlugin: RagePlugin {
     }
 
     fileprivate func logResponse(_ rageResponse: RageResponse, rawRequest: URLRequest,
-                             stubbed: Bool = false) {
-
-        let httpMethod = rawRequest.httpMethod ?? ""
-        let url = rawRequest.url?.absoluteString ?? ""
-        let data = rageResponse.data
-        let response = rageResponse.response
-
+                                 stubbed: Bool = false) {
         switch logLevel {
-        case .full,
-             .medium:
-            let stubbedString = generateStubString(stubbed)
-            print("<-- \(stubbedString)\(httpMethod) \(url)")
-
-            guard let data = data else {
-                print("Empty response data")
-                return
-            }
-
-            if stubbed {
-                guard let resultString = String(data: data as Data,
-                    encoding: String.Encoding.utf8) else {
-                    break
-                }
-                print(resultString)
-            } else {
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Empty response")
-                    return
-                }
-
-                print(httpResponse.statusCode)
-
-                for (key, value) in httpResponse.allHeaderFields {
-                    print("\(key): \(value)")
-                }
-
-                if isJson(httpResponse) {
-                    print(data.prettyJson() ?? "")
-                } else {
-                    guard let resultString = String(data: data as Data,
-                                                    encoding: String.Encoding.utf8) else {
-                        break
-                    }
-                    print(resultString)
-                }
-            }
+        case .full:
+            logResponseFull(rageResponse, rawRequest: rawRequest, stubbed: stubbed)
+            break
+        case .medium:
+            logResponseMedium(rageResponse, rawRequest: rawRequest, stubbed: stubbed)
             break
         case .basic,
              .none:
             break
+        }
+    }
+
+    func logResponseFull(_ rageResponse: RageResponse, rawRequest: URLRequest,
+                         stubbed: Bool = false) {
+        let httpMethod = rawRequest.httpMethod ?? ""
+        let url = rawRequest.url?.absoluteString ?? ""
+        let optionalData = rageResponse.data
+        let response = rageResponse.response
+
+        let stubbedString = generateStubString(stubbed)
+        print("<-- \(stubbedString)\(httpMethod) \(url)")
+
+        guard let data = optionalData else {
+            print("Empty response data")
+            return
+        }
+
+        if stubbed {
+            guard let resultString = String(data: data as Data,
+                                            encoding: String.Encoding.utf8) else {
+                                                return
+            }
+            print(resultString)
+        } else {
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Empty response")
+                return
+            }
+
+            print(httpResponse.statusCode)
+
+            for (key, value) in httpResponse.allHeaderFields {
+                print("\(key): \(value)")
+            }
+
+            if isJson(httpResponse) {
+                print(data.prettyJson() ?? "")
+            } else {
+                guard let resultString = String(data: data as Data,
+                                                encoding: String.Encoding.utf8) else {
+                                                    return
+                }
+                print(resultString)
+            }
+        }
+    }
+
+    func logResponseMedium(_ rageResponse: RageResponse, rawRequest: URLRequest,
+                           stubbed: Bool = false) {
+        let httpMethod = rawRequest.httpMethod ?? ""
+        let url = rawRequest.url?.absoluteString ?? ""
+        let optionalData = rageResponse.data
+        let response = rageResponse.response
+
+        let stubbedString = generateStubString(stubbed)
+        print("<-- \(stubbedString)\(httpMethod) \(url)")
+
+        guard let data = optionalData else {
+            print("Empty response data")
+            return
+        }
+
+        if stubbed {
+            guard let resultString = String(data: data as Data,
+                                            encoding: String.Encoding.utf8) else {
+                                                return
+            }
+            print(resultString)
+        } else {
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Empty response")
+                return
+            }
+
+            print(httpResponse.statusCode)
+
+            if isJson(httpResponse) {
+                print(data.prettyJson() ?? "")
+            } else {
+                guard let resultString = String(data: data as Data,
+                                                encoding: String.Encoding.utf8) else {
+                                                    return
+                }
+                print(resultString)
+            }
         }
     }
 

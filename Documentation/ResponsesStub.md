@@ -13,9 +13,9 @@ let request = client.get("/method")
 - delayed(millis: Int)
 - never
 
-## NSData as stub ##
+## Data as stub ##
 ```swift
-let data: NSData = createDataSomehow()
+let data: Data = createDataSomehow()
 request.stub(data, mode: .immediate)
 ```
 
