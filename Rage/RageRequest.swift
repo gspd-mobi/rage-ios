@@ -58,6 +58,8 @@ open class RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
                 queryParameters[key] = String(describing: safeValue)
+            } else {
+                queryParameters.removeValue(forKey: key)
             }
         }
         return self
@@ -68,19 +70,19 @@ open class RageRequest {
         return self
     }
 
-    open func header(_ key: String, _ value: String?) -> RageRequest {
+    open func header<T>(_ key: String, _ value: T?) -> RageRequest {
         guard let safeValue = value else {
             headers.removeValue(forKey: key)
             return self
         }
-        headers[key] = safeValue
+        headers[key] = String(describing: safeValue)
         return self
     }
 
-    open func headerDictionary(_ dictionary: [String:String?]) -> RageRequest {
+    open func headerDictionary<T>(_ dictionary: [String:T?]) -> RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
-                headers[key] = safeValue
+                headers[key] = String(describing: safeValue)
             } else {
                 headers.removeValue(forKey: key)
             }
