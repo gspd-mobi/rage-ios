@@ -22,6 +22,8 @@ extension BodyRageRequest {
 
 extension RageRequest {
 
+    static let jsonParsingErrorMessage = "Couldn't parse object from JSON"
+
     public func stub(_ value: Mappable, mode: StubMode = .immediate) -> RageRequest {
         guard let json = value.toJSONString() else {
             return self

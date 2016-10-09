@@ -1,7 +1,7 @@
 use_frameworks!
 
 def common_pods
-    pod 'RxSwift', '~> 3.0.0-beta.1'
+    pod 'RxSwift', '~> 3.0.0-beta.2'
     pod 'ObjectMapper', '~> 2.0.0'
     pod 'Result', '~> 3.0.0'
 end
