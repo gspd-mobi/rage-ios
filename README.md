@@ -1,16 +1,23 @@
 Rage for iOS
 =============================
 <p align="center">
-  <img height="340" src="http://i.imgur.com/Q3MqH9x.png" />
+  <img height="340" src="web/img/logo.png" />
 </p>
 
 Pragmatic network abstraction layer for iOS applications.
 
-## Warning ##
+## :warning: Warning ##
 Library is NOT production ready yet. Please don't use it before it gets more stable.
 There may be compatibility issues between newer and older versions of library until version **1.0.0**.
 
 Documentation now may differ from real API because it's unstable and improving pretty fast.
+
+## Features ##
+* One liner request making. :dart:
+* Describing API spec in highly readable way. :books:
+* Optional [RxSwift](https://github.com/ReactiveX/RxSwift) out of box. :rocket:
+* Optional JSON support by [ObjectMapper](https://github.com/Hearst-DD/ObjectMapper) out of box. :ledger:
+* Manipulating strictly typed objects instead of String dictionaries hell. :package:
 
 ## Usage ##
 You can check example implementation in RageExample project.
