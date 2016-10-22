@@ -10,15 +10,25 @@ DEPENDENCIES:
   - ObjectMapper (~> 2.1.0)
   - Quick (~> 0.10.0)
   - Result (~> 3.0.0)
-  - RxSwift (= 3.0.0-rc.1)
+  - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`, branch `master`)
+
+EXTERNAL SOURCES:
+  RxSwift:
+    :branch: master
+    :git: https://github.com/ReactiveX/RxSwift.git
+
+CHECKOUT OPTIONS:
+  RxSwift:
+    :commit: 6809510d0a9ab2e0b7e89193211158ef2257742b
+    :git: https://github.com/ReactiveX/RxSwift.git
 
 SPEC CHECKSUMS:
   Nimble: 5ea121a2eda60440287054cde077fc0ad22227b3
   ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
   Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
   Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
-  RxSwift: d7a3819dd71789c473e3cbf1a0c02d58b2692739
+  RxSwift: 00ffe5e4bc528e93765ccf04ab6408e39dd2a602
 
-PODFILE CHECKSUM: 657df6995a23bcb28142c7b4a65b372cab466154
+PODFILE CHECKSUM: c55201a367bd4ead546dac078785bb9b63c2501a
 
 COCOAPODS: 1.1.1

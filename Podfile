@@ -1,7 +1,7 @@
 use_frameworks!
 
 def common_pods
-    pod 'RxSwift', '3.0.0-rc.1'
+    pod 'RxSwift',  :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
     pod 'ObjectMapper', '~> 2.1.0'
     pod 'Result', '~> 3.0.0'
 end
