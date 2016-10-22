@@ -32,21 +32,26 @@ open class RageClient {
         return createRequestWithHttpMethod(HttpMethod.patch, path: path)
     }
 
-    open func customMethod(_ method: String, path: String? = nil) -> RageRequest {
-        return createRequestWithHttpMethod(HttpMethod.custom(method), path: path)
+    open func customMethod(_ method: String,
+                           path: String? = nil,
+                           hasBody: Bool = false) -> RageRequest {
+        return createRequestWithHttpMethod(HttpMethod.custom(method, hasBody), path: path)
     }
 
     func createRequestWithHttpMethod(_ httpMethod: HttpMethod, path: String?) -> RageRequest {
-        let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
-                httpMethod: httpMethod,
-                path: path)
-
-        requestDescription.authenticator = self.defaultConfiguration.authenticator
-        requestDescription.timeoutMillis = self.defaultConfiguration.timeoutMillis
-        requestDescription.errorHandlers = self.defaultConfiguration.errorsHandlersClosure()
+        let requestDescription: RequestDescription = {
+            let requestDescription = RequestDescription(defaultConfiguration: defaultConfiguration,
+                                                        httpMethod: httpMethod,
+                                                        path: path)
+            let config = self.defaultConfiguration
+            requestDescription.authenticator = config.authenticator
+            requestDescription.timeoutMillis = config.timeoutMillis
+            requestDescription.errorHandlers = config.errorsHandlersClosure()
+            return requestDescription
+        }()
 
         return RageRequest(requestDescription: requestDescription,
-                plugins: defaultConfiguration.plugins)
+                           plugins: defaultConfiguration.plugins)
     }
 
 }

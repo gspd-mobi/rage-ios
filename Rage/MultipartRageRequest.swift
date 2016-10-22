@@ -2,6 +2,8 @@ import Foundation
 
 open class MultipartRageRequest: RageRequest {
 
+    static let boundaryCreateErrorMessage = "Boundary can't be created for Multipart Request"
+
     var parts = [String: TypedObject]()
     var customBoundary: String?
 
@@ -58,48 +60,43 @@ open class MultipartRageRequest: RageRequest {
     fileprivate func createBodyWithBoundary(_ boundary: String) -> Data {
         let body = NSMutableData()
 
-        let boundaryData = "\(boundary)"
-        .data(using: String.Encoding.utf8)
+        guard let boundaryData = boundary.makeUtf8Data() else {
+            preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
+        }
 
-        let extraDashesData = "--".data(using: String.Encoding.utf8)
+        guard let extraDashesData = "--".makeUtf8Data() else {
+            preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
+        }
+
+        guard let lineTerminatorData = "\r\n".makeUtf8Data() else {
+            preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
+        }
 
         for (key, value) in parts {
-            guard let safeBoundaryData = boundaryData else {
-                break
-            }
 
-            var fileString = ""
+            var contentDispositionString = "Content-Disposition: form-data; name=\"\(key)\""
             if let fileName = value.fileName {
-                fileString = "; filename=\"\(fileName)\""
+                contentDispositionString += "; filename=\"\(fileName)\""
             }
 
-            guard let contentDispositionData =
-            "Content-Disposition: form-data; name=\"\(key)\"\(fileString)\r\n"
-            .data(using: String.Encoding.utf8) else {
-                break
+            guard let contentDispositionData = contentDispositionString.makeUtf8Data() else {
+                continue
             }
-            guard let contentTypeData = "Content-Type: \(value.mimeType)\r\n"
-            .data(using: String.Encoding.utf8) else {
-                break
-            }
-            guard let lineTerminatorData = "\r\n".data(using: String.Encoding.utf8) else {
-                break
+            guard let contentTypeData = "Content-Type: \(value.mimeType)".makeUtf8Data() else {
+                continue
             }
 
-            body.append(safeBoundaryData)
+            body.append(boundaryData)
             body.append(lineTerminatorData)
             body.append(contentDispositionData)
+            body.append(lineTerminatorData)
             body.append(contentTypeData)
             body.append(lineTerminatorData)
-            body.append(value.object as Data)
+            body.append(value.object)
             body.append(lineTerminatorData)
         }
-        if let safeBoundaryData = boundaryData {
-            body.append(safeBoundaryData)
-        }
-        if let safeExtraDashesData = extraDashesData {
-            body.append(safeExtraDashesData)
-        }
+        body.append(boundaryData)
+        body.append(extraDashesData)
         return body as Data
     }
 

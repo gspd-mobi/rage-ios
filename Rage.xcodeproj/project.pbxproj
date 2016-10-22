@@ -344,6 +344,8 @@
 		8A6748CE1D6B37200064467F /* Rage */ = {
 			isa = PBXGroup;
 			children = (
+				5D7AA6C6BA738C050DF3B45A /* Dependencies */,
+				5D7AA2A9761CF4E986A3C8C2 /* Plugins */,
 				8A6748CF1D6B37200064467F /* Rage.h */,
 				8A6748D11D6B37200064467F /* Info.plist */,
 				5D7AA014546BC9C0AD6E0557 /* ContentType.swift */,
@@ -352,14 +354,12 @@
 				5D7AAA2ED83599A807D03DD6 /* Rage.swift */,
 				5D7AAEE25ABE680A25C3C18A /* RageError.swift */,
 				5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */,
-				5D7AA6C6BA738C050DF3B45A /* Dependencies */,
 				5D7AA1801D16E7AB3F09AD4D /* RageClient.swift */,
 				5D7AAD25133CE41969B1B048 /* RageRequest.swift */,
 				5D7AA60ED89EB1D7051B1BEB /* RequestDescription.swift */,
 				5D7AA6010DF92B82EE914961 /* Authenticator.swift */,
 				5D7AA038A8D4D8766817AADD /* RagePlugin.swift */,
 				5D7AAABA02C265EC48DE010E /* RageResponse.swift */,
-				5D7AA2A9761CF4E986A3C8C2 /* Plugins */,
 				5D7AA7ED9B86E240CC9A6162 /* RageClientConfiguration.swift */,
 				5D7AAB714E0814604A077C4A /* TypedObject.swift */,
 				5D7AA4AB5741E12AA09C9FE0 /* BodyRageRequest.swift */,

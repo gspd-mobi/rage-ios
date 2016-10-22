@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     }
 
     func exampleRequest() {
-        _ = ExampleAPI.sharedInstance.getOrganization()
+        _ = ExampleAPI.sharedInstance.getOrgRepositories()
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .background))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: {

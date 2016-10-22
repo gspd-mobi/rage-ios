@@ -114,7 +114,7 @@ open class RageRequest {
     }
 
     open func stub(_ string: String, mode: StubMode = .immediate) -> RageRequest {
-        guard let data = string.data(using: String.Encoding.utf8) else {
+        guard let data = string.makeUtf8Data() else {
             return self
         }
         return self.stub(data, mode: mode)

@@ -54,4 +54,8 @@ extension String {
         return encodedString
     }
 
+    func makeUtf8Data() -> Data? {
+        return data(using: String.Encoding.utf8)
+    }
+
 }

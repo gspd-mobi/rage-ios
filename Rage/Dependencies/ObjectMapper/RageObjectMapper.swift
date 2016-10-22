@@ -114,7 +114,7 @@ extension Mappable {
         guard let json = toJSONString() else {
             return nil
         }
-        guard let data = json.data(using: String.Encoding.utf8) else {
+        guard let data = json.makeUtf8Data() else {
             return nil
         }
         return TypedObject(data, mimeType: "application/json")

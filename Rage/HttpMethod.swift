@@ -7,7 +7,7 @@ public enum HttpMethod {
     case delete
     case patch
     case head
-    case custom(String)
+    case custom(String, Bool)
 
     func stringValue() -> String {
         switch self {
@@ -23,7 +23,7 @@ public enum HttpMethod {
             return "PATCH"
         case .head:
             return "HEAD"
-        case .custom(let customMethod):
+        case .custom(let customMethod, _):
             return customMethod
         }
     }
@@ -33,6 +33,8 @@ public enum HttpMethod {
         case .get,
              .head:
             return false
+        case .custom(_, let hasBody):
+            return hasBody
         default:
             return true
         }

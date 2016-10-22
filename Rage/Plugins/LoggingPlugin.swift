@@ -106,7 +106,7 @@ open class LoggingPlugin: RagePlugin {
                 return
             }
 
-            print(httpResponse.statusCode)
+            logStatusCode(httpResponse.statusCode)
 
             for (key, value) in httpResponse.allHeaderFields {
                 print("\(key): \(value)")
@@ -151,7 +151,7 @@ open class LoggingPlugin: RagePlugin {
                 return
             }
 
-            print(httpResponse.statusCode)
+            logStatusCode(httpResponse.statusCode)
 
             if isJson(httpResponse) {
                 print(data.prettyJson() ?? "")
@@ -186,8 +186,27 @@ open class LoggingPlugin: RagePlugin {
 
     }
 
+    func logStatusCode(_ code: Int) {
+        var codeString = "Status code: \(code)"
+        switch code {
+        case 100 ..< 200:
+            codeString += " ℹ️"
+        case 200 ..< 300:
+            codeString += " ✅"
+        case 300 ..< 400:
+            codeString += " ➡️"
+        case 400 ..< 500:
+            codeString += " ❌"
+        case 500 ..< 600:
+            codeString += " 🆘"
+        default:
+            break
+        }
+        print(codeString)
+    }
+
     fileprivate func generateStubString(_ stubbed: Bool) -> String {
-        return stubbed ? "STUB " : ""
+        return stubbed ? " " : ""
     }
 
     fileprivate func isJson(_ httpResponse: HTTPURLResponse) -> Bool {

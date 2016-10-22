@@ -13,6 +13,17 @@ open class FieldParameter {
 
 }
 
+extension FieldParameter {
+
+    func valueWithEncodingIfNeeded() -> String {
+        if encoded {
+            return value.urlEncoded()
+        }
+        return value
+    }
+
+}
+
 open class FormUrlEncodedRequest: RageRequest {
 
     var fieldParameters = [String: FieldParameter]()
@@ -36,7 +47,7 @@ open class FormUrlEncodedRequest: RageRequest {
             return self
         }
         fieldParameters[key] = FieldParameter(value: String(describing: safeObject),
-            encoded: encoded)
+                                              encoded: encoded)
         return self
     }
 
@@ -52,8 +63,7 @@ open class FormUrlEncodedRequest: RageRequest {
     }
 
     open override func execute() -> Result<RageResponse, RageError> {
-        body = ParamsBuilder().stringFromFieldParameters(fieldParameters)
-        .data(using: String.Encoding.utf8)
+        body = ParamsBuilder().stringFromFieldParameters(fieldParameters).makeUtf8Data()
         return super.execute()
     }
 

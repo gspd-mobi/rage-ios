@@ -85,13 +85,13 @@ class RageClientSpec: QuickSpec {
 
             it("can make custom http method request with no path") {
                 let request = client.customMethod("SOMECUSTOMHTTPMETHOD")
-                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD")))
+                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD", false)))
                 expect(request.methodPath).to(beNil())
             }
 
             it("can make custom http method request with path") {
                 let request = client.customMethod("SOMECUSTOMHTTPMETHOD", path: "/method")
-                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD")))
+                expect(request.httpMethod).to(equal(HttpMethod.custom("SOMECUSTOMHTTPMETHOD", false)))
                 expect(request.methodPath).to(equal("/method"))
             }
 

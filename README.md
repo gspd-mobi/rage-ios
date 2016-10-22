@@ -1,12 +1,16 @@
 Rage for iOS
 =============================
+<p align="center">
+  <img height="160" src="http://i.imgur.com/Q3MqH9x.png" />
+</p>
+
 Pragmatic network abstraction layer for iOS applications.
 
 ## Warning ##
 Library is NOT production ready yet. Please don't use it before it gets more stable.
 There may be compatibility issues between newer and older versions of library until version **1.0.0**.
 
-README now may differ from real API because it's unstable and improving pretty fast.
+Documentation now may differ from real API because it's unstable and improving pretty fast.
 
 ## Usage ##
 You can check example implementation in RageExample project.
