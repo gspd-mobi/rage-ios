@@ -10,7 +10,7 @@ DEPENDENCIES:
   - ObjectMapper (~> 2.1.0)
   - Quick (~> 0.10.0)
   - Result (~> 3.0.0)
-  - RxSwift (~> 3.0.0-rc.1)
+  - RxSwift (= 3.0.0-rc.1)
 
 SPEC CHECKSUMS:
   Nimble: 5ea121a2eda60440287054cde077fc0ad22227b3
@@ -19,6 +19,6 @@ SPEC CHECKSUMS:
   Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
   RxSwift: d7a3819dd71789c473e3cbf1a0c02d58b2692739
 
-PODFILE CHECKSUM: a8567816652517a03b7a95a32f29d77b55949a84
+PODFILE CHECKSUM: 657df6995a23bcb28142c7b4a65b372cab466154
 
 COCOAPODS: 1.1.1

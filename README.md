@@ -1,5 +1,10 @@
 Rage for iOS
 =============================
+[![Travis CI](https://api.travis-ci.org/gspd-mobi/rage-ios.svg?branch=master)](https://travis-ci.org/gspd-mobi/rage-ios)
+[![Version](https://img.shields.io/cocoapods/v/Rage.svg?style=flat)](https://cocoapods.org/pods/Rage)
+[![License](https://img.shields.io/cocoapods/l/Rage.svg?style=flat)](LICENSE.txt)
+[![Platform](https://img.shields.io/cocoapods/p/Rage.svg?style=flat)](https://cocoapods.org/pods/Rage)
+
 <p align="center">
   <img height="340" src="web/img/logo.png" />
 </p>
