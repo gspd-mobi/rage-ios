@@ -1,8 +1,8 @@
 use_frameworks!
 
 def common_pods
-    pod 'RxSwift', '~> 3.0.0-beta.2'
-    pod 'ObjectMapper', '~> 2.0.0'
+    pod 'RxSwift', '~> 3.0.0-rc.1'
+    pod 'ObjectMapper', '~> 2.1.0'
     pod 'Result', '~> 3.0.0'
 end
 
@@ -18,7 +18,7 @@ end
 target 'RageTests' do
     common_pods
     pod 'Quick', '~> 0.10.0'
-    pod 'Nimble', '~> 5.0.0'
+    pod 'Nimble', '~> 5.1.0'
 end
 
 post_install do |installer|

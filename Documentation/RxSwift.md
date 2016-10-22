@@ -2,7 +2,7 @@ RxSwift
 =============================
 Install RxSwift using CocoaPods.
 ```ruby
-pod 'RxSwift', '~> 3.0.0-beta.2'
+pod 'RxSwift', '~> 3.0.0-rc.1'
 ```
 Then you can use Rage RxSwift features.
 

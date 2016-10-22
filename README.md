@@ -1,7 +1,7 @@
 Rage for iOS
 =============================
 <p align="center">
-  <img height="160" src="http://i.imgur.com/Q3MqH9x.png" />
+  <img height="340" src="http://i.imgur.com/Q3MqH9x.png" />
 </p>
 
 Pragmatic network abstraction layer for iOS applications.
@@ -73,12 +73,12 @@ That's it. Compact but powerful.
 ## Installation (CocoaPods) ##
 Add this dependency to Podfile and `pod install`
 ```ruby
-pod 'Rage',	'~> 0.6.1'
+pod 'Rage', '~> 0.6.1'
 ```
 If you want to use RxSwift and ObjectMapper features add them to Podfile too.
 ```ruby
-pod 'RxSwift', '~> 3.0.0-beta.2'
-pod 'ObjectMapper', '~> 2.0.0'
+pod 'RxSwift', '~> 3.0.0-rc.1'
+pod 'ObjectMapper', '~> 2.1.0'
 ```
 
 License

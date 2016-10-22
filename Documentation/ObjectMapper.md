@@ -2,7 +2,7 @@ ObjectMapper
 =============================
 Install ObjectMapper using CocoaPods.
 ```ruby
-pod 'ObjectMapper', '~> 2.0.0'
+pod 'ObjectMapper', '~> 2.1.0'
 ```
 
 Then you can use Rage ObjectMapper features. Basically all the same methods you can expect but using `Mappable` objects provided.
