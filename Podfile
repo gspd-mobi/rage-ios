@@ -17,8 +17,8 @@ end
 
 target 'RageTests' do
     common_pods
-    pod 'Quick', '~> 0.10.0'
-    pod 'Nimble', '~> 5.1.0'
+    pod 'Quick', :git => "https://github.com/Quick/Quick", :branch => "master"
+    pod 'Nimble', :git => "https://github.com/Quick/Nimble", :branch => "master"
 end
 
 post_install do |installer|
