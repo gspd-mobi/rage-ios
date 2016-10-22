@@ -15,7 +15,6 @@
 		5D7AA1B1557BE959038A39A3 /* UrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */; };
 		5D7AA1C68311D857580BD6B5 /* StubMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA30C600E591FBF47B181 /* StubMode.swift */; };
 		5D7AA1E642193FC1EE55D80F /* MultipartRageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA538C6E4F5A3638AF790 /* MultipartRageRequest.swift */; };
-		5D7AA1E74DF926531459229F /* Rage.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5D7AA4AD068266FB626E0B66 /* Rage.podspec */; };
 		5D7AA296D7038844004D5CC3 /* MultipartRageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA538C6E4F5A3638AF790 /* MultipartRageRequest.swift */; };
 		5D7AA2ADBF3C8E96C9A7606F /* RageObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA0A2EDEB7B06CFF6918F /* RageObjectMapper.swift */; };
 		5D7AA2CF1FDEAB219F857B1A /* TestErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAFB531E4BA1EEB49D957 /* TestErrorHandler.swift */; };
@@ -159,6 +158,7 @@
 		5D7AA632CD9EC5CD5ED7804E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D7AA755A7693163A6077844 /* TestAuthenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthenticator.swift; sourceTree = "<group>"; };
 		5D7AA79AFEEC347B18074842 /* RequestsCustomization.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = RequestsCustomization.md; path = Documentation/RequestsCustomization.md; sourceTree = "<group>"; };
+		5D7AA79FE2A1A2E219A1A01D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		5D7AA7A338D139BDE07EB748 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D7AA7ED9B86E240CC9A6162 /* RageClientConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageClientConfiguration.swift; sourceTree = "<group>"; };
 		5D7AA8083F5452317A215EE1 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
@@ -325,9 +325,10 @@
 				5D7AA632CD9EC5CD5ED7804E /* README.md */,
 				5D7AADAF06FD47162958627D /* LICENSE.txt */,
 				5D7AA4AD068266FB626E0B66 /* Rage.podspec */,
-				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
 				B723C0705F4746457B3A0F69 /* Pods */,
 				6F21BF15F9C4BCDB36CE9BFF /* Frameworks */,
+				5D7AA79FE2A1A2E219A1A01D /* .travis.yml */,
+				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
 			);
 			sourceTree = "<group>";
 		};
@@ -562,7 +563,6 @@
 				8A6748F41D6B37620064467F /* Assets.xcassets in Resources */,
 				5D7AA71420AAE6E571E2C9C6 /* LaunchScreen.storyboard in Resources */,
 				5D7AA734318F4A5BE91CAD75 /* Main.storyboard in Resources */,
-				5D7AA1E74DF926531459229F /* Rage.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
