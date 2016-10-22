@@ -1,3 +1,5 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 use_frameworks!
 
 def common_pods
@@ -17,8 +19,8 @@ end
 
 target 'RageTests' do
     common_pods
-    pod 'Quick', :git => "https://github.com/Quick/Quick", :branch => "master"
-    pod 'Nimble', :git => "https://github.com/Quick/Nimble", :branch => "master"
+    pod 'Quick', '~> 0.10.0'
+    pod 'Nimble', '~> 5.1.0'
 end
 
 post_install do |installer|

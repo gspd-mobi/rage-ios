@@ -6,41 +6,29 @@ PODS:
   - RxSwift (3.0.0-rc.1)
 
 DEPENDENCIES:
-  - Nimble (from `https://github.com/Quick/Nimble`, branch `master`)
+  - Nimble (~> 5.1.0)
   - ObjectMapper (~> 2.1.0)
-  - Quick (from `https://github.com/Quick/Quick`, branch `master`)
+  - Quick (~> 0.10.0)
   - Result (~> 3.0.0)
   - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`, branch `master`)
 
 EXTERNAL SOURCES:
-  Nimble:
-    :branch: master
-    :git: https://github.com/Quick/Nimble
-  Quick:
-    :branch: master
-    :git: https://github.com/Quick/Quick
   RxSwift:
     :branch: master
     :git: https://github.com/ReactiveX/RxSwift.git
 
 CHECKOUT OPTIONS:
-  Nimble:
-    :commit: 76c4cb3567f3492c00e84a1000ba8622355c8323
-    :git: https://github.com/Quick/Nimble
-  Quick:
-    :commit: 622e41066df638c00847caee2c4f0950b8e3e5cd
-    :git: https://github.com/Quick/Quick
   RxSwift:
     :commit: 6809510d0a9ab2e0b7e89193211158ef2257742b
     :git: https://github.com/ReactiveX/RxSwift.git
 
 SPEC CHECKSUMS:
-  Nimble: a82782078fc35ca5531ef95eb2a5f40ba31d028c
+  Nimble: 5ea121a2eda60440287054cde077fc0ad22227b3
   ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
   Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
   Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
   RxSwift: 00ffe5e4bc528e93765ccf04ab6408e39dd2a602
 
-PODFILE CHECKSUM: 749cb4816151f1059390f0b24048db7eac288a24
+PODFILE CHECKSUM: 1023998d6a6bb44732264918f76eee323313eb53
 
 COCOAPODS: 1.1.1
