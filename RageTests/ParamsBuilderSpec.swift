@@ -110,7 +110,6 @@ class ParamsBuilderSpec: QuickSpec {
                 let encodedString = builder.stringFromFieldParameters(
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word")])
-                expect(encodedString).to(equal("username=paul_k&password=pa  word"))
                 expect(["username=paul_k&password=pa  word",
                         "password=pa  word&username=paul_k"]).to(contain(encodedString))
             }
@@ -125,7 +124,6 @@ class ParamsBuilderSpec: QuickSpec {
                 let encodedString = builder.stringFromFieldParameters(
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word", encoded: true)])
-                expect(encodedString).to(equal("username=paul_k&password=pa%20%20word"))
                 expect(["username=paul_k&password=pa%20%20word",
                         "password=pa%20%20word&username=paul_k"]).to(contain(encodedString))
             }
