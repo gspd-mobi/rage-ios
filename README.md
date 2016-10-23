@@ -6,7 +6,7 @@ Rage for iOS
 [![Platform](https://img.shields.io/cocoapods/p/Rage.svg?style=flat)](https://cocoapods.org/pods/Rage)
 
 <p align="center">
-  <img height="340" src="web/img/logo.png" />
+  <img height="340" src="web/img/logo-text.png" />
 </p>
 
 Pragmatic network abstraction layer for iOS applications.
