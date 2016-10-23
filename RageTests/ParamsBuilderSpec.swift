@@ -45,7 +45,8 @@ class ParamsBuilderSpec: QuickSpec {
                         path: "/someRequest",
                         queryParameters: ["name": "Paul", "age": "24"],
                         pathParameters: [:])
-                expect(url).to(equal("http://example.com/api/someRequest?name=Paul&age=24"))
+                expect(["http://example.com/api/someRequest?name=Paul&age=24",
+                        "http://example.com/api/someRequest?age=24&name=Paul"]).to(contain(url))
             }
 
             it("can build url with 1 path param") {
@@ -110,6 +111,8 @@ class ParamsBuilderSpec: QuickSpec {
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word")])
                 expect(encodedString).to(equal("username=paul_k&password=pa  word"))
+                expect(["username=paul_k&password=pa  word",
+                        "password=pa  word&username=paul_k"]).to(contain(encodedString))
             }
 
             it("can build url encoded string with 1 encoded field parameter") {
@@ -123,6 +126,8 @@ class ParamsBuilderSpec: QuickSpec {
                         ["username": FieldParameter(value: "paul_k"),
                          "password": FieldParameter(value: "pa  word", encoded: true)])
                 expect(encodedString).to(equal("username=paul_k&password=pa%20%20word"))
+                expect(["username=paul_k&password=pa%20%20word",
+                        "password=pa%20%20word&username=paul_k"]).to(contain(encodedString))
             }
         }
 
