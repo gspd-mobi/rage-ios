@@ -56,7 +56,7 @@ class ExampleAPI {
                 "Api-Version": "1.1",
                 "Platform": "iOS"
         ])
-        .withPlugin(LoggingPlugin(logLevel: .full))
+        .withPlugin(LoggingPlugin(logLevel: .full, prettify: false))
         .withPlugin(ActivityIndicatorPlugin())
         .withAuthenticator(MyAuthenticator())
         .withErrorsHandlersClosure {

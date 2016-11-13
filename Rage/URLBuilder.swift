@@ -5,7 +5,10 @@ class URLBuilder {
     static let wrongUrlErrorMessage = "Wrong url provided for request"
 
     func fromRequest(_ rageRequest: RageRequest) -> URL {
-        let urlString = buildUrlString(rageRequest.baseUrl,
+        guard let baseUrl = rageRequest.baseUrl else {
+            preconditionFailure("Request url must be provided")
+        }
+        let urlString = buildUrlString(baseUrl,
                 path: rageRequest.methodPath,
                 queryParameters: rageRequest.queryParameters,
                 pathParameters: rageRequest.pathParameters)

@@ -1,6 +1,7 @@
 import Foundation
 
 public enum HttpMethod {
+
     case get
     case post
     case put
@@ -38,7 +39,6 @@ public enum HttpMethod {
         default:
             return true
         }
-
     }
 
 }

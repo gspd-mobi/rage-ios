@@ -1,7 +1,8 @@
 import Foundation
 
 open class RageClientConfiguration {
-    var baseUrl: String
+
+    var baseUrl: String?
     var timeoutMillis: Int = 60 * 1000
     var headers: [String:String] = [:]
     var contentType = ContentType.json
@@ -12,7 +13,8 @@ open class RageClientConfiguration {
         []
     }
 
-    init(baseUrl: String) {
+    init(baseUrl: String?) {
         self.baseUrl = baseUrl
     }
+
 }

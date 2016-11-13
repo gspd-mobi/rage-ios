@@ -1,18 +1,22 @@
 import Foundation
 
 public enum LogLevel: Int {
+
     case none = 0
     case basic = 1
     case medium = 2
     case full = 3
+
 }
 
 open class LoggingPlugin: RagePlugin {
 
     var logLevel: LogLevel
+    var prettify = true
 
-    public init(logLevel: LogLevel) {
+    public init(logLevel: LogLevel, prettify: Bool = true) {
         self.logLevel = logLevel
+        self.prettify = prettify
     }
 
     open func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest) {
@@ -112,8 +116,8 @@ open class LoggingPlugin: RagePlugin {
                 print("\(key): \(value)")
             }
 
-            if isJson(httpResponse) {
-                print(data.prettyJson() ?? "")
+            if prettify && isJson(httpResponse) {
+                print(data.prettyJsonString() ?? "")
             } else {
                 guard let resultString = String(data: data as Data,
                                                 encoding: String.Encoding.utf8) else {
@@ -153,8 +157,8 @@ open class LoggingPlugin: RagePlugin {
 
             logStatusCode(httpResponse.statusCode)
 
-            if isJson(httpResponse) {
-                print(data.prettyJson() ?? "")
+            if prettify && isJson(httpResponse) {
+                print(data.prettyJsonString() ?? "")
             } else {
                 guard let resultString = String(data: data as Data,
                                                 encoding: String.Encoding.utf8) else {

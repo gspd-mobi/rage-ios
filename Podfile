@@ -1,7 +1,7 @@
 use_frameworks!
 
 def common_pods
-    pod 'RxSwift',  :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
+    pod 'RxSwift',   '~> 3.0.1'
     pod 'ObjectMapper', '~> 2.1.0'
     pod 'Result', '~> 3.0.0'
 end
@@ -18,7 +18,7 @@ end
 target 'RageTests' do
     common_pods
     pod 'Quick', '~> 0.10.0'
-    pod 'Nimble', '~> 5.1.0'
+    pod 'Nimble', '~> 5.1.1'
 end
 
 post_install do |installer|

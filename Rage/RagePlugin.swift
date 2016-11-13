@@ -11,15 +11,15 @@ public protocol RagePlugin {
 public extension RagePlugin {
 
     func willSendRequest(_ request: RageRequest) {
-
+        // No operations.
     }
 
     func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest) {
-
+        // No operations.
     }
 
     func didSendRequest(_ request: RageRequest, rawRequest: URLRequest) {
-
+        // No operations.
     }
 
 }

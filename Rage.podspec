@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Rage"
-  s.version          = "0.7.0"
+  s.version          = "0.8.0"
   s.summary          = "Pragmatic network abstraction layer for iOS applications"
   s.homepage         = "https://github.com/gspd-mobi/rage-ios"
   s.license          = 'MIT'
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = 'Rage/Dependencies/RxSwift/*.swift'
     ss.dependency "Rage/Core"
-    ss.dependency 'RxSwift', '3.0.0-rc.1'
+    ss.dependency 'RxSwift', ''~> 3.0.1'
   end
 
   s.subspec "ObjectMapper" do |ss|

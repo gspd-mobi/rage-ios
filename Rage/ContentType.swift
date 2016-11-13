@@ -1,6 +1,7 @@
 import Foundation
 
 public enum ContentType {
+
     case json
     case urlEncoded
     case multipartFormData
@@ -18,4 +19,5 @@ public enum ContentType {
             return value
         }
     }
+
 }

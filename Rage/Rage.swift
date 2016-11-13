@@ -6,6 +6,10 @@ open class Rage {
         // No operations.
     }
 
+    open class func builder() -> Builder {
+        return Builder()
+    }
+
     open class func builderWithBaseUrl(_ baseUrl: String) -> Builder {
         return Builder(baseUrl: baseUrl)
     }
@@ -14,7 +18,7 @@ open class Rage {
 
         let config: RageClientConfiguration
 
-        fileprivate init(baseUrl: String) {
+        fileprivate init(baseUrl: String? = nil) {
             config = RageClientConfiguration(baseUrl: baseUrl)
         }
 
@@ -33,7 +37,7 @@ open class Rage {
             return self
         }
 
-        public func withHeaderDictionary(_ dictionary: [String:String]) -> Builder {
+        public func withHeaderDictionary(_ dictionary: [String: String]) -> Builder {
             for (key, value) in dictionary {
                 config.headers[key] = value
             }

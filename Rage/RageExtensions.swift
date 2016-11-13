@@ -2,7 +2,7 @@ import Foundation
 
 extension URLSession {
 
-    func syncTask(_ request: URLRequest) -> (Data?, URLResponse?, NSError?) {
+    func syncTask(with request: URLRequest) -> (Data?, URLResponse?, NSError?) {
         var data: Data?, response: URLResponse?, error: NSError?
 
         let semaphore = DispatchSemaphore(value: 0)
@@ -21,16 +21,20 @@ extension URLSession {
 
 extension Data {
 
-    func prettyJson() -> String? {
+    func prettyJsonString() -> String? {
         do {
             let jsonData = try JSONSerialization
-            .jsonObject(with: self, options: JSONSerialization.ReadingOptions())
+                .jsonObject(with: self, options: JSONSerialization.ReadingOptions())
             let data = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
             let string = String(data: data, encoding: String.Encoding.utf8)
             return string
         } catch {
             return ""
         }
+    }
+
+    func utf8String() -> String? {
+        return String(data: self, encoding: String.Encoding.utf8)
     }
 
 }
@@ -54,7 +58,7 @@ extension String {
         return encodedString
     }
 
-    func makeUtf8Data() -> Data? {
+    func utf8Data() -> Data? {
         return data(using: String.Encoding.utf8)
     }
 

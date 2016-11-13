@@ -163,7 +163,7 @@ class RageRequestSpec: QuickSpec {
 
                 it("can be authorized with request authenticator") {
                     let auth = TestAuthenticator()
-                    _ = request.authorized(auth)
+                    _ = request.authorized(with: auth)
                     expect(request.authenticator).toNot(beNil())
                 }
             }
@@ -205,6 +205,48 @@ class RageRequestSpec: QuickSpec {
                     expect(String(data: request.stubData!.data, encoding: String.Encoding.utf8)).to(equal("{}"))
                     expect(request.stubData!.mode).to(equal(StubMode.delayed(2014)))
                     expect(request.stubData!.mode).toNot(equal(StubMode.delayed(1000)))
+                }
+            }
+
+            describe("error handlers") {
+                it("can be set") {
+                    let errorHandler = TestErrorHandler()
+                    _ = request.withErrorHandlers([errorHandler])
+                    expect(request.errorHandlers.count).to(equal(1))
+                }
+            }
+
+            describe("configuration") {
+                it("timeout can be set") {
+                    _ = request.withTimeoutMillis(1234)
+                    expect(request.timeoutMillis).to(equal(1234))
+                }
+            }
+
+            describe("session") {
+                it("can be created") {
+                    _ = request.withTimeoutMillis(4321)
+                    let session = request.createSession()
+                    expect(session.configuration.timeoutIntervalForRequest).to(equal(4.321))
+                    expect(session.configuration.timeoutIntervalForResource).to(equal(4.321))
+                }
+            }
+
+            describe("special request") {
+                it("can create body request") {
+                    request.methodPath = "/test"
+                    request.authenticator = TestAuthenticator()
+                    let bodyRequest = request.withBody()
+                    expect(request.httpMethod).to(equal(bodyRequest.httpMethod))
+                    expect(bodyRequest.methodPath).to(equal(request.methodPath))
+                    expect(request.baseUrl).to(equal(bodyRequest.baseUrl))
+
+                    expect(request.queryParameters).to(equal(bodyRequest.queryParameters))
+                    expect(request.pathParameters).to(equal(bodyRequest.pathParameters))
+                    expect(request.headers).to(equal(bodyRequest.headers))
+                    expect(request.authenticator).toNot(beNil())
+                    expect(request.timeoutMillis).to(equal(bodyRequest.timeoutMillis))
+                    expect(request.plugins.count).to(equal(bodyRequest.plugins.count))
                 }
             }
         }

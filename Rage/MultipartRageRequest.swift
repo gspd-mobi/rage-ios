@@ -29,19 +29,19 @@ open class MultipartRageRequest: RageRequest {
         return self
     }
 
-    open func withCustomBoundary(_ boundary: String?) -> MultipartRageRequest {
+    open func boundary(_ boundary: String?) -> MultipartRageRequest {
         self.customBoundary = boundary
         return self
     }
 
-    fileprivate func generateBoundary() -> String {
+    fileprivate func makeBoundary() -> String {
         return "----rage.boundary-\(UUID().uuidString)"
     }
 
     override open func rawRequest() -> URLRequest {
         let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(url: url)
-        let boundary = customBoundary ?? generateBoundary()
+        let boundary = customBoundary ?? makeBoundary()
         for (key, value) in headers {
             if key == "Content-Type" {
                 request.addValue("\(value); boundary=\(boundary)", forHTTPHeaderField: key)
@@ -52,23 +52,17 @@ open class MultipartRageRequest: RageRequest {
         request.httpMethod = httpMethod.stringValue()
 
         if httpMethod.hasBody() {
-            request.httpBody = createBodyWithBoundary(boundary)
+            request.httpBody = makeBodyData(withBoundary: boundary)
         }
         return request as URLRequest
     }
 
-    fileprivate func createBodyWithBoundary(_ boundary: String) -> Data {
+    fileprivate func makeBodyData(withBoundary boundary: String) -> Data {
         let body = NSMutableData()
 
-        guard let boundaryData = boundary.makeUtf8Data() else {
-            preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
-        }
-
-        guard let extraDashesData = "--".makeUtf8Data() else {
-            preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
-        }
-
-        guard let lineTerminatorData = "\r\n".makeUtf8Data() else {
+        guard let boundaryData = boundary.utf8Data(),
+              let extraDashesData = "--".utf8Data(),
+              let lineTerminatorData = "\r\n".utf8Data() else {
             preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
         }
 
@@ -79,10 +73,10 @@ open class MultipartRageRequest: RageRequest {
                 contentDispositionString += "; filename=\"\(fileName)\""
             }
 
-            guard let contentDispositionData = contentDispositionString.makeUtf8Data() else {
+            guard let contentDispositionData = contentDispositionString.utf8Data() else {
                 continue
             }
-            guard let contentTypeData = "Content-Type: \(value.mimeType)".makeUtf8Data() else {
+            guard let contentTypeData = "Content-Type: \(value.mimeType)".utf8Data() else {
                 continue
             }
 

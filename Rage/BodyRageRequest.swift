@@ -22,7 +22,7 @@ open class BodyRageRequest: RageRequest {
     }
 
     open func bodyString(_ value: String) -> BodyRageRequest {
-        body = value.makeUtf8Data()
+        body = value.utf8Data()
         return self
     }
 

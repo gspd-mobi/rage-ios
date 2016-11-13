@@ -110,14 +110,14 @@ extension Data {
 
 extension Mappable {
 
-    func typedObject() -> TypedObject? {
+    func makeTypedObject() -> TypedObject? {
         guard let json = toJSONString() else {
             return nil
         }
-        guard let data = json.makeUtf8Data() else {
+        guard let data = json.utf8Data() else {
             return nil
         }
-        return TypedObject(data, mimeType: "application/json")
+        return TypedObject(data, mimeType: ContentType.json.stringValue())
     }
 
 }

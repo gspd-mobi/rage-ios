@@ -4,7 +4,7 @@ import Result
 open class RageRequest {
 
     var httpMethod: HttpMethod
-    var baseUrl: String
+    var baseUrl: String?
     var methodPath: String?
     var queryParameters: [String:String] = [:]
     var pathParameters: [String:String] = [:]
@@ -18,7 +18,7 @@ open class RageRequest {
 
     var stubData: StubData?
 
-    init(httpMethod: HttpMethod, baseUrl: String) {
+    init(httpMethod: HttpMethod, baseUrl: String?) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
     }
@@ -95,7 +95,7 @@ open class RageRequest {
         return self
     }
 
-    open func authorized(_ authenticator: Authenticator) -> RageRequest {
+    open func authorized(with authenticator: Authenticator) -> RageRequest {
         self.authenticator = authenticator
         return authorized()
     }
@@ -114,7 +114,7 @@ open class RageRequest {
     }
 
     open func stub(_ string: String, mode: StubMode = .immediate) -> RageRequest {
-        guard let data = string.makeUtf8Data() else {
+        guard let data = string.utf8Data() else {
             return self
         }
         return self.stub(data, mode: mode)
@@ -141,17 +141,6 @@ open class RageRequest {
         configuration.timeoutIntervalForResource = timeoutSeconds
 
         return URLSession(configuration: configuration)
-    }
-
-    func createErrorFromResponse(_ rageResponse: RageResponse) -> RageError {
-        if rageResponse.error == nil && rageResponse.data?.count ?? 0 == 0 {
-            return RageError(type: .emptyNetworkResponse)
-        }
-        if rageResponse.error == nil {
-            return RageError(type: .http, rageResponse: rageResponse)
-        }
-
-        return RageError(type: .raw, rageResponse: rageResponse)
     }
 
     // MARK: Complex request abstractions
@@ -184,7 +173,7 @@ open class RageRequest {
         }
 
         let session = createSession()
-        let (data, response, error) = session.syncTask(request)
+        let (data, response, error) = session.syncTask(with: request)
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
 
         sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
@@ -192,7 +181,7 @@ open class RageRequest {
         if rageResponse.isSuccess() {
             return .success(rageResponse)
         }
-        let rageError = createErrorFromResponse(rageResponse)
+        let rageError = RageError(response: rageResponse)
         var result: Result<RageResponse, RageError> = .failure(rageError)
         for handler in errorHandlers {
             if handler.enabled && handler.canHandleError(rageError) {
