@@ -206,6 +206,26 @@ class RageRequestSpec: QuickSpec {
                     expect(request.stubData!.mode).to(equal(StubMode.delayed(2014)))
                     expect(request.stubData!.mode).toNot(equal(StubMode.delayed(1000)))
                 }
+                it("can get is stubbed") {
+                    expect(request.stubData).to(beNil())
+                    expect(request.isStubbed()).to(equal(false))
+                    _ = request.stub("{}", mode: .never)
+                    expect(request.isStubbed()).to(equal(false))
+                    _ = request.stub("{}", mode: .delayed(2016))
+                    expect(request.isStubbed()).to(equal(true))
+                    _ = request.stub("{}", mode: .immediate)
+                    expect(request.isStubbed()).to(equal(true))
+                }
+                it("can get stub data") {
+                    expect(request.stubData).to(beNil())
+                    expect(request.getStubData()).to(beNil())
+                    _ = request.stub("{}", mode: .never)
+                    expect(request.getStubData()).to(beNil())
+                    _ = request.stub("{}", mode: .delayed(2016))
+                    expect(request.getStubData()).to(equal("{}".utf8Data()))
+                    _ = request.stub("{}", mode: .immediate)
+                    expect(request.getStubData()).to(equal("{}".utf8Data()))
+                }
             }
 
             describe("error handlers") {
@@ -248,6 +268,40 @@ class RageRequestSpec: QuickSpec {
                     expect(request.timeoutMillis).to(equal(bodyRequest.timeoutMillis))
                     expect(request.plugins.count).to(equal(bodyRequest.plugins.count))
                 }
+                it("can create multipart request") {
+                    request.methodPath = "/test"
+                    request.authenticator = TestAuthenticator()
+                    let multipartRequest = request.multipart()
+                    expect(request.httpMethod).to(equal(multipartRequest.httpMethod))
+                    expect(multipartRequest.methodPath).to(equal(request.methodPath))
+                    expect(request.baseUrl).to(equal(multipartRequest.baseUrl))
+
+                    expect(request.queryParameters).to(equal(multipartRequest.queryParameters))
+                    expect(request.pathParameters).to(equal(multipartRequest.pathParameters))
+                    expect(request.headers.count).to(equal(multipartRequest.headers.count - 1))
+                    expect(multipartRequest.headers["Content-Type"]).to(equal("multipart/form-data"))
+                    expect(request.authenticator).toNot(beNil())
+                    expect(request.timeoutMillis).to(equal(multipartRequest.timeoutMillis))
+                    expect(request.plugins.count).to(equal(multipartRequest.plugins.count))
+                }
+                it("can create form url encoded request") {
+                    request.methodPath = "/test"
+                    request.authenticator = TestAuthenticator()
+                    let urlEncodedRequest = request.formUrlEncoded()
+                    expect(request.httpMethod).to(equal(urlEncodedRequest.httpMethod))
+                    expect(urlEncodedRequest.methodPath).to(equal(request.methodPath))
+                    expect(request.baseUrl).to(equal(urlEncodedRequest.baseUrl))
+
+                    expect(request.queryParameters).to(equal(urlEncodedRequest.queryParameters))
+                    expect(request.pathParameters).to(equal(urlEncodedRequest.pathParameters))
+                    expect(request.headers.count).to(equal(urlEncodedRequest.headers.count - 1))
+                    expect(urlEncodedRequest.headers["Content-Type"])
+                        .to(equal("application/x-www-form-urlencoded"))
+                    expect(request.authenticator).toNot(beNil())
+                    expect(request.timeoutMillis).to(equal(urlEncodedRequest.timeoutMillis))
+                    expect(request.plugins.count).to(equal(urlEncodedRequest.plugins.count))
+                }
+
             }
         }
     }

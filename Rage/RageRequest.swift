@@ -297,7 +297,7 @@ open class RageRequest {
         }
     }
 
-    fileprivate func getStubData() -> Data? {
+    func getStubData() -> Data? {
         guard let s = stubData else {
             return nil
         }
