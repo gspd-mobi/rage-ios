@@ -2,6 +2,7 @@ import Foundation
 import Quick
 import Nimble
 
+// swiftlint:disable type_body_length
 class RageRequestSpec: QuickSpec {
 
     // swiftlint:disable function_body_length

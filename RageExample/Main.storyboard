@@ -1,61 +1,53 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bMm-OX-HXF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="ziP-Oj-XXU">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RageExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gv8-Sj-smU">
-                                <rect key="frame" x="20" y="70" width="560" height="530"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRj-0h-nmJ">
-                                <rect key="frame" x="20" y="20" width="560" height="40"/>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.28235294119999998" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="kFm-hs-cPh"/>
-                                </constraints>
-                                <state key="normal" title="Request">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hrl-yZ-25Q"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="gv8-Sj-smU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0d5-LN-MoL"/>
-                            <constraint firstItem="LRj-0h-nmJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3oe-HC-IQo"/>
-                            <constraint firstItem="LRj-0h-nmJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="S2F-Jx-8ix"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LRj-0h-nmJ" secondAttribute="trailing" id="arf-ab-GGM"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gv8-Sj-smU" secondAttribute="bottom" id="cyT-70-Vlj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gv8-Sj-smU" secondAttribute="trailing" id="i4R-4N-rp8"/>
-                            <constraint firstItem="gv8-Sj-smU" firstAttribute="top" secondItem="LRj-0h-nmJ" secondAttribute="bottom" constant="10" id="rBQ-6c-owK"/>
-                        </constraints>
-                    </view>
+                <navigationController id="bMm-OX-HXF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Hup-ay-xE4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.29411764705882354" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
                     <connections>
-                        <outlet property="textView" destination="gv8-Sj-smU" id="tuM-ES-OEL"/>
+                        <segue destination="y9U-I7-Pmo" kind="relationship" relationship="rootViewController" id="V7i-yW-OwM"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLm-aN-WRM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="155" y="257"/>
+            <point key="canvasLocation" x="30" y="-268"/>
+        </scene>
+        <!--Rage-->
+        <scene sceneID="SDD-lJ-gbV">
+            <objects>
+                <tableViewController id="y9U-I7-Pmo" customClass="RepoTableViewController" customModule="RageExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="JRf-Zo-5ZT">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="y9U-I7-Pmo" id="7tb-CI-2cO"/>
+                            <outlet property="delegate" destination="y9U-I7-Pmo" id="oD0-xO-Igo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Rage" id="CRW-DC-8Ov">
+                        <barButtonItem key="rightBarButtonItem" title="Refresh" id="lVh-Hx-Cvj">
+                            <connections>
+                                <action selector="didTapRefreshButton:" destination="y9U-I7-Pmo" id="EcX-kZ-UGR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eZI-tR-TK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="791" y="-267"/>
         </scene>
     </scenes>
 </document>

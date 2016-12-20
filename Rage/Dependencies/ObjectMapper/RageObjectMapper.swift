@@ -85,7 +85,6 @@ extension RageRequest {
         })
     }
 
-
 }
 
 extension Data {
