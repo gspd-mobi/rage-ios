@@ -2,23 +2,23 @@ PODS:
   - Nimble (5.1.1)
   - ObjectMapper (2.1.0)
   - Quick (1.0.0)
-  - Result (3.0.0)
+  - Result (3.1.0)
   - RxSwift (3.0.1)
 
 DEPENDENCIES:
   - Nimble (~> 5.1.1)
   - ObjectMapper (~> 2.1.0)
   - Quick (~> 1.0.0)
-  - Result (~> 3.0.0)
+  - Result (~> 3.1.0)
   - RxSwift (~> 3.0.1)
 
 SPEC CHECKSUMS:
   Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
   ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
   Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
-  Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
+  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
 
-PODFILE CHECKSUM: 85cfa94b3dcff44e7650d5917b6ab546bf8fa4cc
+PODFILE CHECKSUM: 1c7c223d80a0475e0f2b897a3d89ac5e2e7c0c97
 
 COCOAPODS: 1.1.1
