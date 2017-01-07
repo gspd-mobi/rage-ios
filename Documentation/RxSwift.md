@@ -1,8 +1,10 @@
 RxSwift
 =============================
-Install RxSwift using CocoaPods.
+Use RxSwift subspec of Rage
 ```ruby
-pod 'RxSwift',   '~> 3.0.1'
+pod "Rage/RxSwift", "~> 0.8.1"
+# If you want to use both RxSwift and ObjectMapper then use RxSwiftAndObjectMapper subspec
+# pod "Rage/RxSwiftAndObjectMapper", "~> 0.8.1"
 ```
 Then you can use Rage RxSwift features.
 
