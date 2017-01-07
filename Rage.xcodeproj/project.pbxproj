@@ -140,7 +140,6 @@
 		5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageExtensions.swift; sourceTree = "<group>"; };
 		5D7AA16F930E63B5C4E5089E /* StubData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubData.swift; sourceTree = "<group>"; };
 		5D7AA1801D16E7AB3F09AD4D /* RageClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageClient.swift; sourceTree = "<group>"; };
-		5D7AA18F17E5DC1D3CD7C10E /* ObjectMapper.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ObjectMapper.md; path = Documentation/ObjectMapper.md; sourceTree = "<group>"; };
 		5D7AA253B3CC4970E4CFB5C6 /* RageRequestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRequestSpec.swift; sourceTree = "<group>"; };
 		5D7AA2BC4744202A073AE75D /* ContributorsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributorsTableViewController.swift; sourceTree = "<group>"; };
 		5D7AA2FD7CB4399F66B06DEE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -153,36 +152,28 @@
 		5D7AA4AB5741E12AA09C9FE0 /* BodyRageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyRageRequest.swift; sourceTree = "<group>"; };
 		5D7AA4AD068266FB626E0B66 /* Rage.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = Rage.podspec; sourceTree = "<group>"; };
 		5D7AA51C1CF6F78649676154 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D7AA5267BEF8E7AF286F991 /* MultipartRequests.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = MultipartRequests.md; path = Documentation/MultipartRequests.md; sourceTree = "<group>"; };
-		5D7AA52BC767377377DAB31A /* RequestsExecution.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = RequestsExecution.md; path = Documentation/RequestsExecution.md; sourceTree = "<group>"; };
 		5D7AA53697C908211ECE80BF /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		5D7AA538C6E4F5A3638AF790 /* MultipartRageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartRageRequest.swift; sourceTree = "<group>"; };
 		5D7AA6010DF92B82EE914961 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		5D7AA60ED89EB1D7051B1BEB /* RequestDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDescription.swift; sourceTree = "<group>"; };
 		5D7AA632CD9EC5CD5ED7804E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D7AA755A7693163A6077844 /* TestAuthenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthenticator.swift; sourceTree = "<group>"; };
-		5D7AA79AFEEC347B18074842 /* RequestsCustomization.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = RequestsCustomization.md; path = Documentation/RequestsCustomization.md; sourceTree = "<group>"; };
 		5D7AA79FE2A1A2E219A1A01D /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		5D7AA7A338D139BDE07EB748 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D7AA7ED9B86E240CC9A6162 /* RageClientConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageClientConfiguration.swift; sourceTree = "<group>"; };
 		5D7AA8083F5452317A215EE1 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
-		5D7AA8C7FADAE40E2835A776 /* Plugins.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Plugins.md; path = Documentation/Plugins.md; sourceTree = "<group>"; };
-		5D7AA8F631A8D2A224695083 /* RxSwift.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = RxSwift.md; path = Documentation/RxSwift.md; sourceTree = "<group>"; };
 		5D7AA94210E97028A6ADA16E /* ActivityIndicatorPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPlugin.swift; sourceTree = "<group>"; };
 		5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5D7AA9F2BAD9E92587DE60EF /* UrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlBuilder.swift; sourceTree = "<group>"; };
 		5D7AAA2ED83599A807D03DD6 /* Rage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rage.swift; sourceTree = "<group>"; };
 		5D7AAA9B8A155171C0902D34 /* ExampleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAPI.swift; sourceTree = "<group>"; };
 		5D7AAABA02C265EC48DE010E /* RageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageResponse.swift; sourceTree = "<group>"; };
-		5D7AAAF09A096CC09E79A0B5 /* UrlEncodedRequests.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = UrlEncodedRequests.md; path = Documentation/UrlEncodedRequests.md; sourceTree = "<group>"; };
 		5D7AAB58337201A42DD3EBC6 /* StubModeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubModeExtension.swift; sourceTree = "<group>"; };
 		5D7AAB6F79FF0F8B8A4D04C1 /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
 		5D7AAB714E0814604A077C4A /* TypedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypedObject.swift; sourceTree = "<group>"; };
 		5D7AABE84706F0D726F56CAE /* RageClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageClientSpec.swift; sourceTree = "<group>"; };
 		5D7AAC5C02D8D4CB72D42431 /* GithubError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubError.swift; sourceTree = "<group>"; };
 		5D7AACA3FA4BE9D444F80A91 /* TestPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPlugin.swift; sourceTree = "<group>"; };
-		5D7AACB0190EF2AD52A0CC44 /* BodyRequests.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = BodyRequests.md; path = Documentation/BodyRequests.md; sourceTree = "<group>"; };
-		5D7AACD041122F166B279B1D /* ErrorHandling.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ErrorHandling.md; path = Documentation/ErrorHandling.md; sourceTree = "<group>"; };
 		5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D7AAD25133CE41969B1B048 /* RageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageRequest.swift; sourceTree = "<group>"; };
@@ -193,7 +184,6 @@
 		5D7AAE6E67626F8054F85A65 /* HttpMethodExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethodExtension.swift; sourceTree = "<group>"; };
 		5D7AAE7B6F8D5EE0D8374396 /* FormUrlEncodedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormUrlEncodedRequest.swift; sourceTree = "<group>"; };
 		5D7AAEE25ABE680A25C3C18A /* RageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageError.swift; sourceTree = "<group>"; };
-		5D7AAEFA79B2FEA1359D6C36 /* ResponsesStub.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ResponsesStub.md; path = Documentation/ResponsesStub.md; sourceTree = "<group>"; };
 		5D7AAFB531E4BA1EEB49D957 /* TestErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestErrorHandler.swift; sourceTree = "<group>"; };
 		815B5A2DFB173B797B737907 /* Pods-RageExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.release.xcconfig"; sourceTree = "<group>"; };
 		8A2379F81E093EEF00D20E72 /* RepoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewController.swift; sourceTree = "<group>"; };
@@ -305,16 +295,6 @@
 				59BABD01308B645A3D15ABEF /* Pods_Rage.framework */,
 				8B4FB44182B4551825A6968F /* Pods_RageExample.framework */,
 				47E34C933CD31EAC73F744D1 /* Pods_RageTests.framework */,
-				5D7AA79AFEEC347B18074842 /* RequestsCustomization.md */,
-				5D7AA52BC767377377DAB31A /* RequestsExecution.md */,
-				5D7AAEFA79B2FEA1359D6C36 /* ResponsesStub.md */,
-				5D7AA8F631A8D2A224695083 /* RxSwift.md */,
-				5D7AA18F17E5DC1D3CD7C10E /* ObjectMapper.md */,
-				5D7AACD041122F166B279B1D /* ErrorHandling.md */,
-				5D7AA8C7FADAE40E2835A776 /* Plugins.md */,
-				5D7AACB0190EF2AD52A0CC44 /* BodyRequests.md */,
-				5D7AA5267BEF8E7AF286F991 /* MultipartRequests.md */,
-				5D7AAAF09A096CC09E79A0B5 /* UrlEncodedRequests.md */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

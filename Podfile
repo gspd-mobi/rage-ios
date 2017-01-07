@@ -17,7 +17,7 @@ end
 
 target 'RageTests' do
     common_pods
-    pod 'Quick', '~> 0.10.0'
+    pod 'Quick', '~> 1.0.0'
     pod 'Nimble', '~> 5.1.1'
 end
 

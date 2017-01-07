@@ -304,6 +304,15 @@ class RageRequestSpec: QuickSpec {
                 }
 
             }
+
+            describe("execute") {
+                it("can be done sync for stub") {
+                    request.stub("{}".utf8Data()!)
+                    let result = request.execute()
+                    result
+                }
+
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core"
 
   s.subspec "Core" do |ss|
-    ss.source_files = 'Rage/*.swift'
+    ss.source_files = '{Rage/*.swift,Rage/Plugins/*.swift}'
     ss.framework = "Foundation"
     ss.dependency 'Result', '~> 3.0.0'
   end
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = 'Rage/Dependencies/RxSwift/*.swift'
     ss.dependency "Rage/Core"
-    ss.dependency 'RxSwift', ~> 3.0.1'
+    ss.dependency 'RxSwift', '~> 3.0.1'
   end
 
   s.subspec "ObjectMapper" do |ss|
