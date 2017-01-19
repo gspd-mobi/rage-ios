@@ -39,10 +39,6 @@ extension RageError {
 extension RageError {
 
     convenience init(response: RageResponse) {
-        if response.error == nil && response.data?.count ?? 0 == 0 {
-            self.init(type: .emptyNetworkResponse)
-            return
-        }
         if response.error == nil {
             self.init(type: .http, rageResponse: response)
             return
