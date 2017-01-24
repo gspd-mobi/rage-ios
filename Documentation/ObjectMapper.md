@@ -2,9 +2,9 @@ ObjectMapper
 =============================
 Use ObjectMapper subspec of Rage
 ```ruby
-pod "Rage/ObjectMapper", "~> 0.8.1"
+pod "Rage/ObjectMapper", "~> 0.8.3"
 # If you want to use both RxSwift and ObjectMapper then use RxSwiftAndObjectMapper subspec
-# pod "Rage/RxSwiftAndObjectMapper", "~> 0.8.1"
+# pod "Rage/RxSwiftAndObjectMapper", "~> 0.8.3"
 ```
 
 Then you can use Rage ObjectMapper features. Basically all the same methods you can expect but using `Mappable` objects provided.

@@ -1,17 +1,25 @@
 Error Handling
 =============================
-There is `ErrorHandler` protocol which should be used to create your own handlers for specifying how to handle some error.
+There is `ErrorHandler` class which subclasses should be used to create your own handlers for specifying how to handle some error.
 
 ```swift
-public protocol ErrorHandler {
+open class ErrorHandler {
 
-    var enabled: Bool { get set }
+    open var enabled: Bool = true
 
-    func canHandleError(error: RageError) -> Bool
+    public init() {
+        // No operations.
+    }
 
-    func handleErrorForRequest(request: RageRequest,
+    open func canHandleError(_ error: RageError) -> Bool {
+        return false
+    }
+
+    open func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
-        -> Result<RageResponse, RageError>
+        -> Result<RageResponse, RageError> {
+            return result
+    }
 
 }
 ```
@@ -39,13 +47,11 @@ Let's say we need to handle `Unauthorized 401` for any request and do something 
 ```swift
 class AuthErrorHandler: ErrorHandler {
 
-    var enabled = true
-
-    func canHandleError(error: RageError) -> Bool {
+    override func canHandleError(_ error: RageError) -> Bool {
         return error.statusCode() == 401
     }
 
-    func handleErrorForRequest(request: RageRequest,
+    override func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
                     -> Result<RageResponse, RageError> {
         // Here is very simple example of retrying request once after repeated auth request
@@ -55,7 +61,7 @@ class AuthErrorHandler: ErrorHandler {
                 break
             }
             token = String(data: data, encoding: String.Encoding.utf8)!
-            self.enabled = false // We disable this handler to avoid infinite loop
+            self.enabled = false
             return request.authorized().execute()
         case .failure(let error):
             // Logout logic / opening login screen or something
