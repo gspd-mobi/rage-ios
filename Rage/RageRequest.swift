@@ -108,6 +108,10 @@ open class RageRequest {
         }
     }
 
+    open func isAuthorized() -> Bool {
+        return authenticator != nil
+    }
+
     open func stub(_ data: Data, mode: StubMode = .immediate) -> RageRequest {
         self.stubData = StubData(data: data, mode: mode)
         return self
