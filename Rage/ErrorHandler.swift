@@ -1,28 +1,22 @@
 import Foundation
 import Result
 
-public protocol ErrorHandler {
+open class ErrorHandler {
 
-    var enabled: Bool { get set }
+    open var enabled: Bool = true
 
-    func canHandleError(_ error: RageError) -> Bool
+    public init() {
+        // No operations.
+    }
 
-    func handleErrorForRequest(_ request: RageRequest,
-                               result: Result<RageResponse, RageError>)
-        -> Result<RageResponse, RageError>
-
-}
-
-public extension ErrorHandler {
-
-    func canHandleError(_ error: RageError) -> Bool {
+    open func canHandleError(_ error: RageError) -> Bool {
         return false
     }
 
-    func handleErrorForRequest(_ request: RageRequest,
+    open func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
         -> Result<RageResponse, RageError> {
-        return result
+            return result
     }
 
 }

@@ -15,13 +15,11 @@ class MyAuthenticator: Authenticator {
 
 class AuthErrorHandler: ErrorHandler {
 
-    var enabled = true
-
-    func canHandleError(_ error: RageError) -> Bool {
+    override func canHandleError(_ error: RageError) -> Bool {
         return error.statusCode() == 401
     }
 
-    func handleErrorForRequest(_ request: RageRequest,
+    override func handleErrorForRequest(_ request: RageRequest,
                                result: Result<RageResponse, RageError>)
                     -> Result<RageResponse, RageError> {
         switch ExampleAPI.sharedInstance.authSync() {
