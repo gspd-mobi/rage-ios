@@ -48,9 +48,9 @@ extension CharacterSet {
 
 }
 
-extension String {
+public extension String {
 
-    func urlEncoded() -> String {
+    public func urlEncoded() -> String {
         guard let encodedString = self.addingPercentEncoding(
                 withAllowedCharacters: .URLQueryParameterAllowedCharacterSet()) else {
             preconditionFailure("Error while encoding string \"\(self)\"")
@@ -58,7 +58,7 @@ extension String {
         return encodedString
     }
 
-    func utf8Data() -> Data? {
+    public func utf8Data() -> Data? {
         return data(using: String.Encoding.utf8)
     }
 

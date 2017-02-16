@@ -6,7 +6,19 @@ extension BodyRageRequest {
 
     static let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
 
-    public func bodyJson(_ value: Mappable) -> BodyRageRequest {
+    public func bodyJson<T: Mappable>(_ value: T) -> BodyRageRequest {
+        if !httpMethod.hasBody() {
+            preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
+        }
+
+        guard let json = value.toJSONString() else {
+            return self
+        }
+        _ = contentType(.json)
+        return bodyString(json)
+    }
+
+    public func bodyJson<T: Mappable>(_ value: [T]) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
         }
@@ -24,7 +36,14 @@ extension RageRequest {
 
     static let jsonParsingErrorMessage = "Couldn't parse object from JSON"
 
-    public func stub(_ value: Mappable, mode: StubMode = .immediate) -> RageRequest {
+    public func stub<T: Mappable>(_ value: T, mode: StubMode = .immediate) -> RageRequest {
+        guard let json = value.toJSONString() else {
+            return self
+        }
+        return self.stub(json, mode: mode)
+    }
+
+    public func stub<T: Mappable>(_ value: [T], mode: StubMode = .immediate) -> RageRequest {
         guard let json = value.toJSONString() else {
             return self
         }
@@ -109,7 +128,21 @@ extension Data {
 
 extension Mappable {
 
-    func makeTypedObject() -> TypedObject? {
+    public func makeTypedObject() -> TypedObject? {
+        guard let json = toJSONString() else {
+            return nil
+        }
+        guard let data = json.utf8Data() else {
+            return nil
+        }
+        return TypedObject(data, mimeType: ContentType.json.stringValue())
+    }
+
+}
+
+extension Array where Element: Mappable {
+
+    public func makeTypedObject() -> TypedObject? {
         guard let json = toJSONString() else {
             return nil
         }

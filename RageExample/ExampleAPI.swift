@@ -83,6 +83,7 @@ class ExampleAPI {
     }
 
     func multipartRegister() -> Observable<String> {
+        let users: [GithubUser] = [GithubUser.init(email: "p.k@gspd.mobi")]
         return client.post("/register")
                 .multipart()
                 .part(TypedObject("123".data(using: String.Encoding.utf8)!,
@@ -91,6 +92,7 @@ class ExampleAPI {
                         mimeType: "application/text", fileName: "digits.txt"), name: "smth2")
                 .part(TypedObject("{\"smth\":123}".data(using: String.Encoding.utf8)!,
                         mimeType: "application/json"), name: "smth3")
+                .part(users.makeTypedObject(), name: "users")
                 .stub("{}")
                 .executeStringObservable()
     }
@@ -163,6 +165,14 @@ class ExampleAPI {
                 .withBody()
                 .bodyJson(user)
                 .executeStringObservable()
+    }
+
+    func postUsers(_ users: [GithubUser]) -> Observable<String> {
+        return client.post("/users")
+            .withBody()
+            .bodyJson(users)
+            .stub(users)
+            .executeStringObservable()
     }
 
     func getContributorsForRepo(_ repo: String, org: String) -> Observable<[GithubUser]> {

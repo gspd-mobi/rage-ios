@@ -36,7 +36,7 @@ Create `ErrorHandler` implementation and add it to errors closure of client buil
 ```swift
 client = Rage.builderWithBaseUrl("http://example.com")
     .withErrorsHandlersClosure {
-        [AuthErrorHandler()]
+      [AuthErrorHandler()]
     }
     .build()
 ```

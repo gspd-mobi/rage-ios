@@ -2,9 +2,19 @@ import Foundation
 
 open class MultipartRageRequest: RageRequest {
 
+    open class Part {
+        let name: String
+        let object: TypedObject
+
+        init(name: String, object: TypedObject) {
+            self.name = name
+            self.object = object
+        }
+    }
+
     static let boundaryCreateErrorMessage = "Boundary can't be created for Multipart Request"
 
-    var parts = [String: TypedObject]()
+    var parts: [Part] = []
     var customBoundary: String?
 
     public init(from request: RageRequest) {
@@ -21,11 +31,11 @@ open class MultipartRageRequest: RageRequest {
     }
 
     open func part(_ object: TypedObject?, name: String) -> MultipartRageRequest {
-        guard let safeObject = object else {
-            parts.removeValue(forKey: name)
+        guard let object = object else {
+            parts = parts.filter { $0.name != name }
             return self
         }
-        parts[name] = safeObject
+        parts.append(Part(name: name, object: object))
         return self
     }
 
@@ -66,17 +76,17 @@ open class MultipartRageRequest: RageRequest {
             preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
         }
 
-        for (key, value) in parts {
+        for part in parts {
 
-            var contentDispositionString = "Content-Disposition: form-data; name=\"\(key)\""
-            if let fileName = value.fileName {
+            var contentDispositionString = "Content-Disposition: form-data; name=\"\(part.name)\""
+            if let fileName = part.object.fileName {
                 contentDispositionString += "; filename=\"\(fileName)\""
             }
 
             guard let contentDispositionData = contentDispositionString.utf8Data() else {
                 continue
             }
-            guard let contentTypeData = "Content-Type: \(value.mimeType)".utf8Data() else {
+            guard let contentTypeData = "Content-Type: \(part.object.mimeType)".utf8Data() else {
                 continue
             }
 
@@ -86,7 +96,7 @@ open class MultipartRageRequest: RageRequest {
             body.append(lineTerminatorData)
             body.append(contentTypeData)
             body.append(lineTerminatorData)
-            body.append(value.object)
+            body.append(part.object.data)
             body.append(lineTerminatorData)
         }
         body.append(boundaryData)

@@ -13,10 +13,6 @@ class ContributorsTableViewController: UITableViewController {
         obtainPageContent()
     }
 
-    @IBAction func didTapRefreshButton(_ sender: AnyObject) {
-        obtainPageContent()
-    }
-
     func obtainPageContent() {
         _ = ExampleAPI.sharedInstance.getContributorsForRepo(repo, org: org)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
