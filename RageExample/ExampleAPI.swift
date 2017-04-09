@@ -20,7 +20,7 @@ class AuthErrorHandler: ErrorHandler {
     }
 
     override func handleErrorForRequest(_ request: RageRequest,
-                               result: Result<RageResponse, RageError>)
+                                        result: Result<RageResponse, RageError>)
                     -> Result<RageResponse, RageError> {
         switch ExampleAPI.sharedInstance.authSync() {
         case .success(let response):
@@ -117,7 +117,7 @@ class ExampleAPI {
     }
 
     func getOrgRepositoriesAsync(completion:
-    @escaping (Result<[GithubRepository], RageError>) -> ()) {
+    @escaping (Result<[GithubRepository], RageError>) -> Void) {
         client.get("/orgs/{org}/repos")
                 .path("org", "gspd-mobi")
                 .enqueueObject(completion)

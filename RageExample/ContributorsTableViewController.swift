@@ -17,12 +17,10 @@ class ContributorsTableViewController: UITableViewController {
         _ = ExampleAPI.sharedInstance.getContributorsForRepo(repo, org: org)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: {
-                (users) in
+            .subscribe(onNext: { users in
                 self.users = users
                 self.tableView.reloadData()
-                }, onError: {
-                    (error: Error) in
+                }, onError: { error in
 
                     let message = error.description()
 

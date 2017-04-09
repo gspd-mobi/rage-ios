@@ -84,7 +84,7 @@ extension RageRequest {
         }
     }
 
-    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<T, RageError>) -> ()) {
+    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<T, RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result: Result<T, RageError> = self.executeObject()
 
@@ -94,7 +94,7 @@ extension RageRequest {
         })
     }
 
-    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<[T], RageError>) -> ()) {
+    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<[T], RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result: Result<[T], RageError> = self.executeObject()
 

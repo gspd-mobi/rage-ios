@@ -15,7 +15,7 @@ class RepoTableViewController: UITableViewController {
 
     let org = "gspd-mobi"
 
-    var info: GithubOrganization? = nil
+    var info: GithubOrganization?
     var repos: [GithubRepository] = []
 
     override func viewDidLoad() {
@@ -33,19 +33,16 @@ class RepoTableViewController: UITableViewController {
 
     func obtainPageContent() {
         _ = Observable.zip(ExampleAPI.sharedInstance.getOrgInfo(org: org),
-                           ExampleAPI.sharedInstance.getOrgRepositories(org: org)) {
-                    info, repos in
+                           ExampleAPI.sharedInstance.getOrgRepositories(org: org)) { info, repos in
                     return GithubOrganizationPage(info: info, repos: repos)
                 }
                 .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                 .observeOn(MainScheduler.instance)
-                .subscribe(onNext: {
-                    (page) in
+                .subscribe(onNext: { page in
                     self.info = page.info
                     self.repos = page.repos
                     self.tableView.reloadData()
-                }, onError: {
-                    (error: Error) in
+                }, onError: { error in
                     let message = error.description()
                     let alert = UIAlertController(title: "Error", message: message,
                             preferredStyle: UIAlertControllerStyle.alert)

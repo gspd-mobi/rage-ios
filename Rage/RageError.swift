@@ -13,8 +13,8 @@ public enum RageErrorType {
 open class RageError: Error {
 
     open let type: RageErrorType
-    open var rageResponse: RageResponse? = nil
-    open var message: String? = nil
+    open var rageResponse: RageResponse?
+    open var message: String?
 
     init(type: RageErrorType, rageResponse: RageResponse?) {
         self.rageResponse = rageResponse

@@ -177,7 +177,20 @@ open class RageRequest {
         }
 
         let session = createSession()
-        let (data, response, error) = session.syncTask(with: request)
+
+        var data: Data?
+        var response: URLResponse?
+        var error: NSError?
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        session.dataTask(with: request, completionHandler: {
+            data = $0; response = $1; error = $2 as NSError?
+            semaphore.signal()
+        }) .resume()
+
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+
         let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
 
         sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
@@ -226,7 +239,7 @@ open class RageRequest {
         }
     }
 
-    open func enqueue(_ completion: @escaping (Result<RageResponse, RageError>) -> ()) {
+    open func enqueue(_ completion: @escaping (Result<RageResponse, RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result = self.execute()
 
@@ -236,7 +249,7 @@ open class RageRequest {
         })
     }
 
-    open func enqueueString(_ completion: @escaping (Result<String, RageError>) -> ()) {
+    open func enqueueString(_ completion: @escaping (Result<String, RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result = self.executeString()
 
@@ -246,7 +259,7 @@ open class RageRequest {
         })
     }
 
-    open func enqueueData(_ completion: @escaping (Result<Data, RageError>) -> ()) {
+    open func enqueueData(_ completion: @escaping (Result<Data, RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result = self.executeData()
 

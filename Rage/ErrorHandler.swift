@@ -14,7 +14,7 @@ open class ErrorHandler {
     }
 
     open func handleErrorForRequest(_ request: RageRequest,
-                               result: Result<RageResponse, RageError>)
+                                    result: Result<RageResponse, RageError>)
         -> Result<RageResponse, RageError> {
             return result
     }

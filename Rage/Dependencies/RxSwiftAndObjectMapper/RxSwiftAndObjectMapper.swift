@@ -5,8 +5,7 @@ import ObjectMapper
 extension RageRequest {
 
     public func executeObjectObservable<T: Mappable>() -> Observable<T> {
-        return Observable<T>.create {
-            subscriber in
+        return Observable<T>.create { subscriber in
             let result = self.execute()
 
             switch result {
@@ -30,8 +29,7 @@ extension RageRequest {
     }
 
     public func executeObjectObservable<T: Mappable>() -> Observable<[T]> {
-        return Observable<[T]>.create {
-            subscriber in
+        return Observable<[T]>.create { subscriber in
             let result = self.execute()
 
             switch result {

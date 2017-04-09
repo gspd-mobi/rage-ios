@@ -4,8 +4,7 @@ import RxSwift
 extension RageRequest {
 
     public func executeStringObservable() -> Observable<String> {
-        return Observable<String>.create {
-            subscriber in
+        return Observable<String>.create { subscriber in
 
             let result = self.execute()
 
@@ -30,8 +29,7 @@ extension RageRequest {
     }
 
     public func executeDataObservable() -> Observable<Data> {
-        return Observable<Data>.create {
-            subscriber in
+        return Observable<Data>.create { subscriber in
             let result = self.execute()
 
             switch result {
