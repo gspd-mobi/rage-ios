@@ -307,9 +307,29 @@ class RageRequestSpec: QuickSpec {
 
             describe("execute") {
                 it("can be done sync for stub") {
-                    request.stub("{}".utf8Data()!)
+                    _ = request.stub("{}".utf8Data()!)
                     let result = request.execute()
-                    result
+                    switch result {
+                    case .success(let response):
+                        let parsedObject: String? = response.data?.utf8String()
+                        expect(parsedObject).to(equal("{}"))
+                    default:
+                        break
+                    }
+                }
+
+                it("can be done async for stub") {
+                    _ = request.stub("{}".utf8Data()!)
+                    var parsedObject: String?
+                    request.enqueue { result in
+                        switch result {
+                        case .success(let response):
+                            parsedObject = response.data?.utf8String()
+                        default:
+                            break
+                        }
+                    }
+                    expect(parsedObject).toEventually(equal("{}"))
                 }
 
             }

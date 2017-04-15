@@ -2,7 +2,7 @@ import Foundation
 
 extension Data {
 
-    func prettyJsonString() -> String? {
+    public func prettyJsonString() -> String? {
         do {
             let jsonData = try JSONSerialization
                 .jsonObject(with: self, options: JSONSerialization.ReadingOptions())
@@ -14,7 +14,7 @@ extension Data {
         }
     }
 
-    func utf8String() -> String? {
+    public func utf8String() -> String? {
         return String(data: self, encoding: String.Encoding.utf8)
     }
 
@@ -22,7 +22,7 @@ extension Data {
 
 extension CharacterSet {
 
-    static func URLQueryParameterAllowedCharacterSet() -> CharacterSet {
+    public static func URLQueryParameterAllowedCharacterSet() -> CharacterSet {
         let charsString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?"
         return self.init(charactersIn: charsString)
     }

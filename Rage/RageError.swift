@@ -38,7 +38,7 @@ extension RageError {
 
 extension RageError {
 
-    convenience init(response: RageResponse) {
+    public convenience init(response: RageResponse) {
         if response.error == nil {
             self.init(type: .http, rageResponse: response)
             return
