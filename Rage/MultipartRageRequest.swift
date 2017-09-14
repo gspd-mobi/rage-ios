@@ -45,7 +45,7 @@ open class MultipartRageRequest: RageRequest {
     }
 
     fileprivate func makeBoundary() -> String {
-        return "----rage.boundary-\(UUID().uuidString)"
+        return "--rage.boundary-\(UUID().uuidString)"
     }
 
     override open func rawRequest() -> URLRequest {
@@ -72,12 +72,11 @@ open class MultipartRageRequest: RageRequest {
 
         guard let boundaryData = boundary.utf8Data(),
               let extraDashesData = "--".utf8Data(),
-              let lineTerminatorData = "\r\n".utf8Data() else {
+              let lineTerminatorData = "\n".utf8Data() else {
             preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
         }
 
         for part in parts {
-
             var contentDispositionString = "Content-Disposition: form-data; name=\"\(part.name)\""
             if let fileName = part.object.fileName {
                 contentDispositionString += "; filename=\"\(fileName)\""
@@ -89,16 +88,18 @@ open class MultipartRageRequest: RageRequest {
             guard let contentTypeData = "Content-Type: \(part.object.mimeType)".utf8Data() else {
                 continue
             }
-
+            body.append(extraDashesData)
             body.append(boundaryData)
             body.append(lineTerminatorData)
             body.append(contentDispositionData)
             body.append(lineTerminatorData)
             body.append(contentTypeData)
             body.append(lineTerminatorData)
+            body.append(lineTerminatorData)
             body.append(part.object.data)
             body.append(lineTerminatorData)
         }
+        body.append(extraDashesData)
         body.append(boundaryData)
         body.append(extraDashesData)
         return body as Data
