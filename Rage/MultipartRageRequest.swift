@@ -72,7 +72,7 @@ open class MultipartRageRequest: RageRequest {
 
         guard let boundaryData = boundary.utf8Data(),
               let extraDashesData = "--".utf8Data(),
-              let lineTerminatorData = "\n".utf8Data() else {
+              let lineTerminatorData = "\r\n".utf8Data() else {
             preconditionFailure(MultipartRageRequest.boundaryCreateErrorMessage)
         }
 
