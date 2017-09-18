@@ -37,7 +37,7 @@ class URLBuilder {
             if !queryParametersString.isEmpty {
                 queryParametersString += "&"
             }
-            queryParametersString += "\(key.urlEncoded())=\(value.urlEncoded())"
+            queryParametersString += "\(key)=\(value.urlEncoded())"
         }
 
         if !queryParametersString.isEmpty {
