@@ -2,9 +2,9 @@ RxSwift
 =============================
 Use RxSwift subspec of Rage
 ```ruby
-pod "Rage/RxSwift", "~> 0.10.2"
+pod "Rage/RxSwift", "~> 0.10.3"
 # If you want to use both RxSwift and ObjectMapper then use RxSwiftAndObjectMapper subspec
-# pod "Rage/RxSwiftAndObjectMapper", "~> 0.10.2"
+# pod "Rage/RxSwiftAndObjectMapper", "~> 0.10.3"
 ```
 Then you can use Rage RxSwift features.
 

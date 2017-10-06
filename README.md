@@ -86,16 +86,16 @@ That's it. Compact but powerful.
 Add this dependency to Podfile and `pod install`
 ```ruby
 # Core subspec of Rage
-pod 'Rage', '~> 0.10.2'
+pod 'Rage', '~> 0.10.3'
 ```
 Or if you want to use RxSwift and ObjectMapper features you should use these Rage subspecs
 ```ruby
 # RxSwift only
-pod "Rage/RxSwift", "~> 0.10.2"
+pod "Rage/RxSwift", "~> 0.10.3"
 # ObjectMapper only
-pod "Rage/ObjectMapper", "~> 0.10.2"
+pod "Rage/ObjectMapper", "~> 0.10.3"
 # Both RxSwift and ObjectMapper
-pod "Rage/RxSwiftAndObjectMapper", "~> 0.10.2"
+pod "Rage/RxSwiftAndObjectMapper", "~> 0.10.3"
 ```
 
 License

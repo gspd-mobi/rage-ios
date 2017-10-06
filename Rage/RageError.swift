@@ -39,7 +39,13 @@ extension RageError {
 extension RageError {
 
     public convenience init(response: RageResponse) {
-        if response.error == nil {
+        if let error = response.error {
+            let networksErrors = [NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet]
+            if error.domain == NSURLErrorDomain && networksErrors.contains(error.code) {
+                self.init(type: .networkError, rageResponse: response)
+                return
+            }
+        } else {
             self.init(type: .http, rageResponse: response)
             return
         }
