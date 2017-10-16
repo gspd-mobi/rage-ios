@@ -3,9 +3,17 @@ import Foundation
 open class RageClient {
 
     let defaultConfiguration: RageClientConfiguration
+    let session: URLSession
 
     init(defaultConfiguration: RageClientConfiguration) {
         self.defaultConfiguration = defaultConfiguration
+
+        let configuration = URLSessionConfiguration.default
+        let timeoutSeconds = Double(defaultConfiguration.timeoutMillis) / 1000.0
+        configuration.timeoutIntervalForRequest = timeoutSeconds
+        configuration.timeoutIntervalForResource = timeoutSeconds
+
+        self.session = URLSession(configuration: configuration)
     }
 
     open func get(_ path: String? = nil) -> RageRequest {
@@ -51,6 +59,7 @@ open class RageClient {
         }()
 
         return RageRequest(requestDescription: requestDescription,
+                           session: session,
                            plugins: defaultConfiguration.plugins)
     }
 

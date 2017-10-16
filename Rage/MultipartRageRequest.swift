@@ -18,13 +18,12 @@ open class MultipartRageRequest: RageRequest {
     var customBoundary: String?
 
     public init(from request: RageRequest) {
-        super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl)
+        super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl, session: request.session)
         self.methodPath = request.methodPath
         self.queryParameters = request.queryParameters
         self.pathParameters = request.pathParameters
         self.headers = request.headers
         self.authenticator = request.authenticator
-        self.timeoutMillis = request.timeoutMillis
         self.plugins = request.plugins
 
         _ = contentType(.multipartFormData)

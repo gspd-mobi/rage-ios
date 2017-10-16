@@ -91,7 +91,8 @@ open class LoggingPlugin: RagePlugin {
         let response = rageResponse.response
 
         let stubbedString = generateStubString(stubbed)
-        print("<-- \(stubbedString)\(httpMethod) \(url)")
+        let time = Int(rageResponse.timeMillis)
+        print("<-- \(stubbedString)\(httpMethod) \(url) (\(time) ms)")
 
         guard let data = optionalData else {
             print("Empty response data")
@@ -136,7 +137,8 @@ open class LoggingPlugin: RagePlugin {
         let response = rageResponse.response
 
         let stubbedString = generateStubString(stubbed)
-        print("<-- \(stubbedString)\(httpMethod) \(url)")
+        let time = Int(rageResponse.timeMillis)
+        print("<-- \(stubbedString)\(httpMethod) \(url) (\(time) ms)")
 
         guard let data = optionalData else {
             print("Empty response data")

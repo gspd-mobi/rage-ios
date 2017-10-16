@@ -14,16 +14,20 @@ open class RageRequest {
     var errorHandlers: [ErrorHandler] = []
     var plugins: [RagePlugin] = []
 
-    var timeoutMillis: Int = 60 * 1000
-
     var stubData: StubData?
 
-    init(httpMethod: HttpMethod, baseUrl: String?) {
+    var session: URLSession
+
+    init(httpMethod: HttpMethod,
+         baseUrl: String?,
+         session: URLSession) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
+        self.session = session
     }
 
     init(requestDescription: RequestDescription,
+         session: URLSession,
          plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl
@@ -34,8 +38,8 @@ open class RageRequest {
         self.errorHandlers = requestDescription.errorHandlers
         self.authenticator = requestDescription.authenticator
 
-        self.timeoutMillis = requestDescription.timeoutMillis
         self.plugins = plugins
+        self.session = session
     }
 
     // MARK: Parameters
@@ -129,24 +133,6 @@ open class RageRequest {
         return self
     }
 
-    // MARK: Configurations
-
-    open func withTimeoutMillis(_ timeoutMillis: Int) -> RageRequest {
-        self.timeoutMillis = timeoutMillis
-        return self
-    }
-
-    // MARK: Requests
-
-    func createSession() -> URLSession {
-        let configuration = URLSessionConfiguration.default
-        let timeoutSeconds = Double(timeoutMillis) / 1000.0
-        configuration.timeoutIntervalForRequest = timeoutSeconds
-        configuration.timeoutIntervalForResource = timeoutSeconds
-
-        return URLSession(configuration: configuration)
-    }
-
     // MARK: Complex request abstractions
 
     open func withBody() -> BodyRageRequest {
@@ -176,11 +162,11 @@ open class RageRequest {
             return .success(rageResponse)
         }
 
-        let session = createSession()
-
         var data: Data?
         var response: URLResponse?
         var error: NSError?
+
+        let startDate = Date()
 
         let semaphore = DispatchSemaphore(value: 0)
 
@@ -191,7 +177,13 @@ open class RageRequest {
 
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
-        let rageResponse = RageResponse(request: self, data: data, response: response, error: error)
+        let requestDuration = Date().timeIntervalSince(startDate) * 1000
+
+        let rageResponse = RageResponse(request: self,
+                                        data: data,
+                                        response: response,
+                                        error: error,
+                                        timeMillis: requestDuration)
 
         sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
 

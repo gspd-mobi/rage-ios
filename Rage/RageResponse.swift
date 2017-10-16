@@ -6,12 +6,18 @@ open class RageResponse {
     open let data: Data?
     open let response: URLResponse?
     open let error: NSError?
+    open let timeMillis: Double
 
-    init(request: RageRequest, data: Data?, response: URLResponse?, error: NSError?) {
+    init(request: RageRequest,
+         data: Data?,
+         response: URLResponse?,
+         error: NSError?,
+         timeMillis: Double = 0.0) {
         self.request = request
         self.data = data
         self.response = response
         self.error = error
+        self.timeMillis = timeMillis
     }
 
 }
