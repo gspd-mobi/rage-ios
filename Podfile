@@ -4,6 +4,7 @@ def common_pods
     pod 'RxSwift',   '~> 3.3.1'
     pod 'ObjectMapper', '~> 2.2.5'
     pod 'Result', '~> 3.2.1'
+    pod 'Genome', '~> 3.0'
 end
 
 target 'RageExample' do
@@ -12,7 +13,6 @@ end
 
 target 'Rage' do
     common_pods
-
 end
 
 target 'RageTests' do

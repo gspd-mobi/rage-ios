@@ -1,86 +1,88 @@
 import Foundation
-import ObjectMapper
+import Genome
 import Result
 
 extension BodyRageRequest {
 
-    public func bodyJson<T: Mappable>(_ value: T) -> BodyRageRequest {
+    public func bodyJson<T: BasicMappable>(_ value: T) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
         }
 
-        guard let json = value.toJSONString() else {
+        guard let data = try? Data(node: value) else {
             return self
         }
         _ = contentType(.json)
-        return bodyString(json)
+
+        return bodyData(data)
     }
 
-    public func bodyJson<T: Mappable>(_ value: [T]) -> BodyRageRequest {
+    public func bodyJson<T: BasicMappable>(_ value: [T]) -> BodyRageRequest {
         if !httpMethod.hasBody() {
             preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
         }
 
-        guard let json = value.toJSONString() else {
+        guard let data = try? Data(node: value) else {
             return self
         }
         _ = contentType(.json)
-        return bodyString(json)
+
+        return bodyData(data)
     }
 
 }
 
 extension RageRequest {
 
-    public func stub<T: Mappable>(_ value: T, mode: StubMode = .immediate) -> RageRequest {
-        guard let json = value.toJSONString() else {
+    public func stub<T: BasicMappable>(_ value: T, mode: StubMode = .immediate) -> RageRequest {
+        guard let data = try? Data.init(node: value) else {
             return self
         }
-        return self.stub(json, mode: mode)
+        return self.stub(data, mode: mode)
     }
 
-    public func stub<T: Mappable>(_ value: [T], mode: StubMode = .immediate) -> RageRequest {
-        guard let json = value.toJSONString() else {
+    public func stub<T: BasicMappable>(_ value: [T], mode: StubMode = .immediate) -> RageRequest {
+        guard let data = try? Data.init(node: value) else {
             return self
         }
-        return self.stub(json, mode: mode)
+        return self.stub(data, mode: mode)
     }
 
-    open func executeObject<T: Mappable>() -> Result<T, RageError> {
+    open func executeObject<T: BasicMappable>() -> Result<T, RageError> {
         let result = self.execute()
 
         switch result {
         case .success(let response):
-            let parsedObject: T? = response.data?.parseJson()
+            let parsedObject: T? = response.data?.parseBasicMappableJson()
             if let resultObject = parsedObject {
                 return .success(resultObject)
             } else {
                 return .failure(RageError(type: .configuration,
-                                          message: RageRequest.jsonParsingErrorMessage))
+                        message: RageRequest.jsonParsingErrorMessage))
             }
         case .failure(let error):
             return .failure(error)
         }
     }
 
-    open func executeObject<T: Mappable>() -> Result<[T], RageError> {
+    open func executeObject<T: BasicMappable>() -> Result<[T], RageError> {
         let result = self.execute()
 
         switch result {
         case .success(let response):
-            let parsedObject: [T]? = response.data?.parseJsonArray()
+            let parsedObject: [T]? = response.data?.parseBasicMappableJsonArray()
             if let resultObject = parsedObject {
                 return .success(resultObject)
             } else {
                 return .failure(RageError(type: .configuration,
-                                          message: RageRequest.jsonParsingErrorMessage))
+                        message: RageRequest.jsonParsingErrorMessage))
             }
         case .failure(let error):
             return .failure(error)
         }
     }
 
-    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<T, RageError>) -> Void) {
+    open func enqueueObject<T: BasicMappable>(_ completion: @escaping (Result<T, RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result: Result<T, RageError> = self.executeObject()
 
@@ -90,7 +92,7 @@ extension RageRequest {
         })
     }
 
-    open func enqueueObject<T: Mappable>(_ completion: @escaping (Result<[T], RageError>) -> Void) {
+    open func enqueueObject<T: BasicMappable>(_ completion: @escaping (Result<[T], RageError>) -> Void) {
         DispatchQueue.global(qos: .background).async(execute: {
             let result: Result<[T], RageError> = self.executeObject()
 
@@ -104,17 +106,15 @@ extension RageRequest {
 
 extension Data {
 
-    func parseJson<T: Mappable>() -> T? {
-        let resultString = String(data: self, encoding: String.Encoding.utf8)!
-        guard let b = Mapper<T>().map(JSONString: resultString) else {
+    func parseBasicMappableJson<T: BasicMappable>() -> T? {
+        guard let b = try? T.init(node: self) else {
             return nil
         }
         return b
     }
 
-    func parseJsonArray<T: Mappable>() -> [T]? {
-        let resultString = String(data: self, encoding: String.Encoding.utf8)!
-        guard let b = Mapper<T>().mapArray(JSONString: resultString) else {
+    func parseBasicMappableJsonArray<T: BasicMappable>() -> [T]? {
+        guard let b = try? [T].init(node: self) else {
             return nil
         }
         return b
@@ -122,13 +122,10 @@ extension Data {
 
 }
 
-extension Mappable {
+extension BasicMappable {
 
     public func makeTypedObject() -> TypedObject? {
-        guard let json = toJSONString() else {
-            return nil
-        }
-        guard let data = json.utf8Data() else {
+        guard let data = try? Data.init(node: self) else {
             return nil
         }
         return TypedObject(data, mimeType: ContentType.json.stringValue())
@@ -136,13 +133,10 @@ extension Mappable {
 
 }
 
-extension Array where Element: Mappable {
+extension Array where Element: BasicMappable {
 
     public func makeTypedObject() -> TypedObject? {
-        guard let json = toJSONString() else {
-            return nil
-        }
-        guard let data = json.utf8Data() else {
+        guard let data = try? Data.init(node: self) else {
             return nil
         }
         return TypedObject(data, mimeType: ContentType.json.stringValue())

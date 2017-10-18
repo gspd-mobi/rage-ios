@@ -3,6 +3,8 @@ import Result
 
 open class BodyRageRequest: RageRequest {
 
+    static let wrongHttpMethodForBodyErrorMessage = "Can't add body to request with such HttpMethod"
+
     var body: Data?
 
     public init(from request: RageRequest) {
