@@ -1,70 +1,99 @@
 import Foundation
 import RxSwift
+import Result
 
 extension RageRequest {
 
-    public func executeResponseObservable() -> Observable<RageResponse> {
-        return Observable<RageResponse>.create { subscriber in
-            let result = self.execute()
+    open func taskObservable() -> Observable<Result<RageResponse, RageError>> {
+        return Observable.create { observer in
+            self.sendPluginsWillSendRequest()
 
-            switch result {
-            case .success(let response):
-                subscriber.onNext(response)
-                subscriber.onCompleted()
-                break
-            case .failure(let error):
-                subscriber.onError(error)
-                break
+            let request = self.rawRequest()
+
+            self.sendPluginsDidSendRequest(request)
+
+            if let s = self.getStubData() {
+                let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
+                self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
+                observer.onNext(.success(rageResponse))
+                return Disposables.create()
             }
 
-            return Disposables.create()
+            let startDate = Date()
+            let task = self.session.dataTask(with: request, completionHandler: { data, response, error in
+                let requestDuration = Date().timeIntervalSince(startDate) * 1000
+                let rageResponse = RageResponse(request: self,
+                                                data: data,
+                                                response: response,
+                                                error: error as NSError?,
+                                                timeMillis: requestDuration)
+
+                self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
+
+                if rageResponse.isSuccess() {
+                    observer.onNext(.success(rageResponse))
+                } else {
+                    let rageError = RageError(response: rageResponse)
+                    var result: Result<RageResponse, RageError> = .failure(rageError)
+                    for handler in self.errorHandlers {
+                        if handler.enabled && handler.canHandleError(rageError) {
+                            result = handler.handleErrorForRequest(self, result: result)
+                        }
+                    }
+                    observer.onNext(result)
+                }
+                observer.onCompleted()
+            })
+
+            task.resume()
+
+            return Disposables.create {
+                task.cancel()
+            }
         }
+    }
+
+    public func executeResponseObservable() -> Observable<RageResponse> {
+        return taskObservable()
+            .flatMap { result -> Observable<RageResponse> in
+                switch result {
+                case .success(let response):
+                    return Observable.just(response)
+                case .failure(let error):
+                    return Observable.error(error)
+                }
+            }
     }
 
     public func executeStringObservable() -> Observable<String> {
-        return Observable<String>.create { subscriber in
+        return taskObservable()
+            .flatMap { result -> Observable<String> in
+                switch result {
+                case .success(let response):
+                    guard let data = response.data else {
+                        return Observable.error(RageError(type: RageErrorType.emptyNetworkResponse))
+                    }
 
-            let result = self.execute()
-
-            switch result {
-            case .success(let response):
-                guard let data = response.data else {
-                    subscriber.onError(RageError(type: RageErrorType.emptyNetworkResponse))
-                    return Disposables.create()
+                    let resultString = String(data: data, encoding: String.Encoding.utf8)!
+                    return Observable.just(resultString)
+                case .failure(let error):
+                    return Observable.error(error)
                 }
-
-                let resultString = String(data: data, encoding: String.Encoding.utf8)!
-                subscriber.onNext(resultString)
-                subscriber.onCompleted()
-                break
-            case .failure(let error):
-                subscriber.onError(error)
-                break
             }
-
-            return Disposables.create()
-        }
     }
 
     public func executeDataObservable() -> Observable<Data> {
-        return Observable<Data>.create { subscriber in
-            let result = self.execute()
-
-            switch result {
-            case .success(let response):
-                guard let data = response.data else {
-                    subscriber.onError(RageError(type: RageErrorType.emptyNetworkResponse))
-                    return Disposables.create()
+        return taskObservable()
+            .flatMap { result -> Observable<Data> in
+                switch result {
+                case .success(let response):
+                    guard let data = response.data else {
+                        return Observable.error(RageError(type: RageErrorType.emptyNetworkResponse))
+                    }
+                    return Observable.just(data)
+                case .failure(let error):
+                    return Observable.error(error)
                 }
-                subscriber.onNext(data)
-                subscriber.onCompleted()
-                break
-            case .failure(let error):
-                subscriber.onError(error)
-                break
-            }
-
-            return Disposables.create()
         }
     }
 

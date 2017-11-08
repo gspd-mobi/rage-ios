@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03B817141F979EBC00F35828 /* RxSwiftAndGenome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94583C6BFEB9E4729B513048 /* RxSwiftAndGenome.swift */; };
-		03B817151F979EBC00F35828 /* RxSwiftAndGenome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94583C6BFEB9E4729B513048 /* RxSwiftAndGenome.swift */; };
 		52FA48B02BEE3892D8EE8E88 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4FB44182B4551825A6968F /* Pods_RageExample.framework */; };
 		5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
 		5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */; };
@@ -96,8 +94,6 @@
 		8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAA2ED83599A807D03DD6 /* Rage.swift */; };
 		8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AAEE25ABE680A25C3C18A /* RageError.swift */; };
 		8AA2E8091D6B467700E76B52 /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
-		945832855554C11D803AD369 /* RageGenome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945833AEA708DDD7127921CB /* RageGenome.swift */; };
-		94583CF0036157B8472F8385 /* RageGenome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945833AEA708DDD7127921CB /* RageGenome.swift */; };
 		EB22CA5687E77F13AD010497 /* Pods_RageTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E34C933CD31EAC73F744D1 /* Pods_RageTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,8 +198,6 @@
 		8A6748F81D6B37620064467F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A9016A01DA110E20035820B /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = "<group>"; };
 		8B4FB44182B4551825A6968F /* Pods_RageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		945833AEA708DDD7127921CB /* RageGenome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RageGenome.swift; sourceTree = "<group>"; };
-		94583C6BFEB9E4729B513048 /* RxSwiftAndGenome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwiftAndGenome.swift; sourceTree = "<group>"; };
 		96D6E770F3431DCF81C8F188 /* Pods-Rage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.release.xcconfig"; sourceTree = "<group>"; };
 		B4D0C91482A46F570CED8ECD /* Pods-RageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RageTests/Pods-RageTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0D605FA048EEBC82DDE9F0A /* Pods-RageTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RageTests/Pods-RageTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -275,8 +269,6 @@
 				5D7AA50240FD80106308B1A5 /* ObjectMapper */,
 				5D7AAC2627D77B07D8667A17 /* RxSwift */,
 				5D7AA714646119774ABEABDB /* RxSwiftAndObjectMapper */,
-				94583790EB3936A72719C0E2 /* Genome */,
-				945831130C8D5E8AD6529255 /* RxSwiftAndGenome */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -400,22 +392,6 @@
 				5D7AAD6C2F27E145E852CD7B /* GithubOrganization.swift */,
 			);
 			path = RageExample;
-			sourceTree = "<group>";
-		};
-		945831130C8D5E8AD6529255 /* RxSwiftAndGenome */ = {
-			isa = PBXGroup;
-			children = (
-				94583C6BFEB9E4729B513048 /* RxSwiftAndGenome.swift */,
-			);
-			path = RxSwiftAndGenome;
-			sourceTree = "<group>";
-		};
-		94583790EB3936A72719C0E2 /* Genome */ = {
-			isa = PBXGroup;
-			children = (
-				945833AEA708DDD7127921CB /* RageGenome.swift */,
-			);
-			path = Genome;
 			sourceTree = "<group>";
 		};
 		B723C0705F4746457B3A0F69 /* Pods */ = {
@@ -767,7 +743,6 @@
 				5D7AAFC5E6F1BA7B2CFAB68A /* RageClient.swift in Sources */,
 				5D7AAC1959A6B3ED3FFC33C6 /* RageRequest.swift in Sources */,
 				5D7AA9FE2E30A380252F8EB8 /* RequestDescription.swift in Sources */,
-				03B817141F979EBC00F35828 /* RxSwiftAndGenome.swift in Sources */,
 				5D7AA3B54CBE1FD1C08B7110 /* Authenticator.swift in Sources */,
 				5D7AAB5C12015C90FFD58DC8 /* RagePlugin.swift in Sources */,
 				5D7AA782CB65E6865FE9B672 /* RageResponse.swift in Sources */,
@@ -788,7 +763,6 @@
 				5D7AA2CF1FDEAB219F857B1A /* TestErrorHandler.swift in Sources */,
 				5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */,
 				5D7AA58A91CE237AE8F4D697 /* StubModeExtension.swift in Sources */,
-				94583CF0036157B8472F8385 /* RageGenome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,10 +804,8 @@
 				5D7AA2E302FE50515C0F2A0D /* TestPlugin.swift in Sources */,
 				5D7AA6066364F6F125D46980 /* TestErrorHandler.swift in Sources */,
 				5D7AA1B1557BE959038A39A3 /* URLBuilder.swift in Sources */,
-				03B817151F979EBC00F35828 /* RxSwiftAndGenome.swift in Sources */,
 				5D7AA8386115502C2174E824 /* RageRequestSpec.swift in Sources */,
 				5D7AADF5F284E1850CBEA0D0 /* StubModeExtension.swift in Sources */,
-				945832855554C11D803AD369 /* RageGenome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

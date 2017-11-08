@@ -275,20 +275,20 @@ open class RageRequest {
 
     // MARK: Plugins
 
-    fileprivate func sendPluginsWillSendRequest() {
+    open func sendPluginsWillSendRequest() {
         for plugin in plugins {
             plugin.willSendRequest(self)
         }
     }
 
-    fileprivate func sendPluginsDidSendRequest(_ rawRequest: URLRequest) {
+    open func sendPluginsDidSendRequest(_ rawRequest: URLRequest) {
         for plugin in plugins {
             plugin.didSendRequest(self, rawRequest: rawRequest)
         }
     }
 
-    fileprivate func sendPluginsDidReceiveResponse(_ rageResponse: RageResponse,
-                                                   rawRequest: URLRequest) {
+    open func sendPluginsDidReceiveResponse(_ rageResponse: RageResponse,
+                                            rawRequest: URLRequest) {
         for plugin in plugins {
             plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
         }
