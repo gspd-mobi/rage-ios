@@ -118,8 +118,6 @@ class RageClientSpec: QuickSpec {
 
                 let request = client.createRequestWithHttpMethod(.get, path: "/method")
 
-                expect(request.timeoutMillis).to(equal(999))
-
                 expect(request.headers.count).to(equal(3))
                 expect(request.headers["a"]).to(equal("b"))
                 expect(request.headers["c"]).to(equal("d"))
