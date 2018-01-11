@@ -7,11 +7,15 @@ open class ActivityIndicatorPlugin: RagePlugin {
     }
 
     open func willSendRequest(_ request: RageRequest) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
     }
 
     open func didReceiveResponse(_ response: RageResponse, rawRequest: URLRequest) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
     }
 
 }
