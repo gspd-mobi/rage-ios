@@ -1,10 +1,9 @@
 use_frameworks!
 
 def common_pods
-    pod 'RxSwift',   '~> 3.3.1'
-    pod 'ObjectMapper', '~> 2.2.5'
-    pod 'Result', '~> 3.2.1'
-    pod 'Genome', '~> 3.0'
+    pod 'RxSwift',   '~> 4.1.1'
+    pod 'ObjectMapper', '~> 3.1.0'
+    pod 'Result', '~> 3.2.4'
 end
 
 target 'RageExample' do
@@ -17,6 +16,6 @@ end
 
 target 'RageTests' do
     common_pods
-    pod 'Quick', '~> 1.1.0'
-    pod 'Nimble', '~> 6.1.0'
+    pod 'Quick', '~> 1.2.0'
+    pod 'Nimble', '~> 7.0.3'
 end
