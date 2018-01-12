@@ -16,12 +16,12 @@ open class RageError: Error {
     open var rageResponse: RageResponse?
     open var message: String?
 
-    init(type: RageErrorType, rageResponse: RageResponse?) {
+    public init(type: RageErrorType, rageResponse: RageResponse?) {
         self.rageResponse = rageResponse
         self.type = type
     }
 
-    init(type: RageErrorType, message: String? = nil) {
+    public init(type: RageErrorType, message: String? = nil) {
         self.type = type
         self.message = message
     }
