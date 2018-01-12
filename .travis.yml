@@ -1,15 +1,15 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode9.2
 
 env:
   global:
   - WORKSPACE=Rage.xcworkspace
   - IOS_FRAMEWORK_SCHEME="Rage"
-  - IOS_SDK=iphonesimulator10.0
+  - IOS_SDK=iphonesimulator11.2
   - EXAMPLE_SCHEME="RageExample"
   matrix:
-  - DESTINATION="OS=10.0,name=iPhone 7 Plus"     SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="YES"
-  - DESTINATION="OS=9.3,name=iPhone 5"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
+  - DESTINATION="OS=11.2,name=iPhone 7 Plus"     SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="YES"
+  - DESTINATION="OS=10.0,name=iPhone 5"          SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
 before_install:
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
