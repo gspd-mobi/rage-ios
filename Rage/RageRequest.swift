@@ -18,7 +18,7 @@ open class RageRequest {
 
     var session: URLSession
 
-    init(httpMethod: HttpMethod,
+    public init(httpMethod: HttpMethod,
          baseUrl: String?,
          session: URLSession) {
         self.httpMethod = httpMethod
@@ -26,7 +26,7 @@ open class RageRequest {
         self.session = session
     }
 
-    init(requestDescription: RequestDescription,
+    public init(requestDescription: RequestDescription,
          session: URLSession,
          plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod

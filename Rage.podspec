@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Rage"
-  s.version          = "0.12.3"
+  s.version          = "0.12.4"
   s.summary          = "Pragmatic network abstraction layer for iOS applications"
   s.homepage         = "https://github.com/gspd-mobi/rage-ios"
   s.license          = "MIT"
