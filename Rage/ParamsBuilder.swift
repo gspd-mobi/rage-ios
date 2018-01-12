@@ -2,7 +2,7 @@ import Foundation
 
 public class ParamsBuilder {
 
-    func stringFromFieldParameters(_ fieldParameters: [String: FieldParameter]) -> String {
+    public func stringFromFieldParameters(_ fieldParameters: [String: FieldParameter]) -> String {
         var fieldsString = ""
         for (key, value) in fieldParameters {
             if !fieldsString.isEmpty {

@@ -3,9 +3,7 @@ import Result
 
 open class RageRequest {
 
-    static let jsonParsingErrorMessage = "Couldn't parse object from JSON"
-
-    var httpMethod: HttpMethod
+    public var httpMethod: HttpMethod
     var baseUrl: String?
     var methodPath: String?
     var queryParameters: [String: String] = [:]

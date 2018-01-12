@@ -16,31 +16,31 @@ open class RageClient {
         self.session = URLSession(configuration: configuration)
     }
 
-    open func get(_ path: String? = nil) -> RageRequest {
+    public func get(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.get, path: path)
     }
 
-    open func post(_ path: String? = nil) -> RageRequest {
+    public func post(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.post, path: path)
     }
 
-    open func put(_ path: String? = nil) -> RageRequest {
+    public func put(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.put, path: path)
     }
 
-    open func delete(_ path: String? = nil) -> RageRequest {
+    public func delete(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.delete, path: path)
     }
 
-    open func head(_ path: String? = nil) -> RageRequest {
+    public func head(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.head, path: path)
     }
 
-    open func patch(_ path: String? = nil) -> RageRequest {
+    public func patch(_ path: String? = nil) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.patch, path: path)
     }
 
-    open func customMethod(_ method: String,
+    public func customMethod(_ method: String,
                            path: String? = nil,
                            hasBody: Bool = false) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.custom(method, hasBody), path: path)

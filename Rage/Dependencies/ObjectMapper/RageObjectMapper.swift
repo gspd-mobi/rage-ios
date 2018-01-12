@@ -56,7 +56,7 @@ extension RageRequest {
                 return .success(resultObject)
             } else {
                 return .failure(RageError(type: .configuration,
-                                          message: RageRequest.jsonParsingErrorMessage))
+                                          message: "Couldn't parse object from JSON"))
             }
         case .failure(let error):
             return .failure(error)
@@ -73,7 +73,7 @@ extension RageRequest {
                 return .success(resultObject)
             } else {
                 return .failure(RageError(type: .configuration,
-                                          message: RageRequest.jsonParsingErrorMessage))
+                                          message: "Couldn't parse object from JSON"))
             }
         case .failure(let error):
             return .failure(error)

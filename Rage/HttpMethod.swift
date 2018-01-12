@@ -10,7 +10,7 @@ public enum HttpMethod {
     case head
     case custom(String, Bool)
 
-    func stringValue() -> String {
+    public func stringValue() -> String {
         switch self {
         case .get:
             return "GET"
@@ -29,7 +29,7 @@ public enum HttpMethod {
         }
     }
 
-    func hasBody() -> Bool {
+    public func hasBody() -> Bool {
         switch self {
         case .get,
              .head:

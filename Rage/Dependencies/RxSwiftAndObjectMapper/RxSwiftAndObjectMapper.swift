@@ -14,7 +14,7 @@ extension RageRequest {
                         return Observable.just(resultObject)
                     } else {
                         return Observable.error(RageError(type: .configuration,
-                                                          message: RageRequest.jsonParsingErrorMessage))
+                                                          message: "Couldn't parse object from JSON"))
                     }
                 case .failure(let error):
                     return Observable.error(error)
@@ -32,7 +32,7 @@ extension RageRequest {
                         return Observable.just(resultObject)
                     } else {
                         return Observable.error(RageError(type: .configuration,
-                                                          message: RageRequest.jsonParsingErrorMessage))
+                                                          message: "Couldn't parse object from JSON"))
                     }
                 case .failure(let error):
                     return Observable.error(error)

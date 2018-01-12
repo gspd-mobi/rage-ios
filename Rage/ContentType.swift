@@ -7,7 +7,7 @@ public enum ContentType {
     case multipartFormData
     case custom(String)
 
-    func stringValue() -> String {
+    public func stringValue() -> String {
         switch self {
         case .json:
             return "application/json"
