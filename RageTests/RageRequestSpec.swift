@@ -16,7 +16,7 @@ class RageRequestSpec: QuickSpec {
             beforeEach {
                 baseUrl = "http://example.com"
                 method = HttpMethod.get
-                request = RageRequest(httpMethod: method, baseUrl: baseUrl)
+                request = RageRequest(httpMethod: method, baseUrl: baseUrl, session: URLSession.shared)
             }
 
             describe("customization") {
@@ -237,22 +237,6 @@ class RageRequestSpec: QuickSpec {
                 }
             }
 
-            describe("configuration") {
-                it("timeout can be set") {
-                    _ = request.withTimeoutMillis(1234)
-                    expect(request.timeoutMillis).to(equal(1234))
-                }
-            }
-
-            describe("session") {
-                it("can be created") {
-                    _ = request.withTimeoutMillis(4321)
-                    let session = request.createSession()
-                    expect(session.configuration.timeoutIntervalForRequest).to(equal(4.321))
-                    expect(session.configuration.timeoutIntervalForResource).to(equal(4.321))
-                }
-            }
-
             describe("special request") {
                 it("can create body request") {
                     request.methodPath = "/test"
@@ -266,7 +250,6 @@ class RageRequestSpec: QuickSpec {
                     expect(request.pathParameters).to(equal(bodyRequest.pathParameters))
                     expect(request.headers).to(equal(bodyRequest.headers))
                     expect(request.authenticator).toNot(beNil())
-                    expect(request.timeoutMillis).to(equal(bodyRequest.timeoutMillis))
                     expect(request.plugins.count).to(equal(bodyRequest.plugins.count))
                 }
                 it("can create multipart request") {
@@ -282,7 +265,6 @@ class RageRequestSpec: QuickSpec {
                     expect(request.headers.count).to(equal(multipartRequest.headers.count - 1))
                     expect(multipartRequest.headers["Content-Type"]).to(equal("multipart/form-data"))
                     expect(request.authenticator).toNot(beNil())
-                    expect(request.timeoutMillis).to(equal(multipartRequest.timeoutMillis))
                     expect(request.plugins.count).to(equal(multipartRequest.plugins.count))
                 }
                 it("can create form url encoded request") {
@@ -299,7 +281,6 @@ class RageRequestSpec: QuickSpec {
                     expect(urlEncodedRequest.headers["Content-Type"])
                         .to(equal("application/x-www-form-urlencoded"))
                     expect(request.authenticator).toNot(beNil())
-                    expect(request.timeoutMillis).to(equal(urlEncodedRequest.timeoutMillis))
                     expect(request.plugins.count).to(equal(urlEncodedRequest.plugins.count))
                 }
 
