@@ -44,7 +44,6 @@ open class LoggingPlugin: RagePlugin {
             let httpMethod = raw.httpMethod ?? ""
             let url = raw.url?.absoluteString ?? ""
             print("--> \(stubbedString)\(httpMethod) \(url)")
-            break
         case .none:
             break
         }
@@ -60,7 +59,6 @@ open class LoggingPlugin: RagePlugin {
             for (key, value) in headers {
                 print("\(key): \(value)")
             }
-            break
         case .medium,
              .basic,
              .none:
@@ -73,10 +71,8 @@ open class LoggingPlugin: RagePlugin {
         switch logLevel {
         case .full:
             logResponseFull(rageResponse, rawRequest: rawRequest, stubbed: stubbed)
-            break
         case .medium:
             logResponseMedium(rageResponse, rawRequest: rawRequest, stubbed: stubbed)
-            break
         case .basic,
              .none:
             break
@@ -184,7 +180,6 @@ open class LoggingPlugin: RagePlugin {
             }
             print()
             print(resultString)
-            break
         case .basic,
              .none:
             break

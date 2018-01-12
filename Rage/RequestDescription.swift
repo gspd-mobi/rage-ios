@@ -5,7 +5,7 @@ open class RequestDescription {
     var httpMethod: HttpMethod
     var baseUrl: String?
     var path: String?
-    var headers: [String:String] = [:]
+    var headers: [String: String] = [:]
     var contentType: ContentType
 
     var errorHandlers: [ErrorHandler] = []

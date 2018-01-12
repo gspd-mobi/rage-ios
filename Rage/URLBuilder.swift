@@ -22,8 +22,8 @@ class URLBuilder {
 
     func buildUrlString(_ baseUrl: String,
                         path: String?,
-                        queryParameters: [String:String],
-                        pathParameters: [String:String]) -> String {
+                        queryParameters: [String: String],
+                        pathParameters: [String: String]) -> String {
         var pathString = path ?? ""
 
         for (key, value) in pathParameters {

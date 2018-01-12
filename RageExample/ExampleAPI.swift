@@ -33,7 +33,6 @@ class AuthErrorHandler: ErrorHandler {
         case .failure(let error):
             // Logout logic / opening login screen or something
             print(error.description())
-            break
         }
         return result
     }

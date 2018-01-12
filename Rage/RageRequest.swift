@@ -8,9 +8,9 @@ open class RageRequest {
     var httpMethod: HttpMethod
     var baseUrl: String?
     var methodPath: String?
-    var queryParameters: [String:String] = [:]
-    var pathParameters: [String:String] = [:]
-    var headers: [String:String] = [:]
+    var queryParameters: [String: String] = [:]
+    var pathParameters: [String: String] = [:]
+    var headers: [String: String] = [:]
 
     var authenticator: Authenticator?
     var errorHandlers: [ErrorHandler] = []
@@ -60,7 +60,7 @@ open class RageRequest {
         return self
     }
 
-    open func queryDictionary<T>(_ dictionary: [String:T?]) -> RageRequest {
+    open func queryDictionary<T>(_ dictionary: [String: T?]) -> RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
                 queryParameters[key] = String(describing: safeValue)
@@ -85,7 +85,7 @@ open class RageRequest {
         return self
     }
 
-    open func headerDictionary<T>(_ dictionary: [String:T?]) -> RageRequest {
+    open func headerDictionary<T>(_ dictionary: [String: T?]) -> RageRequest {
         for (key, value) in dictionary {
             if let safeValue = value {
                 headers[key] = String(describing: safeValue)

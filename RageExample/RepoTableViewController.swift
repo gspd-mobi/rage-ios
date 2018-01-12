@@ -78,19 +78,19 @@ class RepoTableViewController: UITableViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         switch (indexPath.section, indexPath.row) {
-            case (0, 0): cell.textLabel?.text = info?.name
-                cell.selectionStyle = .none
-            case (0, 1): cell.textLabel?.text = info?.location
-                cell.selectionStyle = .none
-            case (0, 2):
-                cell.textLabel?.text = "Go to Site..."
-                cell.textLabel?.textColor = UIColor.blue
-                cell.selectionStyle = .none
-            case (1, _):
-                let repo = repos[indexPath.row]
-                cell.textLabel?.text = repo.name
-                cell.accessoryType = .disclosureIndicator
-            default: break
+        case (0, 0): cell.textLabel?.text = info?.name
+        cell.selectionStyle = .none
+        case (0, 1): cell.textLabel?.text = info?.location
+        cell.selectionStyle = .none
+        case (0, 2):
+            cell.textLabel?.text = "Go to Site..."
+            cell.textLabel?.textColor = UIColor.blue
+            cell.selectionStyle = .none
+        case (1, _):
+            let repo = repos[indexPath.row]
+            cell.textLabel?.text = repo.name
+            cell.accessoryType = .disclosureIndicator
+        default: break
         }
         return cell
     }

@@ -4,7 +4,7 @@ open class RageClientConfiguration {
 
     var baseUrl: String?
     var timeoutMillis: Int = 60 * 1000
-    var headers: [String:String] = [:]
+    var headers: [String: String] = [:]
     var contentType = ContentType.json
     var authenticator: Authenticator?
 

@@ -6,7 +6,6 @@ import Nimble
 class RageRequestSpec: QuickSpec {
 
     // swiftlint:disable function_body_length
-    // swiftlint:disable line_length
     override func spec() {
         describe("rage request") {
 
@@ -212,7 +211,7 @@ class RageRequestSpec: QuickSpec {
                     expect(request.isStubbed()).to(equal(false))
                     _ = request.stub("{}", mode: .never)
                     expect(request.isStubbed()).to(equal(false))
-                    _ = request.stub("{}", mode: .delayed(2016))
+                    _ = request.stub("{}", mode: .delayed(0))
                     expect(request.isStubbed()).to(equal(true))
                     _ = request.stub("{}", mode: .immediate)
                     expect(request.isStubbed()).to(equal(true))
@@ -222,7 +221,7 @@ class RageRequestSpec: QuickSpec {
                     expect(request.getStubData()).to(beNil())
                     _ = request.stub("{}", mode: .never)
                     expect(request.getStubData()).to(beNil())
-                    _ = request.stub("{}", mode: .delayed(2016))
+                    _ = request.stub("{}", mode: .delayed(0))
                     expect(request.getStubData()).to(equal("{}".utf8Data()))
                     _ = request.stub("{}", mode: .immediate)
                     expect(request.getStubData()).to(equal("{}".utf8Data()))
