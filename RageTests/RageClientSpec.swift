@@ -102,7 +102,6 @@ class RageClientSpec: QuickSpec {
 
             it("can create request with same configuration as client") {
                 let config = RageClientConfiguration(baseUrl: "http://example.com")
-                config.timeoutMillis = 999
                 config.headers = ["a": "b", "c": "d"]
                 config.contentType = ContentType.json
                 let auth = TestAuthenticator()

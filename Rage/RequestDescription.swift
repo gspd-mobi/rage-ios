@@ -11,8 +11,6 @@ open class RequestDescription {
     var errorHandlers: [ErrorHandler] = []
     var authenticator: Authenticator?
 
-    var timeoutMillis: Int = 60 * 1000
-
     var sessionProvider: SessionProvider = SessionProvider()
 
     init(defaultConfiguration: RageClientConfiguration,

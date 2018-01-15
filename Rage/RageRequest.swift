@@ -26,7 +26,6 @@ open class RageRequest {
     }
 
     public init(requestDescription: RequestDescription,
-                session: URLSession,
                 plugins: [RagePlugin]) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl

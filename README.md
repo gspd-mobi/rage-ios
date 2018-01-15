@@ -31,7 +31,6 @@ At first you need to create RageClient using builder pattern.
 ```swift
 let client = Rage.builderWithBaseUrl("https://api.github.com")
     .withContentType(.json)
-    .withTimeoutMillis(10 * 1000)
     .withHeaderDictionary([
             "Api-Version": "1.1",
             "Platform": "iOS"

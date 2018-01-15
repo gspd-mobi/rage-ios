@@ -3,17 +3,9 @@ import Foundation
 open class RageClient {
 
     let defaultConfiguration: RageClientConfiguration
-    let session: URLSession
 
     init(defaultConfiguration: RageClientConfiguration) {
         self.defaultConfiguration = defaultConfiguration
-
-        let configuration = URLSessionConfiguration.default
-        let timeoutSeconds = Double(defaultConfiguration.timeoutMillis) / 1000.0
-        configuration.timeoutIntervalForRequest = timeoutSeconds
-        configuration.timeoutIntervalForResource = timeoutSeconds
-
-        self.session = URLSession(configuration: configuration)
     }
 
     public func get(_ path: String? = nil) -> RageRequest {
@@ -53,13 +45,12 @@ open class RageClient {
                                                         path: path)
             let config = self.defaultConfiguration
             requestDescription.authenticator = config.authenticator
-            requestDescription.timeoutMillis = config.timeoutMillis
+            requestDescription.sessionProvider = config.sessionProvider
             requestDescription.errorHandlers = config.errorsHandlersClosure()
             return requestDescription
         }()
 
         return RageRequest(requestDescription: requestDescription,
-                           session: session,
                            plugins: defaultConfiguration.plugins)
     }
 

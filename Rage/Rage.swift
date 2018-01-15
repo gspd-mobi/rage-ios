@@ -32,11 +32,6 @@ open class Rage {
             return self
         }
 
-        public func withTimeoutMillis(_ timeoutMillis: Int) -> Builder {
-            config.timeoutMillis = timeoutMillis
-            return self
-        }
-
         public func withHeader(_ key: String, _ value: String) -> Builder {
             config.headers[key] = value
             return self

@@ -18,11 +18,6 @@ class RageSpec: QuickSpec {
                 expect(builder.config.contentType).to(equal(ContentType.json))
             }
 
-            it("can set timeout") {
-                _ = builder.withTimeoutMillis(1000)
-                expect(builder.config.timeoutMillis).to(equal(1000))
-            }
-
             it("can add default header") {
                 _ = builder.withHeader("Authorization", "Bearer someoauthtokenstring")
                 expect(builder.config.headers["Authorization"])
