@@ -15,7 +15,7 @@ class RageRequestSpec: QuickSpec {
             beforeEach {
                 baseUrl = "http://example.com"
                 method = HttpMethod.get
-                request = RageRequest(httpMethod: method, baseUrl: baseUrl, session: URLSession.shared)
+                request = RageRequest(httpMethod: method, baseUrl: baseUrl)
             }
 
             describe("customization") {

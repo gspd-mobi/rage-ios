@@ -19,11 +19,10 @@ open class RageRequest {
     var session: URLSession
 
     public init(httpMethod: HttpMethod,
-         baseUrl: String?,
-         session: URLSession) {
+         baseUrl: String?) {
         self.httpMethod = httpMethod
         self.baseUrl = baseUrl
-        self.session = session
+        self.session = SessionProvider().session
     }
 
     public init(requestDescription: RequestDescription,
@@ -33,13 +32,13 @@ open class RageRequest {
         self.baseUrl = requestDescription.baseUrl
         self.methodPath = requestDescription.path
         self.headers = requestDescription.headers
-        self.headers["Content-Type"] = requestDescription.contentType.stringValue()
+        self.headers[ContentType.key] = requestDescription.contentType.stringValue()
 
         self.errorHandlers = requestDescription.errorHandlers
         self.authenticator = requestDescription.authenticator
 
         self.plugins = plugins
-        self.session = session
+        self.session = requestDescription.sessionProvider.session
     }
 
     // MARK: Parameters
@@ -95,7 +94,7 @@ open class RageRequest {
     }
 
     open func contentType(_ contentType: ContentType) -> RageRequest {
-        self.headers["Content-Type"] = contentType.stringValue()
+        self.headers[ContentType.key] = contentType.stringValue()
         return self
     }
 

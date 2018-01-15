@@ -22,6 +22,11 @@ open class Rage {
             config = RageClientConfiguration(baseUrl: baseUrl)
         }
 
+        public func withSessionProvider(_ sessionProvider: SessionProvider) -> Builder {
+            config.sessionProvider = sessionProvider
+            return self
+        }
+
         public func withContentType(_ contentType: ContentType) -> Builder {
             config.contentType = contentType
             return self

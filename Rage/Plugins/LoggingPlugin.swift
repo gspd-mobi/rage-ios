@@ -211,7 +211,7 @@ open class LoggingPlugin: RagePlugin {
     }
 
     fileprivate func isJson(_ httpResponse: HTTPURLResponse) -> Bool {
-        let contentTypeHeader = httpResponse.allHeaderFields["Content-Type"]
+        let contentTypeHeader = httpResponse.allHeaderFields[ContentType.key]
         guard let contentTypeStringValue = contentTypeHeader as? String else {
             return false
         }

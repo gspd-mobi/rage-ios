@@ -12,6 +12,7 @@ open class RageClientConfiguration {
     var errorsHandlersClosure: () -> [ErrorHandler] = {
         []
     }
+    var sessionProvider: SessionProvider = SessionProvider()
 
     init(baseUrl: String?) {
         self.baseUrl = baseUrl

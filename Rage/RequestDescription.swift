@@ -13,6 +13,8 @@ open class RequestDescription {
 
     var timeoutMillis: Int = 60 * 1000
 
+    var sessionProvider: SessionProvider = SessionProvider()
+
     init(defaultConfiguration: RageClientConfiguration,
          httpMethod: HttpMethod,
          path: String?) {
@@ -23,6 +25,7 @@ open class RequestDescription {
             self.headers[key] = value
         }
         self.contentType = defaultConfiguration.contentType
+        self.sessionProvider = defaultConfiguration.sessionProvider
     }
 
 }

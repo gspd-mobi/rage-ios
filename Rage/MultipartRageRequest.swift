@@ -18,13 +18,14 @@ open class MultipartRageRequest: RageRequest {
     var customBoundary: String?
 
     public init(from request: RageRequest) {
-        super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl, session: request.session)
+        super.init(httpMethod: request.httpMethod, baseUrl: request.baseUrl)
         self.methodPath = request.methodPath
         self.queryParameters = request.queryParameters
         self.pathParameters = request.pathParameters
         self.headers = request.headers
         self.authenticator = request.authenticator
         self.plugins = request.plugins
+        self.session = request.session
 
         _ = contentType(.multipartFormData)
     }
@@ -52,7 +53,7 @@ open class MultipartRageRequest: RageRequest {
         let request = NSMutableURLRequest(url: url)
         let boundary = customBoundary ?? makeBoundary()
         for (key, value) in headers {
-            if key == "Content-Type" {
+            if key == ContentType.key {
                 request.addValue("\(value); boundary=\(boundary)", forHTTPHeaderField: key)
             } else {
                 request.addValue(value, forHTTPHeaderField: key)
@@ -84,7 +85,7 @@ open class MultipartRageRequest: RageRequest {
             guard let contentDispositionData = contentDispositionString.utf8Data() else {
                 continue
             }
-            guard let contentTypeData = "Content-Type: \(part.object.mimeType)".utf8Data() else {
+            guard let contentTypeData = "\(ContentType.key): \(part.object.mimeType)".utf8Data() else {
                 continue
             }
             body.append(extraDashesData)

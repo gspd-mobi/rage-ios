@@ -12,6 +12,10 @@
 		03A5A4A2200CAA0300B62E44 /* RageErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A1200CAA0300B62E44 /* RageErrorSpec.swift */; };
 		03A5A4A4200CCD9700B62E44 /* RageExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A3200CCD9700B62E44 /* RageExtensionsTests.swift */; };
 		03A5A4A6200CE0BB00B62E44 /* RageResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A5200CE0BB00B62E44 /* RageResponseSpec.swift */; };
+		03A5A4A8200CF63900B62E44 /* BodyRageRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A7200CF63900B62E44 /* BodyRageRequestSpec.swift */; };
+		03A5A4AA200CF7DA00B62E44 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */; };
+		03A5A4AB200CF96000B62E44 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */; };
+		03A5A4AF200CFF3500B62E44 /* MultipartRageRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */; };
 		52FA48B02BEE3892D8EE8E88 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4FB44182B4551825A6968F /* Pods_RageExample.framework */; };
 		5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
 		5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */; };
@@ -139,6 +143,9 @@
 		03A5A4A1200CAA0300B62E44 /* RageErrorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RageErrorSpec.swift; sourceTree = "<group>"; };
 		03A5A4A3200CCD9700B62E44 /* RageExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RageExtensionsTests.swift; sourceTree = "<group>"; };
 		03A5A4A5200CE0BB00B62E44 /* RageResponseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RageResponseSpec.swift; sourceTree = "<group>"; };
+		03A5A4A7200CF63900B62E44 /* BodyRageRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyRageRequestSpec.swift; sourceTree = "<group>"; };
+		03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionProvider.swift; sourceTree = "<group>"; };
+		03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRageRequestSpec.swift; sourceTree = "<group>"; };
 		0E86BE2517D3A8EE8117D9F5 /* Pods-Rage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.debug.xcconfig"; sourceTree = "<group>"; };
 		321B8AC3666CFDC9EC4DD397 /* Pods-RageExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.debug.xcconfig"; sourceTree = "<group>"; };
 		47E34C933CD31EAC73F744D1 /* Pods_RageTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -366,6 +373,7 @@
 				5D7AA16F930E63B5C4E5089E /* StubData.swift */,
 				5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */,
 				5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */,
+				03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -384,6 +392,8 @@
 				03A5A4A1200CAA0300B62E44 /* RageErrorSpec.swift */,
 				03A5A4A3200CCD9700B62E44 /* RageExtensionsTests.swift */,
 				03A5A4A5200CE0BB00B62E44 /* RageResponseSpec.swift */,
+				03A5A4A7200CF63900B62E44 /* BodyRageRequestSpec.swift */,
+				03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */,
 			);
 			path = RageTests;
 			sourceTree = "<group>";
@@ -775,6 +785,7 @@
 				5D7AA2CF1FDEAB219F857B1A /* TestErrorHandler.swift in Sources */,
 				5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */,
 				5D7AA58A91CE237AE8F4D697 /* StubModeExtension.swift in Sources */,
+				03A5A4AA200CF7DA00B62E44 /* SessionProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,6 +802,7 @@
 				8A7B084B1D6EF41300A61194 /* Authenticator.swift in Sources */,
 				8AA2E8071D6B467700E76B52 /* Rage.swift in Sources */,
 				8AA2E8081D6B467700E76B52 /* RageError.swift in Sources */,
+				03A5A4AB200CF96000B62E44 /* SessionProvider.swift in Sources */,
 				8AA2E8091D6B467700E76B52 /* RageExtensions.swift in Sources */,
 				5D7AA983D3EFFD4C83C18BFD /* RageObjectMapper.swift in Sources */,
 				5D7AA6A3A5E25DFC6D483156 /* RageRxSwift.swift in Sources */,
@@ -815,12 +827,14 @@
 				5D7AA395512C05CDB112EF45 /* HttpMethodExtension.swift in Sources */,
 				5D7AA5A0D1F7F24EAAB7D2D4 /* ContentTypeExtensions.swift in Sources */,
 				5D7AA9D696C82DFE5CEFE340 /* TestAuthenticator.swift in Sources */,
+				03A5A4AF200CFF3500B62E44 /* MultipartRageRequestSpec.swift in Sources */,
 				03A5A4A2200CAA0300B62E44 /* RageErrorSpec.swift in Sources */,
 				5D7AA2E302FE50515C0F2A0D /* TestPlugin.swift in Sources */,
 				5D7AA6066364F6F125D46980 /* TestErrorHandler.swift in Sources */,
 				5D7AA1B1557BE959038A39A3 /* URLBuilder.swift in Sources */,
 				5D7AA8386115502C2174E824 /* RageRequestSpec.swift in Sources */,
 				03A5A49E200CA43600B62E44 /* ContentTypeSpec.swift in Sources */,
+				03A5A4A8200CF63900B62E44 /* BodyRageRequestSpec.swift in Sources */,
 				03A5A4A4200CCD9700B62E44 /* RageExtensionsTests.swift in Sources */,
 				5D7AADF5F284E1850CBEA0D0 /* StubModeExtension.swift in Sources */,
 			);

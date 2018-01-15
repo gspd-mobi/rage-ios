@@ -9,7 +9,7 @@ class RageErrorSpec: QuickSpec {
             describe("can be initialised") {
                 describe("with type and response") {
                     let errorType = RageErrorType.raw
-                    let request = RageRequest(httpMethod: .get, baseUrl: nil, session: URLSession.shared)
+                    let request = RageRequest(httpMethod: .get, baseUrl: nil)
                     let response = RageResponse(request: request, data: nil, response: nil, error: nil)
                     let error = RageError(type: errorType, rageResponse: response)
                     it("type set") {
@@ -38,7 +38,7 @@ class RageErrorSpec: QuickSpec {
                 describe("with response only") {
                     let url = URL(string: "http://example.com")!
                     let urlResponse = URLResponse(url: url, mimeType: "application/json", expectedContentLength: 1234, textEncodingName: "utf-8")
-                    let request = RageRequest(httpMethod: .get, baseUrl: nil, session: URLSession.shared)
+                    let request = RageRequest(httpMethod: .get, baseUrl: nil)
                     [NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet].forEach { code in
                         let error = NSError(domain: NSURLErrorDomain, code: code, userInfo: nil)
                         let response = RageResponse(request: request, data: nil, response: urlResponse, error: error)
@@ -66,7 +66,7 @@ class RageErrorSpec: QuickSpec {
                     expect(error.statusCode()).to(beNil())
                 }
                 it("is equal to response status code") {
-                    let request = RageRequest(httpMethod: .get, baseUrl: nil, session: URLSession.shared)
+                    let request = RageRequest(httpMethod: .get, baseUrl: nil)
                     let error = NSError(domain: "domain", code: 404, userInfo: nil)
                     let response = RageResponse(request: request, data: nil, response: nil, error: error)
                     let rageError = RageError(type: .http, rageResponse: response)

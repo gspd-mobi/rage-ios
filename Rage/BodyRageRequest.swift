@@ -9,14 +9,14 @@ open class BodyRageRequest: RageRequest {
 
     public init(from request: RageRequest) {
         super.init(httpMethod: request.httpMethod,
-                   baseUrl: request.baseUrl,
-                   session: request.session)
+                   baseUrl: request.baseUrl)
         self.methodPath = request.methodPath
         self.queryParameters = request.queryParameters
         self.pathParameters = request.pathParameters
         self.headers = request.headers
         self.authenticator = request.authenticator
         self.plugins = request.plugins
+        self.session = request.session
     }
 
     open func bodyData(_ value: Data) -> BodyRageRequest {

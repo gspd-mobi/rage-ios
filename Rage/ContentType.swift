@@ -2,6 +2,8 @@ import Foundation
 
 public enum ContentType {
 
+    public static let key = "Content-Type"
+
     case json
     case urlEncoded
     case multipartFormData
