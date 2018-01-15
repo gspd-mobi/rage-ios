@@ -26,18 +26,6 @@ open class RageError: Error {
         self.message = message
     }
 
-}
-
-extension RageError {
-
-    public func statusCode() -> Int? {
-        return rageResponse?.statusCode()
-    }
-
-}
-
-extension RageError {
-
     public convenience init(response: RageResponse) {
         if let error = response.error {
             let networksErrors = [NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet]
@@ -51,6 +39,14 @@ extension RageError {
         }
 
         self.init(type: .raw, rageResponse: response)
+    }
+
+}
+
+extension RageError {
+
+    public func statusCode() -> Int? {
+        return rageResponse?.statusCode()
     }
 
 }

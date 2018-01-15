@@ -107,9 +107,8 @@ open class RageRequest {
     open func authorized() -> RageRequest {
         if let safeAuthenticator = authenticator {
             return safeAuthenticator.authorizeRequest(self)
-        } else {
-            preconditionFailure("Can't create authorized request without Authenticator provided")
         }
+        preconditionFailure("Can't create authorized request without Authenticator provided")
     }
 
     open func isAuthorized() -> Bool {

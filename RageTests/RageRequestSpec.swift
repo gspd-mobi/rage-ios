@@ -155,16 +155,25 @@ class RageRequestSpec: QuickSpec {
                 }
 
                 it("can be authorized with client authenticator") {
-                    let auth = TestAuthenticator()
+                    let auth = TestActiveAuthenticator(token: "token")
                     request.authenticator = auth
-                    _ = request.authorized()
+                    request = request.authorized()
                     expect(request.authenticator).toNot(beNil())
+                    expect(request.headers["Authorization"]).to(equal("token"))
                 }
 
                 it("can be authorized with request authenticator") {
-                    let auth = TestAuthenticator()
-                    _ = request.authorized(with: auth)
+                    let auth = TestActiveAuthenticator(token: "token")
+                    request = request.authorized(with: auth)
                     expect(request.authenticator).toNot(beNil())
+                    expect(request.headers["Authorization"]).to(equal("token"))
+                }
+
+                it("request is authorized when it authorized with authenticator")  {
+                    let auth = TestAuthenticator()
+                    expect(request.isAuthorized()).to(equal(false))
+                    request = request.authorized(with: auth)
+                    expect(request.isAuthorized()).to(equal(true))
                 }
             }
 
@@ -312,6 +321,42 @@ class RageRequestSpec: QuickSpec {
                     expect(parsedObject).toEventually(equal("{}"))
                 }
 
+            }
+
+            describe("plugins") {
+                let url = URL(string: "http://example.com")!
+                let urlRequest = URLRequest(url: url)
+                it("send plugins did send request called") {
+                    let plugin1 = TestIncrementPlugin()
+                    let plugin2 = TestIncrementPlugin()
+                    request.plugins = [plugin1, plugin2]
+                    expect(plugin1.didSendRequestCounter).to(equal(0))
+                    expect(plugin2.didSendRequestCounter).to(equal(0))
+                    request.sendPluginsDidSendRequest(urlRequest)
+                    expect(plugin1.didSendRequestCounter).to(equal(1))
+                    expect(plugin2.didSendRequestCounter).to(equal(1))
+                }
+                it("send plugins did receive response called") {
+                    let plugin1 = TestIncrementPlugin()
+                    let plugin2 = TestIncrementPlugin()
+                    request.plugins = [plugin1, plugin2]
+                    let response = RageResponse(request: request, data: nil, response: nil, error: nil)
+                    expect(plugin1.didReceiveResponseCounter).to(equal(0))
+                    expect(plugin2.didReceiveResponseCounter).to(equal(0))
+                    request.sendPluginsDidReceiveResponse(response, rawRequest: urlRequest)
+                    expect(plugin1.didReceiveResponseCounter).to(equal(1))
+                    expect(plugin2.didReceiveResponseCounter).to(equal(1))
+                }
+                it("send plugins will send request") {
+                    let plugin1 = TestIncrementPlugin()
+                    let plugin2 = TestIncrementPlugin()
+                    request.plugins = [plugin1, plugin2]
+                    expect(plugin1.willSendRequestCounter).to(equal(0))
+                    expect(plugin2.willSendRequestCounter).to(equal(0))
+                    request.sendPluginsWillSendRequest()
+                    expect(plugin1.willSendRequestCounter).to(equal(1))
+                    expect(plugin2.willSendRequestCounter).to(equal(1))
+                }
             }
         }
     }
