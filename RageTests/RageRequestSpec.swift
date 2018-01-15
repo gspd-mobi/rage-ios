@@ -2,10 +2,8 @@ import Foundation
 import Quick
 import Nimble
 
-// swiftlint:disable type_body_length
 class RageRequestSpec: QuickSpec {
 
-    // swiftlint:disable function_body_length
     override func spec() {
         describe("rage request") {
 
@@ -169,7 +167,7 @@ class RageRequestSpec: QuickSpec {
                     expect(request.headers["Authorization"]).to(equal("token"))
                 }
 
-                it("request is authorized when it authorized with authenticator")  {
+                it("request is authorized when it authorized with authenticator") {
                     let auth = TestAuthenticator()
                     expect(request.isAuthorized()).to(equal(false))
                     request = request.authorized(with: auth)

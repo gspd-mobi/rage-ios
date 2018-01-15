@@ -37,7 +37,10 @@ class RageErrorSpec: QuickSpec {
                 }
                 describe("with response only") {
                     let url = URL(string: "http://example.com")!
-                    let urlResponse = URLResponse(url: url, mimeType: "application/json", expectedContentLength: 1234, textEncodingName: "utf-8")
+                    let urlResponse = URLResponse(url: url,
+                                                  mimeType: "application/json",
+                                                  expectedContentLength: 1234,
+                                                  textEncodingName: "utf-8")
                     let request = RageRequest(httpMethod: .get, baseUrl: nil)
                     [NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet].forEach { code in
                         let error = NSError(domain: NSURLErrorDomain, code: code, userInfo: nil)
@@ -77,4 +80,3 @@ class RageErrorSpec: QuickSpec {
     }
 
 }
-

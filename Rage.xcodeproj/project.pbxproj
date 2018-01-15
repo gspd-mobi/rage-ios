@@ -16,6 +16,7 @@
 		03A5A4AA200CF7DA00B62E44 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */; };
 		03A5A4AB200CF96000B62E44 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */; };
 		03A5A4AF200CFF3500B62E44 /* MultipartRageRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */; };
+		03A5A4B2200D0C2E00B62E44 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03A5A4B1200D0C2E00B62E44 /* .swiftlint.yml */; };
 		52FA48B02BEE3892D8EE8E88 /* Pods_RageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4FB44182B4551825A6968F /* Pods_RageExample.framework */; };
 		5D7AA005E7546F33D358ED2D /* RageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA110A7F9F32C9B681A1D /* RageExtensions.swift */; };
 		5D7AA0D4A46C2764512048AD /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */; };
@@ -146,6 +147,7 @@
 		03A5A4A7200CF63900B62E44 /* BodyRageRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyRageRequestSpec.swift; sourceTree = "<group>"; };
 		03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionProvider.swift; sourceTree = "<group>"; };
 		03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRageRequestSpec.swift; sourceTree = "<group>"; };
+		03A5A4B1200D0C2E00B62E44 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0E86BE2517D3A8EE8117D9F5 /* Pods-Rage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rage/Pods-Rage.debug.xcconfig"; sourceTree = "<group>"; };
 		321B8AC3666CFDC9EC4DD397 /* Pods-RageExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RageExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RageExample/Pods-RageExample.debug.xcconfig"; sourceTree = "<group>"; };
 		47E34C933CD31EAC73F744D1 /* Pods_RageTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RageTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -381,6 +383,7 @@
 		8A6748DA1D6B37200064467F /* RageTests */ = {
 			isa = PBXGroup;
 			children = (
+				03A5A4B1200D0C2E00B62E44 /* .swiftlint.yml */,
 				8A6748DD1D6B37200064467F /* Info.plist */,
 				5D7AA355BFFA26A6C861DC05 /* RageSpec.swift */,
 				5D7AA3B4B231305058C85580 /* ParamsBuilderSpec.swift */,
@@ -451,6 +454,7 @@
 			buildConfigurationList = 8A6748E01D6B37200064467F /* Build configuration list for PBXNativeTarget "Rage" */;
 			buildPhases = (
 				8934DFDDE2D2E6470A772794 /* [CP] Check Pods Manifest.lock */,
+				03A5A4B0200D0A8700B62E44 /* Swiftlint */,
 				8A6748C71D6B37200064467F /* Sources */,
 				8A6748C81D6B37200064467F /* Frameworks */,
 				8A6748C91D6B37200064467F /* Headers */,
@@ -492,11 +496,11 @@
 			buildConfigurationList = 8A6748F91D6B37620064467F /* Build configuration list for PBXNativeTarget "RageExample" */;
 			buildPhases = (
 				A4785F04C8ADE67B9832796F /* [CP] Check Pods Manifest.lock */,
+				8AA2E82C1D6C8A6600E76B52 /* SwiftLint */,
 				8A6748E61D6B37620064467F /* Sources */,
 				8A6748E71D6B37620064467F /* Frameworks */,
 				8A6748E81D6B37620064467F /* Resources */,
 				8AA2E8011D6B414600E76B52 /* Embed Frameworks */,
-				8AA2E82C1D6C8A6600E76B52 /* SwiftLint */,
 				446003E046A79BC005F5BCD4 /* [CP] Embed Pods Frameworks */,
 				9448F8195C5369BECFA87551 /* [CP] Copy Pods Resources */,
 			);
@@ -568,6 +572,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A5A4B2200D0C2E00B62E44 /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +590,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		03A5A4B0200D0A8700B62E44 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		3353FFC9A919821B08817538 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

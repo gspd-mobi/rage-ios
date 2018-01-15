@@ -74,4 +74,3 @@ class HttpMethodTypeSpec: QuickSpec {
     }
 
 }
-

@@ -40,6 +40,6 @@ func doRequestWithRequestAuth() {
      let resultOk = client.get("/method")
         .authorized(MyAuthenticator()) // Everything is ok. authorizeRequest function will be applied to this request.
         .execute()
- }
+}
 
 ```

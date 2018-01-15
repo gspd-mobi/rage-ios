@@ -4,7 +4,6 @@ import Nimble
 
 class ParamsBuilderSpec: QuickSpec {
 
-    // swiftlint:disable function_body_length
     override func spec() {
         describe("url builder") {
             let builder = URLBuilder()

@@ -41,8 +41,8 @@ open class RageClient {
     }
 
     public func customMethod(_ method: String,
-                           path: String? = nil,
-                           hasBody: Bool = false) -> RageRequest {
+                             path: String? = nil,
+                             hasBody: Bool = false) -> RageRequest {
         return createRequestWithHttpMethod(HttpMethod.custom(method, hasBody), path: path)
     }
 

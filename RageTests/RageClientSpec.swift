@@ -4,7 +4,6 @@ import Nimble
 
 class RageClientSpec: QuickSpec {
 
-    // swiftlint:disable function_body_length
     override func spec() {
         describe("rage client can create requests") {
 
