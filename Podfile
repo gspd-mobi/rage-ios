@@ -2,12 +2,12 @@ use_frameworks!
 
 def common_pods
     pod 'RxSwift',   '~> 4.1.1'
-    pod 'ObjectMapper', '~> 3.1.0'
     pod 'Result', '~> 3.2.4'
 end
 
 target 'RageExample' do
     common_pods
+    pod 'ObjectMapper', '~> 3.1.0'
 end
 
 target 'Rage' do
