@@ -2,9 +2,7 @@ RxSwift
 =============================
 Use RxSwift subspec of Rage
 ```ruby
-pod "Rage/RxSwift", "~> 0.12.0"
-# If you want to use both RxSwift and ObjectMapper then use RxSwiftAndObjectMapper subspec
-# pod "Rage/RxSwiftAndObjectMapper", "~> 0.12.0"
+pod "Rage/RxSwift", "~> 0.14.0"
 ```
 Then you can use Rage RxSwift features.
 
@@ -12,11 +10,4 @@ Then you can use Rage RxSwift features.
 ```swift
 let userStringObservable: Observable<String, RageError> = request.executeStringObservable()
 let userDataObservable: Observable<Data, RageError> = request.executeDataObservable()
-```
-
-## With ObjectMapper ##
-If both RxSwift and ObjectMapper used you can use `executeObjectObservable()` function to get parsed data as Observable.
-```swift
-let userObjectObservable: Observable<GithubUser, RageError> = request.executeObjectObservable() // Where GithubUser is Mappable
-let usersObjectObservable: Observable<[GithubUser], RageError> = request.executeObjectObservable() // Works for arrays too
 ```

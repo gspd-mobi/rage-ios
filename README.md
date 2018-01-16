@@ -21,7 +21,7 @@ Documentation now may differ from real API because it's unstable and improving p
 * One liner request making. :dart:
 * Describing API spec in highly readable way. :books:
 * Optional [RxSwift](https://github.com/ReactiveX/RxSwift) out of box. :rocket:
-* Optional JSON support by [ObjectMapper](https://github.com/Hearst-DD/ObjectMapper) out of box. :ledger:
+* Optional JSON support by [Codable](https://github.com/gspd-mobi/rage-ios-codable-extensions). :ledger:
 * Manipulating strictly typed objects instead of String dictionaries hell. :package:
 
 ## Usage ##
@@ -65,7 +65,7 @@ func getRepositoriesForOrganizationSync(organizationTitle: String) -> Result<Rag
 }
 ```
 
-Using both **RxSwift** and **ObjectMapper** you can declare API in such awesome way.
+Using both **RxSwift** and **RageCodableExtensions** you can declare API in such awesome way.
 ```swift
 func getUser(username: String) -> Observable<GithubUser> {
     return client.get("/users/{user}")
@@ -76,7 +76,7 @@ func getUser(username: String) -> Observable<GithubUser> {
 func getRepositoriesForOrganization(organizationTitle: String) -> Observable<[GithubRepository]> {
     return client.get("/orgs/{org}/repos")
         .path("org", organizationTitle)
-        .executeObjectObservable()
+        .executeArrayObservable()
 }
 ```
 That's it. Compact but powerful.
@@ -85,16 +85,12 @@ That's it. Compact but powerful.
 Add this dependency to Podfile and `pod install`
 ```ruby
 # Core subspec of Rage
-pod 'Rage', '~> 0.12.0'
+pod 'Rage', '~> 0.14.0'
 ```
-Or if you want to use RxSwift and ObjectMapper features you should use these Rage subspecs
+Or if you want to use RxSwift features you should use these Rage subspec
 ```ruby
 # RxSwift only
-pod "Rage/RxSwift", "~> 0.12.0"
-# ObjectMapper only
-pod "Rage/ObjectMapper", "~> 0.12.0"
-# Both RxSwift and ObjectMapper
-pod "Rage/RxSwiftAndObjectMapper", "~> 0.12.0"
+pod "Rage/RxSwift", "~> 0.14.0"
 ```
 
 License
