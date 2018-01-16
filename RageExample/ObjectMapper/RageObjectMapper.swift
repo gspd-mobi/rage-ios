@@ -1,4 +1,5 @@
 import Foundation
+import Rage
 import ObjectMapper
 import Result
 
@@ -6,7 +7,7 @@ extension BodyRageRequest {
 
     public func bodyJson<T: Mappable>(_ value: T) -> BodyRageRequest {
         if !httpMethod.hasBody() {
-            preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
+            preconditionFailure("HttpMethod with body support must be used")
         }
 
         guard let json = value.toJSONString() else {
@@ -18,7 +19,7 @@ extension BodyRageRequest {
 
     public func bodyJson<T: Mappable>(_ value: [T]) -> BodyRageRequest {
         if !httpMethod.hasBody() {
-            preconditionFailure(BodyRageRequest.wrongHttpMethodForBodyErrorMessage)
+            preconditionFailure("HttpMethod with body support must be used")
         }
 
         guard let json = value.toJSONString() else {

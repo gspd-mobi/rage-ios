@@ -35,15 +35,3 @@ extension RageError {
     }
 
 }
-
-extension Data {
-
-    func parseJson<T: Mappable>() -> T? {
-        let resultString = String(data: self, encoding: String.Encoding.utf8)!
-        guard let b = Mapper<T>().map(JSONString: resultString) else {
-            return nil
-        }
-        return b
-    }
-
-}
