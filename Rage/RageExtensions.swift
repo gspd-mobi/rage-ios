@@ -10,7 +10,7 @@ extension Data {
             let string = String(data: data, encoding: String.Encoding.utf8)
             return string
         } catch {
-            return nil
+            return utf8String()
         }
     }
 
