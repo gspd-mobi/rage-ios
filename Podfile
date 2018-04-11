@@ -1,8 +1,7 @@
 use_frameworks!
-inhibit_all_warnings!
 
 def common_pods
-    pod 'RxSwift',   '~> 4.1.1'
+    pod 'RxSwift',   '~> 4.1.2'
     pod 'Result', '~> 3.2.4'
 end
 
@@ -18,5 +17,5 @@ end
 target 'RageTests' do
     common_pods
     pod 'Quick', '~> 1.2.0'
-    pod 'Nimble', '~> 7.0.3'
+    pod 'Nimble', '~> 7.1.0'
 end
