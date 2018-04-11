@@ -12,7 +12,7 @@ end
 
 target 'Rage' do
     common_pods
-endt
+end
 
 target 'RageTests' do
     common_pods
