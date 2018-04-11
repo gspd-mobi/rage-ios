@@ -108,10 +108,11 @@ class RepoTableViewController: UITableViewController {
                 UIApplication.shared.openURL(url)
             }
         case (1, _):
-            let vc = ContributorsTableViewController(nibName: "TableViewController", bundle: nil)
-            vc.repo = repos[indexPath.row].name
-            vc.org = org
-            self.navigationController?.pushViewController(vc, animated: true)
+            let viewController = ContributorsTableViewController(nibName: "TableViewController",
+                                                                 bundle: nil)
+            viewController.repo = repos[indexPath.row].name
+            viewController.org = org
+            self.navigationController?.pushViewController(viewController, animated: true)
         default: break
         }
     }

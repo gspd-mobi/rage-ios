@@ -12,8 +12,8 @@ extension RageRequest {
 
             self.sendPluginsDidSendRequest(request)
 
-            if let s = self.getStubData() {
-                let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
+            if let stub = self.getStubData() {
+                let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
                 self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
                 observer.onNext(.success(rageResponse))
                 return Disposables.create()

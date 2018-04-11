@@ -107,18 +107,18 @@ extension Data {
 
     func parseJson<T: Mappable>() -> T? {
         let resultString = String(data: self, encoding: String.Encoding.utf8)!
-        guard let b = Mapper<T>().map(JSONString: resultString) else {
+        guard let value = Mapper<T>().map(JSONString: resultString) else {
             return nil
         }
-        return b
+        return value
     }
 
     func parseJsonArray<T: Mappable>() -> [T]? {
         let resultString = String(data: self, encoding: String.Encoding.utf8)!
-        guard let b = Mapper<T>().mapArray(JSONString: resultString) else {
+        guard let value = Mapper<T>().mapArray(JSONString: resultString) else {
             return nil
         }
-        return b
+        return value
     }
 
 }

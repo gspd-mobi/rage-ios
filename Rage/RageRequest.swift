@@ -153,8 +153,8 @@ open class RageRequest {
 
         sendPluginsDidSendRequest(request)
 
-        if let s = getStubData() {
-            let rageResponse = RageResponse(request: self, data: s, response: nil, error: nil)
+        if let stub = getStubData() {
+            let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
             sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
             return .success(rageResponse)
         }
@@ -292,10 +292,10 @@ open class RageRequest {
     // MARK: Stub
 
     func isStubbed() -> Bool {
-        guard let s = stubData else {
+        guard let stub = stubData else {
             return false
         }
-        switch s.mode {
+        switch stub.mode {
         case .never:
             return false
         default:
@@ -304,18 +304,18 @@ open class RageRequest {
     }
 
     func getStubData() -> Data? {
-        guard let s = stubData else {
+        guard let stub = stubData else {
             return nil
         }
-        switch s.mode {
+        switch stub.mode {
         case .never:
             return nil
         case .immediate:
-            return s.data as Data
+            return stub.data as Data
         case .delayed(let delayMillis):
             let seconds = Double(delayMillis) / 1000
             Thread.sleep(forTimeInterval: seconds)
-            return s.data as Data
+            return stub.data as Data
         }
     }
 
