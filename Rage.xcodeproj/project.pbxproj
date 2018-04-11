@@ -457,7 +457,6 @@
 				8A6748C81D6B37200064467F /* Frameworks */,
 				8A6748C91D6B37200064467F /* Headers */,
 				8A6748CA1D6B37200064467F /* Resources */,
-				A382E76B432F6E6BC5B807F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -477,7 +476,6 @@
 				8A6748D31D6B37200064467F /* Frameworks */,
 				8A6748D41D6B37200064467F /* Resources */,
 				585A7C9EE2928872A63EB372 /* [CP] Embed Pods Frameworks */,
-				4B5108DCBFE59272909622AD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -500,7 +498,6 @@
 				8A6748E81D6B37620064467F /* Resources */,
 				8AA2E8011D6B414600E76B52 /* Embed Frameworks */,
 				446003E046A79BC005F5BCD4 /* [CP] Embed Pods Frameworks */,
-				9448F8195C5369BECFA87551 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -642,21 +639,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageExample/Pods-RageExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4B5108DCBFE59272909622AD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageTests/Pods-RageTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		585A7C9EE2928872A63EB372 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -712,36 +694,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		9448F8195C5369BECFA87551 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RageExample/Pods-RageExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A382E76B432F6E6BC5B807F5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rage/Pods-Rage-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A4785F04C8ADE67B9832796F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

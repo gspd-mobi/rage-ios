@@ -21,7 +21,7 @@ class RageExtensionsSpec: QuickSpec {
                 let wrongJson = "{:}"
                 let data = wrongJson.utf8Data()!
                 let prettyPrintedJson = data.prettyJsonString()
-                expect(prettyPrintedJson).to(beNil())
+                expect(prettyPrintedJson).to(equal(wrongJson))
             }
             it("utf8 string can be created") {
                 let str = "example"
