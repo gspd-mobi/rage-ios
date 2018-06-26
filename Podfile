@@ -1,8 +1,10 @@
 use_frameworks!
+inhibit_all_warnings!
 
 def common_pods
     pod 'RxSwift',   '~> 4.1.2'
     pod 'Result', '~> 3.2.4'
+    pod 'SwiftLint'
 end
 
 target 'RageExample' do

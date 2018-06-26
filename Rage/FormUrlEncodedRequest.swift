@@ -75,6 +75,7 @@ open class FormUrlEncodedRequest: RageRequest {
         }
         request.httpMethod = httpMethod.stringValue()
 
+        body = ParamsBuilder().stringFromFieldParameters(fieldParameters).utf8Data()
         if httpMethod.hasBody() {
             request.httpBody = body
         }

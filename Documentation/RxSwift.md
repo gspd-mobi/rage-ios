@@ -2,7 +2,7 @@ RxSwift
 =============================
 Use RxSwift subspec of Rage
 ```ruby
-pod "Rage/RxSwift", "~> 0.14.1"
+pod "Rage/RxSwift", "~> 0.14.2"
 ```
 Then you can use Rage RxSwift features.
 
