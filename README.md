@@ -85,12 +85,12 @@ That's it. Compact but powerful.
 Add this dependency to Podfile and `pod install`
 ```ruby
 # Core subspec of Rage
-pod 'Rage', '~> 0.15.0'
+pod 'Rage', '~> 0.15.1'
 ```
 Or if you want to use RxSwift features you should use these Rage subspec
 ```ruby
 # RxSwift only
-pod "Rage/RxSwift", "~> 0.15.0"
+pod "Rage/RxSwift", "~> 0.15.1"
 ```
 
 License

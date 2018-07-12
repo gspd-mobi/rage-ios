@@ -50,6 +50,9 @@ open class MultipartRageRequest: RageRequest {
     }
 
     override open func rawRequest() -> URLRequest {
+        if isAuthorized {
+            _ = authenticator?.authorizeRequest(self)
+        }
         let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(url: url)
         let boundary = customBoundary ?? makeBoundary()

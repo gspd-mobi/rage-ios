@@ -31,6 +31,9 @@ open class BodyRageRequest: RageRequest {
     }
 
     open override func rawRequest() -> URLRequest {
+        if isAuthorized {
+            _ = authenticator?.authorizeRequest(self)
+        }
         let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(url: url)
         for (key, value) in headers {
