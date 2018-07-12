@@ -14,6 +14,7 @@ open class BodyRageRequest: RageRequest {
         self.queryParameters = request.queryParameters
         self.pathParameters = request.pathParameters
         self.headers = request.headers
+        self.isAuthorized = request.isAuthorized
         self.authenticator = request.authenticator
         self.plugins = request.plugins
         self.session = request.session

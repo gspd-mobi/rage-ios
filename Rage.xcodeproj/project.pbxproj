@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031AE0E320F3A60800187A12 /* QueryParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031AE0E220F3A60800187A12 /* QueryParam.swift */; };
+		031AE0E420F3A60800187A12 /* QueryParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031AE0E220F3A60800187A12 /* QueryParam.swift */; };
 		03A5A49E200CA43600B62E44 /* ContentTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A49D200CA43600B62E44 /* ContentTypeSpec.swift */; };
 		03A5A4A0200CA6AE00B62E44 /* HttpMethodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A49F200CA6AE00B62E44 /* HttpMethodSpec.swift */; };
 		03A5A4A2200CAA0300B62E44 /* RageErrorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A4A1200CAA0300B62E44 /* RageErrorSpec.swift */; };
@@ -137,6 +139,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		031AE0E220F3A60800187A12 /* QueryParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParam.swift; sourceTree = "<group>"; };
 		03A5A49D200CA43600B62E44 /* ContentTypeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTypeSpec.swift; sourceTree = "<group>"; };
 		03A5A49F200CA6AE00B62E44 /* HttpMethodSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethodSpec.swift; sourceTree = "<group>"; };
 		03A5A4A1200CAA0300B62E44 /* RageErrorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RageErrorSpec.swift; sourceTree = "<group>"; };
@@ -372,6 +375,7 @@
 				5D7AACEE6CA1F7F0181C4641 /* ErrorHandler.swift */,
 				5D7AA9F2BAD9E92587DE60EF /* URLBuilder.swift */,
 				03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */,
+				031AE0E220F3A60800187A12 /* QueryParam.swift */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -738,6 +742,7 @@
 				5D7AA69614261312C65E718F /* RageClientConfiguration.swift in Sources */,
 				5D7AA837A3525EC3E7218520 /* TypedObject.swift in Sources */,
 				5D7AA6622ED2B991A9C1C8C6 /* BodyRageRequest.swift in Sources */,
+				031AE0E320F3A60800187A12 /* QueryParam.swift in Sources */,
 				5D7AA296D7038844004D5CC3 /* MultipartRageRequest.swift in Sources */,
 				5D7AAB7620F46F4200390CC4 /* FormUrlEncodedRequest.swift in Sources */,
 				5D7AA1C68311D857580BD6B5 /* StubMode.swift in Sources */,
@@ -758,6 +763,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031AE0E420F3A60800187A12 /* QueryParam.swift in Sources */,
 				8AA2E8031D6B467700E76B52 /* ContentType.swift in Sources */,
 				8A7B084C1D6F10B800A61194 /* RagePlugin.swift in Sources */,
 				8AA2E8041D6B467700E76B52 /* ParamsBuilder.swift in Sources */,

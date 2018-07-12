@@ -31,7 +31,6 @@ class AuthErrorHandler: ErrorHandler {
                 self.enabled = false
                 return request.authorized().execute()
             case .failure(let error):
-                // Logout logic / opening login screen or something
                 print(error.description())
             }
             return result
@@ -87,7 +86,7 @@ class ExampleAPI {
     }
 
     func multipartRegister() -> Observable<String> {
-        let users: [GithubUser] = [GithubUser.init(email: "p.k@gspd.mobi")]
+        let users: [GithubUser] = [GithubUser(email: "p.k@gspd.mobi")]
         return client.post("/register")
             .multipart()
             .part(TypedObject("123".data(using: String.Encoding.utf8)!,

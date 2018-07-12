@@ -26,7 +26,7 @@ class RageRequestSpec: QuickSpec {
                     expect(request.queryParameters.count).to(equal(0))
                     _ = request.query("name", "Paul")
                     expect(request.queryParameters.count).to(equal(1))
-                    expect(request.queryParameters["name"]).to(equal("Paul"))
+                    expect(request.queryParameters["name"]?.value).to(equal("Paul"))
                 }
 
                 it("can add 2 query parameters") {
@@ -34,41 +34,16 @@ class RageRequestSpec: QuickSpec {
                     _ = request.query("name", "Paul")
                         .query("age", 24)
                     expect(request.queryParameters.count).to(equal(2))
-                    expect(request.queryParameters["name"]).to(equal("Paul"))
-                    expect(request.queryParameters["age"]).to(equal("24"))
-                }
-
-                it("can remove query parameter") {
-                    expect(request.queryParameters.count).to(equal(0))
-                    _ = request.query("name", "Paul")
-                        .query("age", 24)
-                    expect(request.queryParameters.count).to(equal(2))
-                    expect(request.queryParameters["name"]).to(equal("Paul"))
-                    expect(request.queryParameters["age"]).to(equal("24"))
-                    let newAge: Int? = nil
-                    _ = request.query("age", newAge)
-                    expect(request.queryParameters.count).to(equal(1))
-                    expect(request.queryParameters["age"]).to(beNil())
+                    expect(request.queryParameters["name"]?.value).to(equal("Paul"))
+                    expect(request.queryParameters["age"]?.value).to(equal("24"))
                 }
 
                 it("can add 2 query parameters with dictionary") {
                     expect(request.queryParameters.count).to(equal(0))
                     _ = request.queryDictionary(["name": "Paul", "age": "24"])
                     expect(request.queryParameters.count).to(equal(2))
-                    expect(request.queryParameters["name"]).to(equal("Paul"))
-                    expect(request.queryParameters["age"]).to(equal("24"))
-                }
-
-                it("can add 2 query parameters with dictionary and remove 1") {
-                    expect(request.queryParameters.count).to(equal(0))
-                    _ = request.queryDictionary(["name": "Paul", "age": "24"])
-                    expect(request.queryParameters.count).to(equal(2))
-                    expect(request.queryParameters["name"]).to(equal("Paul"))
-                    expect(request.queryParameters["age"]).to(equal("24"))
-                    let newAge: Int? = nil
-                    _ = request.queryDictionary(["age": newAge])
-                    expect(request.queryParameters.count).to(equal(1))
-                    expect(request.queryParameters["age"]).to(beNil())
+                    expect(request.queryParameters["name"]?.value).to(equal("Paul"))
+                    expect(request.queryParameters["age"]?.value).to(equal("24"))
                 }
 
                 it("can add 1 path parameter") {
@@ -152,26 +127,11 @@ class RageRequestSpec: QuickSpec {
                     expect(request.headers["Content-Type"]).to(equal("image/png"))
                 }
 
-                it("can be authorized with client authenticator") {
-                    let auth = TestActiveAuthenticator(token: "token")
-                    request.authenticator = auth
-                    request = request.authorized()
-                    expect(request.authenticator).toNot(beNil())
-                    expect(request.headers["Authorization"]).to(equal("token"))
-                }
-
-                it("can be authorized with request authenticator") {
-                    let auth = TestActiveAuthenticator(token: "token")
-                    request = request.authorized(with: auth)
-                    expect(request.authenticator).toNot(beNil())
-                    expect(request.headers["Authorization"]).to(equal("token"))
-                }
-
                 it("request is authorized when it authorized with authenticator") {
                     let auth = TestAuthenticator()
-                    expect(request.isAuthorized()).to(equal(false))
+                    expect(request.isAuthorized).to(equal(false))
                     request = request.authorized(with: auth)
-                    expect(request.isAuthorized()).to(equal(true))
+                    expect(request.isAuthorized).to(equal(true))
                 }
             }
 

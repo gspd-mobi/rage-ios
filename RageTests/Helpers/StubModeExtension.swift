@@ -15,3 +15,11 @@ public func == (lhs: StubMode, rhs: StubMode) -> Bool {
         return false
     }
 }
+
+extension QueryParam: Equatable {
+
+}
+
+func == (lhs: QueryParam, rhs: QueryParam) -> Bool {
+    return lhs.value == rhs.value && lhs.encoded == rhs.encoded
+}

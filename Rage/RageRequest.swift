@@ -6,9 +6,10 @@ open class RageRequest {
     public var httpMethod: HttpMethod
     var baseUrl: String?
     var methodPath: String?
-    var queryParameters: [String: String] = [:]
+    var queryParameters: [String: QueryParam] = [:]
     var pathParameters: [String: String] = [:]
     var headers: [String: String] = [:]
+    var isAuthorized: Bool = false
 
     var authenticator: Authenticator?
     var errorHandlers: [ErrorHandler] = []
@@ -47,22 +48,25 @@ open class RageRequest {
         return self
     }
 
-    open func query<T>(_ key: String, _ value: T?) -> RageRequest {
-        guard let safeValue = value else {
-            queryParameters.removeValue(forKey: key)
-            return self
+    open func query<T>(_ key: String, _ value: T?, encoded: Bool = true) -> RageRequest {
+        let param: QueryParam?
+        if let safeValue = value {
+            param = QueryParam(value: String(describing: safeValue), encoded: encoded)
+        } else {
+            param = nil
         }
-        queryParameters[key] = String(describing: safeValue)
+        queryParameters[key] = param
+        return self
+    }
+
+    open func queryNoValue(_ key: String, encoded: Bool = true) -> RageRequest {
+        queryParameters[key] = QueryParam(value: nil, encoded: encoded)
         return self
     }
 
     open func queryDictionary<T>(_ dictionary: [String: T?]) -> RageRequest {
         for (key, value) in dictionary {
-            if let safeValue = value {
-                queryParameters[key] = String(describing: safeValue)
-            } else {
-                queryParameters.removeValue(forKey: key)
-            }
+            _ = query(key, value)
         }
         return self
     }
@@ -102,15 +106,9 @@ open class RageRequest {
         return authorized()
     }
 
-    open func authorized() -> RageRequest {
-        if let safeAuthenticator = authenticator {
-            return safeAuthenticator.authorizeRequest(self)
-        }
-        preconditionFailure("Can't create authorized request without Authenticator provided")
-    }
-
-    open func isAuthorized() -> Bool {
-        return authenticator != nil
+    open func authorized(_ authorized: Bool = true) -> RageRequest {
+        self.isAuthorized = authorized
+        return self
     }
 
     open func stub(_ data: Data, mode: StubMode = .immediate) -> RageRequest {
@@ -259,6 +257,9 @@ open class RageRequest {
     }
 
     open func rawRequest() -> URLRequest {
+        if isAuthorized {
+            _ = authenticator?.authorizeRequest(self)
+        }
         let url = URLBuilder().fromRequest(self)
         let request = NSMutableURLRequest(url: url)
         for (key, value) in headers {

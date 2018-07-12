@@ -5,50 +5,52 @@ import Result
 extension RageRequest {
 
     open func taskObservable() -> Observable<Result<RageResponse, RageError>> {
-        return Observable.create { observer in
-            self.sendPluginsWillSendRequest()
+        return Observable.deferred { () -> Observable<Result<RageResponse, RageError>> in
+            return Observable.create { observer in
+                self.sendPluginsWillSendRequest()
 
-            let request = self.rawRequest()
+                let request = self.rawRequest()
 
-            self.sendPluginsDidSendRequest(request)
+                self.sendPluginsDidSendRequest(request)
 
-            if let stub = self.getStubData() {
-                let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
-                self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
-                observer.onNext(.success(rageResponse))
-                return Disposables.create()
-            }
-
-            let startDate = Date()
-            let task = self.session.dataTask(with: request, completionHandler: { data, response, error in
-                let requestDuration = Date().timeIntervalSince(startDate) * 1000
-                let rageResponse = RageResponse(request: self,
-                                                data: data,
-                                                response: response,
-                                                error: error as NSError?,
-                                                timeMillis: requestDuration)
-
-                self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
-
-                if rageResponse.isSuccess() {
+                if let stub = self.getStubData() {
+                    let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
+                    self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
                     observer.onNext(.success(rageResponse))
-                } else {
-                    let rageError = RageError(response: rageResponse)
-                    var result: Result<RageResponse, RageError> = .failure(rageError)
-                    for handler in self.errorHandlers {
-                        if handler.enabled && handler.canHandleError(rageError) {
-                            result = handler.handleErrorForRequest(self, result: result)
-                        }
-                    }
-                    observer.onNext(result)
+                    return Disposables.create()
                 }
-                observer.onCompleted()
-            })
 
-            task.resume()
+                let startDate = Date()
+                let task = self.session.dataTask(with: request, completionHandler: { data, response, error in
+                    let requestDuration = Date().timeIntervalSince(startDate) * 1000
+                    let rageResponse = RageResponse(request: self,
+                                                    data: data,
+                                                    response: response,
+                                                    error: error as NSError?,
+                                                    timeMillis: requestDuration)
 
-            return Disposables.create {
-                task.cancel()
+                    self.sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
+
+                    if rageResponse.isSuccess() {
+                        observer.onNext(.success(rageResponse))
+                    } else {
+                        let rageError = RageError(response: rageResponse)
+                        var result: Result<RageResponse, RageError> = .failure(rageError)
+                        for handler in self.errorHandlers {
+                            if handler.enabled && handler.canHandleError(rageError) {
+                                result = handler.handleErrorForRequest(self, result: result)
+                            }
+                        }
+                        observer.onNext(result)
+                    }
+                    observer.onCompleted()
+                })
+
+                task.resume()
+
+                return Disposables.create {
+                    task.cancel()
+                }
             }
         }
     }

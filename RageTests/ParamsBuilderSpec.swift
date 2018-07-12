@@ -26,15 +26,23 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 1 query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/someRequest",
-                        queryParameters: ["name": "Paul"],
+                        queryParameters: ["name": QueryParam(value: "Paul")],
                         pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/someRequest?name=Paul"))
+            }
+
+            it("can build url with 1 query param without value") {
+                let url = builder.buildUrlString("http://example.com/api",
+                                                 path: "/someRequest",
+                                                 queryParameters: ["name": QueryParam(value: nil)],
+                                                 pathParameters: [:])
+                expect(url).to(equal("http://example.com/api/someRequest?name"))
             }
 
             it("can build base url with 1 query param") {
                 let url = builder.buildUrlString("https://example.com",
                         path: nil,
-                        queryParameters: ["name": "Paul"],
+                        queryParameters: ["name": QueryParam(value: "Paul")],
                         pathParameters: [:])
                 expect(url).to(equal("https://example.com?name=Paul"))
             }
@@ -42,10 +50,21 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 2 query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/someRequest",
-                        queryParameters: ["name": "Paul", "age": "24"],
+                        queryParameters: ["name": QueryParam(value: "Paul"),
+                                          "age": QueryParam(value: "24")],
                         pathParameters: [:])
                 expect(["http://example.com/api/someRequest?name=Paul&age=24",
                         "http://example.com/api/someRequest?age=24&name=Paul"]).to(contain(url))
+            }
+
+            it("can build url with 2 query param with different value") {
+                let url = builder.buildUrlString("http://example.com/api",
+                                                 path: "/someRequest",
+                                                 queryParameters: ["name": QueryParam(value: "Paul"),
+                                                                   "age": QueryParam(value: nil)],
+                                                 pathParameters: [:])
+                expect(["http://example.com/api/someRequest?name=Paul&age",
+                        "http://example.com/api/someRequest?age&name=Paul"]).to(contain(url))
             }
 
             it("can build url with 1 path param") {
@@ -67,7 +86,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with encoded query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/user",
-                        queryParameters: ["name": "paul k"],
+                        queryParameters: ["name": QueryParam(value: "paul k")],
                         pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/user?name=paul%20k"))
             }
@@ -83,10 +102,18 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with long encoded query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: nil,
-                        queryParameters: ["param": "!\"#$%&'()*+,-./"],
+                        queryParameters: ["param": QueryParam(value: "!\"#$%&'()*+,-./")],
                         pathParameters: [:])
                 let exp = "http://example.com/api?param=%21%22%23%24%25%26%27%28%29%2A%2B%2C-./"
                 expect(url).to(equal(exp))
+            }
+
+            it("can build url if question mark is already in url") {
+                let url = builder.buildUrlString("http://example.com/api",
+                                                 path: "/user?user=unknown",
+                                                 queryParameters: ["param": QueryParam(value: "value")],
+                                                 pathParameters: [:])
+                expect(url).to(equal("http://example.com/api/user?user=unknown&param=value"))
             }
         }
 

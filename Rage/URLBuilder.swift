@@ -22,7 +22,7 @@ class URLBuilder {
 
     func buildUrlString(_ baseUrl: String,
                         path: String?,
-                        queryParameters: [String: String],
+                        queryParameters: [String: QueryParam],
                         pathParameters: [String: String]) -> String {
         var pathString = path ?? ""
 
@@ -32,16 +32,37 @@ class URLBuilder {
                     of: placeholderString, with: value.urlEncoded())
         }
 
+        let startSeparator: String
+        if path?.contains("?") ?? false {
+            startSeparator = "&"
+        } else {
+            startSeparator = "?"
+        }
+
         var queryParametersString = ""
-        for (key, value) in queryParameters {
+        for (key, param) in queryParameters {
             if !queryParametersString.isEmpty {
                 queryParametersString += "&"
             }
-            queryParametersString += "\(key)=\(value.urlEncoded())"
+            let keyString: String
+            let value: String?
+            if param.encoded {
+                keyString = key.urlEncoded()
+                value = param.value?.urlEncoded()
+            } else {
+                keyString = key
+                value = param.value
+            }
+
+            if let safeValue = value {
+                queryParametersString += "\(keyString)=\(safeValue)"
+            } else {
+                queryParametersString += keyString
+            }
         }
 
         if !queryParametersString.isEmpty {
-            queryParametersString = "?" + queryParametersString
+            queryParametersString = startSeparator + queryParametersString
         }
 
         return baseUrl + pathString + queryParametersString
