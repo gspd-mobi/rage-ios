@@ -6,7 +6,7 @@ open class RageRequest {
     public var httpMethod: HttpMethod
     var baseUrl: String?
     var methodPath: String?
-    var queryParameters: [String: QueryParam] = [:]
+    var queryParameters: [String: Parameter] = [:]
     var pathParameters: [String: String] = [:]
     var headers: [String: String] = [:]
     var isAuthorized: Bool = false
@@ -49,9 +49,9 @@ open class RageRequest {
     }
 
     open func query<T>(_ key: String, _ value: T?, encoded: Bool = true) -> RageRequest {
-        let param: QueryParam?
+        let param: Parameter?
         if let safeValue = value {
-            param = QueryParam(value: String(describing: safeValue), encoded: encoded)
+            param = Parameter(value: String(describing: safeValue), encoded: encoded)
         } else {
             param = nil
         }
@@ -60,7 +60,7 @@ open class RageRequest {
     }
 
     open func queryNoValue(_ key: String, encoded: Bool = true) -> RageRequest {
-        queryParameters[key] = QueryParam(value: nil, encoded: encoded)
+        queryParameters[key] = Parameter(value: nil, encoded: encoded)
         return self
     }
 

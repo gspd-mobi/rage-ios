@@ -26,7 +26,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 1 query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/someRequest",
-                        queryParameters: ["name": QueryParam(value: "Paul")],
+                        queryParameters: ["name": Parameter(value: "Paul")],
                         pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/someRequest?name=Paul"))
             }
@@ -34,7 +34,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 1 query param without value") {
                 let url = builder.buildUrlString("http://example.com/api",
                                                  path: "/someRequest",
-                                                 queryParameters: ["name": QueryParam(value: nil)],
+                                                 queryParameters: ["name": Parameter(value: nil)],
                                                  pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/someRequest?name"))
             }
@@ -42,7 +42,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build base url with 1 query param") {
                 let url = builder.buildUrlString("https://example.com",
                         path: nil,
-                        queryParameters: ["name": QueryParam(value: "Paul")],
+                        queryParameters: ["name": Parameter(value: "Paul")],
                         pathParameters: [:])
                 expect(url).to(equal("https://example.com?name=Paul"))
             }
@@ -50,8 +50,8 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 2 query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/someRequest",
-                        queryParameters: ["name": QueryParam(value: "Paul"),
-                                          "age": QueryParam(value: "24")],
+                        queryParameters: ["name": Parameter(value: "Paul"),
+                                          "age": Parameter(value: "24")],
                         pathParameters: [:])
                 expect(["http://example.com/api/someRequest?name=Paul&age=24",
                         "http://example.com/api/someRequest?age=24&name=Paul"]).to(contain(url))
@@ -60,8 +60,8 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with 2 query param with different value") {
                 let url = builder.buildUrlString("http://example.com/api",
                                                  path: "/someRequest",
-                                                 queryParameters: ["name": QueryParam(value: "Paul"),
-                                                                   "age": QueryParam(value: nil)],
+                                                 queryParameters: ["name": Parameter(value: "Paul"),
+                                                                   "age": Parameter(value: nil)],
                                                  pathParameters: [:])
                 expect(["http://example.com/api/someRequest?name=Paul&age",
                         "http://example.com/api/someRequest?age&name=Paul"]).to(contain(url))
@@ -86,7 +86,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with encoded query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: "/user",
-                        queryParameters: ["name": QueryParam(value: "paul k")],
+                        queryParameters: ["name": Parameter(value: "paul k")],
                         pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/user?name=paul%20k"))
             }
@@ -102,7 +102,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url with long encoded query param") {
                 let url = builder.buildUrlString("http://example.com/api",
                         path: nil,
-                        queryParameters: ["param": QueryParam(value: "!\"#$%&'()*+,-./")],
+                        queryParameters: ["param": Parameter(value: "!\"#$%&'()*+,-./")],
                         pathParameters: [:])
                 let exp = "http://example.com/api?param=%21%22%23%24%25%26%27%28%29%2A%2B%2C-./"
                 expect(url).to(equal(exp))
@@ -111,7 +111,7 @@ class ParamsBuilderSpec: QuickSpec {
             it("can build url if question mark is already in url") {
                 let url = builder.buildUrlString("http://example.com/api",
                                                  path: "/user?user=unknown",
-                                                 queryParameters: ["param": QueryParam(value: "value")],
+                                                 queryParameters: ["param": Parameter(value: "value")],
                                                  pathParameters: [:])
                 expect(url).to(equal("http://example.com/api/user?user=unknown&param=value"))
             }
@@ -127,29 +127,29 @@ class ParamsBuilderSpec: QuickSpec {
 
             it("can build url encoded string with 1 field parameter") {
                 let encodedString = builder.stringFromFieldParameters(
-                        ["username": FieldParameter(value: "paul_k")])
+                        ["username": Parameter(value: "paul_k")])
                 print("encoded string here \(encodedString)")
                 expect(encodedString).to(equal("username=paul_k"))
             }
 
             it("can build url encoded string with 2 field parameters") {
                 let encodedString = builder.stringFromFieldParameters(
-                        ["username": FieldParameter(value: "paul_k"),
-                         "password": FieldParameter(value: "pa  word")])
-                expect(["username=paul_k&password=pa  word",
-                        "password=pa  word&username=paul_k"]).to(contain(encodedString))
+                        ["username": Parameter(value: "paul_k"),
+                         "password": Parameter(value: "pa  word")])
+                expect(["username=paul_k&password=pa%20%20word",
+                        "password=pa%20%20word&username=paul_k"]).to(contain(encodedString))
             }
 
             it("can build url encoded string with 1 encoded field parameter") {
                 let encodedString = builder.stringFromFieldParameters(
-                        ["password": FieldParameter(value: "pa  word", encoded: true)])
+                        ["password": Parameter(value: "pa  word", encoded: true)])
                 expect(encodedString).to(equal("password=pa%20%20word"))
             }
 
             it("can build url encoded string with 2 mixed field parameters") {
                 let encodedString = builder.stringFromFieldParameters(
-                        ["username": FieldParameter(value: "paul_k"),
-                         "password": FieldParameter(value: "pa  word", encoded: true)])
+                        ["username": Parameter(value: "paul_k"),
+                         "password": Parameter(value: "pa  word", encoded: true)])
                 expect(["username=paul_k&password=pa%20%20word",
                         "password=pa%20%20word&username=paul_k"]).to(contain(encodedString))
             }

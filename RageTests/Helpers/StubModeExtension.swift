@@ -16,10 +16,10 @@ public func == (lhs: StubMode, rhs: StubMode) -> Bool {
     }
 }
 
-extension QueryParam: Equatable {
+extension Parameter: Equatable {
 
 }
 
-func == (lhs: QueryParam, rhs: QueryParam) -> Bool {
+public func == (lhs: Parameter, rhs: Parameter) -> Bool {
     return lhs.value == rhs.value && lhs.encoded == rhs.encoded
 }

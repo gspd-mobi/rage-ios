@@ -2,13 +2,17 @@ import Foundation
 
 public class ParamsBuilder {
 
-    public func stringFromFieldParameters(_ fieldParameters: [String: FieldParameter]) -> String {
+    public func stringFromFieldParameters(_ fieldParameters: [String: Parameter]) -> String {
         var fieldsString = ""
-        for (key, value) in fieldParameters {
+        for (key, parameter) in fieldParameters {
             if !fieldsString.isEmpty {
                 fieldsString += "&"
             }
-            fieldsString += "\(key)=\(value.valueWithEncodingIfNeeded())"
+            if let value = parameter.valueWithEncodingIfNeeded() {
+                fieldsString += "\(key)=\(value)"
+            } else {
+                fieldsString += key
+            }
         }
         return fieldsString
     }

@@ -22,7 +22,7 @@ class URLBuilder {
 
     func buildUrlString(_ baseUrl: String,
                         path: String?,
-                        queryParameters: [String: QueryParam],
+                        queryParameters: [String: Parameter],
                         pathParameters: [String: String]) -> String {
         var pathString = path ?? ""
 

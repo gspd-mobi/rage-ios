@@ -1,32 +1,9 @@
 import Foundation
 import Result
 
-open class FieldParameter {
-
-    var encoded: Bool = false
-    var value: String
-
-    init(value: String, encoded: Bool = false) {
-        self.value = value
-        self.encoded = encoded
-    }
-
-}
-
-extension FieldParameter {
-
-    func valueWithEncodingIfNeeded() -> String {
-        if encoded {
-            return value.urlEncoded()
-        }
-        return value
-    }
-
-}
-
 open class FormUrlEncodedRequest: RageRequest {
 
-    var fieldParameters = [String: FieldParameter]()
+    var fieldParameters = [String: Parameter]()
     var body: Data?
 
     public init(from request: RageRequest) {
@@ -47,12 +24,12 @@ open class FormUrlEncodedRequest: RageRequest {
             fieldParameters.removeValue(forKey: key)
             return self
         }
-        fieldParameters[key] = FieldParameter(value: String(describing: safeObject),
+        fieldParameters[key] = Parameter(value: String(describing: safeObject),
                                               encoded: encoded)
         return self
     }
 
-    open func fieldDictionary(_ dictionary: [String: FieldParameter?]) -> FormUrlEncodedRequest {
+    open func fieldDictionary(_ dictionary: [String: Parameter?]) -> FormUrlEncodedRequest {
         for (key, value) in dictionary {
             if let safeObject = value {
                 fieldParameters[key] = safeObject
