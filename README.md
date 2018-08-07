@@ -37,9 +37,6 @@ let client = Rage.builderWithBaseUrl("https://api.github.com")
     ])
     .withPlugin(LoggingPlugin(logLevel: .full))
     .withAuthenticator(MyAuthenticator())
-    .withErrorsHandlersClosure {
-        [AuthErrorHandler()]
-    }
     .build()
 ```
 Then describe your API requests like these. It is a generic way to declare requests and their background execution.

@@ -40,7 +40,7 @@ class ParamsBuilderSpec: QuickSpec {
             }
 
             describe("can build url with 1 query param which is array") {
-                let array = ["Alice", "Bob", "Charlie"]
+                let array = ["Alice", "Bob Test"]
                 it("comma separated") {
                     let arrayParameter = ArrayParameter(values: array,
                                                         stringMode: ArrayParameter.StringMode.commaSeparated)
@@ -48,7 +48,7 @@ class ParamsBuilderSpec: QuickSpec {
                                                      path: "/someRequest",
                                                      queryParameters: ["names": arrayParameter],
                                                      pathParameters: [:])
-                    expect(url).to(equal("http://example.com/api/someRequest?names=Alice,Bob,Charlie"))
+                    expect(url).to(equal("http://example.com/api/someRequest?names=Alice,Bob%20Test"))
                 }
                 it("repeat key") {
                     let arrayParameter = ArrayParameter(values: array,
@@ -57,7 +57,7 @@ class ParamsBuilderSpec: QuickSpec {
                                                      path: "/someRequest",
                                                      queryParameters: ["names": arrayParameter],
                                                      pathParameters: [:])
-                    expect(url).to(equal("http://example.com/api/someRequest?names=Alice&names=Bob&names=Charlie"))
+                    expect(url).to(equal("http://example.com/api/someRequest?names=Alice&names=Bob%20Test"))
                 }
 
                 it("repeat key brackets") {
@@ -68,7 +68,7 @@ class ParamsBuilderSpec: QuickSpec {
                                                      queryParameters: ["names": arrayParameter],
                                                      pathParameters: [:])
                     expect(url)
-                        .to(equal("http://example.com/api/someRequest?names[]=Alice&names[]=Bob&names[]=Charlie"))
+                        .to(equal("http://example.com/api/someRequest?names[]=Alice&names[]=Bob%20Test"))
                 }
                 it("empty array") {
                     let arrayParameter = ArrayParameter(values: [],

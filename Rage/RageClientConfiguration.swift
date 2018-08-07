@@ -8,9 +8,6 @@ open class RageClientConfiguration {
     var authenticator: Authenticator?
 
     var plugins: [RagePlugin] = []
-    var errorsHandlersClosure: () -> [ErrorHandler] = {
-        []
-    }
     var sessionProvider: SessionProvider = SessionProvider()
 
     init(baseUrl: String?) {

@@ -45,15 +45,6 @@ class RageSpec: QuickSpec {
                 expect(builder.config.authenticator).toNot(beNil())
             }
 
-            it("can set error handlers closure") {
-                expect(builder.config.errorsHandlersClosure()).to(beEmpty())
-                let testErrorHandler = TestErrorHandler()
-                _ = builder.withErrorsHandlersClosure {
-                    [testErrorHandler]
-                }
-                expect(builder.config.errorsHandlersClosure().count).to(equal(1))
-            }
-
             it("can build client with config provided") {
                 let client = builder.build()
                 expect(client.defaultConfiguration) === builder.config

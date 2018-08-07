@@ -35,13 +35,7 @@ extension RageRequest {
                         observer.onNext(.success(rageResponse))
                     } else {
                         let rageError = RageError(response: rageResponse)
-                        var result: Result<RageResponse, RageError> = .failure(rageError)
-                        for handler in self.errorHandlers {
-                            if handler.enabled && handler.canHandleError(rageError) {
-                                result = handler.handleErrorForRequest(self, result: result)
-                            }
-                        }
-                        observer.onNext(result)
+                        observer.onNext(.failure(rageError))
                     }
                     observer.onCompleted()
                 })

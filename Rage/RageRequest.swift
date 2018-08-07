@@ -12,7 +12,6 @@ open class RageRequest {
     var isAuthorized: Bool = false
 
     var authenticator: Authenticator?
-    var errorHandlers: [ErrorHandler] = []
     var plugins: [RagePlugin] = []
 
     var stubData: StubData?
@@ -34,12 +33,73 @@ open class RageRequest {
         self.headers = requestDescription.headers
         self.headers[ContentType.key] = requestDescription.contentType.stringValue()
 
-        self.errorHandlers = requestDescription.errorHandlers
         self.authenticator = requestDescription.authenticator
 
         self.plugins = plugins
         self.session = requestDescription.sessionProvider.session
     }
+
+    open func execute() -> Result<RageResponse, RageError> {
+        sendPluginsWillSendRequest()
+
+        let request = rawRequest()
+
+        sendPluginsDidSendRequest(request)
+
+        if let stub = getStubData() {
+            let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
+            sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
+            return .success(rageResponse)
+        }
+
+        var data: Data?
+        var response: URLResponse?
+        var error: NSError?
+
+        let startDate = Date()
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        session.dataTask(with: request, completionHandler: {
+            data = $0; response = $1; error = $2 as NSError?
+            semaphore.signal()
+        }) .resume()
+
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+
+        let requestDuration = Date().timeIntervalSince(startDate) * 1000
+
+        let rageResponse = RageResponse(request: self,
+                                        data: data,
+                                        response: response,
+                                        error: error,
+                                        timeMillis: requestDuration)
+
+        sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
+
+        if rageResponse.isSuccess() {
+            return .success(rageResponse)
+        }
+        let rageError = RageError(response: rageResponse)
+        return .failure(rageError)
+    }
+
+    open func rawRequest() -> URLRequest {
+        if isAuthorized {
+            _ = authenticator?.authorizeRequest(self)
+        }
+        let url = URLBuilder().fromRequest(self)
+        let request = NSMutableURLRequest(url: url)
+        for (key, value) in headers {
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+        request.httpMethod = httpMethod.stringValue()
+        return request as URLRequest
+    }
+
+}
+
+extension RageRequest {
 
     // MARK: Parameters
 
@@ -62,8 +122,11 @@ open class RageRequest {
 
     open func queryArray<T>(_ key: String,
                             _ values: [T],
-                            stringMode: ArrayParameter.StringMode = .repeatKeyBrackets) -> RageRequest {
-        queryParameters[key] = ArrayParameter(values: values.map { String(describing: $0) }, stringMode: stringMode)
+                            stringMode: ArrayParameter.StringMode = .repeatKeyBrackets,
+                            encoded: Bool = true) -> RageRequest {
+        queryParameters[key] = ArrayParameter(values: values.map { String(describing: $0) },
+                                              stringMode: stringMode,
+                                              encoded: encoded)
         return self
     }
 
@@ -132,10 +195,9 @@ open class RageRequest {
         return self.stub(data, mode: mode)
     }
 
-    open func withErrorHandlers(_ handlers: [ErrorHandler]) -> RageRequest {
-        self.errorHandlers = handlers
-        return self
-    }
+}
+
+extension RageRequest {
 
     // MARK: Complex request abstractions
 
@@ -151,58 +213,11 @@ open class RageRequest {
         return FormUrlEncodedRequest(from: self)
     }
 
+}
+
+extension RageRequest {
+
     // MARK: Executing
-
-    open func execute() -> Result<RageResponse, RageError> {
-        sendPluginsWillSendRequest()
-
-        let request = rawRequest()
-
-        sendPluginsDidSendRequest(request)
-
-        if let stub = getStubData() {
-            let rageResponse = RageResponse(request: self, data: stub, response: nil, error: nil)
-            sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
-            return .success(rageResponse)
-        }
-
-        var data: Data?
-        var response: URLResponse?
-        var error: NSError?
-
-        let startDate = Date()
-
-        let semaphore = DispatchSemaphore(value: 0)
-
-        session.dataTask(with: request, completionHandler: {
-            data = $0; response = $1; error = $2 as NSError?
-            semaphore.signal()
-        }) .resume()
-
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-
-        let requestDuration = Date().timeIntervalSince(startDate) * 1000
-
-        let rageResponse = RageResponse(request: self,
-                                        data: data,
-                                        response: response,
-                                        error: error,
-                                        timeMillis: requestDuration)
-
-        sendPluginsDidReceiveResponse(rageResponse, rawRequest: request)
-
-        if rageResponse.isSuccess() {
-            return .success(rageResponse)
-        }
-        let rageError = RageError(response: rageResponse)
-        var result: Result<RageResponse, RageError> = .failure(rageError)
-        for handler in errorHandlers {
-            if handler.enabled && handler.canHandleError(rageError) {
-                result = handler.handleErrorForRequest(self, result: result)
-            }
-        }
-        return result
-    }
 
     open func executeString() -> Result<String, RageError> {
         let result = self.execute()
@@ -265,18 +280,9 @@ open class RageRequest {
         })
     }
 
-    open func rawRequest() -> URLRequest {
-        if isAuthorized {
-            _ = authenticator?.authorizeRequest(self)
-        }
-        let url = URLBuilder().fromRequest(self)
-        let request = NSMutableURLRequest(url: url)
-        for (key, value) in headers {
-            request.addValue(value, forHTTPHeaderField: key)
-        }
-        request.httpMethod = httpMethod.stringValue()
-        return request as URLRequest
-    }
+}
+
+extension RageRequest {
 
     // MARK: Plugins
 
@@ -298,6 +304,10 @@ open class RageRequest {
             plugin.didReceiveResponse(rageResponse, rawRequest: rawRequest)
         }
     }
+
+}
+
+extension RageRequest {
 
     // MARK: Stub
 

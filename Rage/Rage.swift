@@ -54,12 +54,6 @@ open class Rage {
             return self
         }
 
-        public func withErrorsHandlersClosure(_ closure: @escaping () -> [ErrorHandler])
-                -> Builder {
-            config.errorsHandlersClosure = closure
-            return self
-        }
-
         public func build() -> RageClient {
             return RageClient(defaultConfiguration: config)
         }

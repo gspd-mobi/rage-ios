@@ -108,10 +108,6 @@ class RageClientSpec: QuickSpec {
                 config.authenticator = auth
                 let testPlugin = TestPlugin()
                 config.plugins = [testPlugin]
-                let testErrorHandler = TestErrorHandler()
-                config.errorsHandlersClosure = {
-                    [testErrorHandler]
-                }
                 let client = RageClient(defaultConfiguration: config)
 
                 let request = client.createRequestWithHttpMethod(.get, path: "/method")
@@ -123,7 +119,6 @@ class RageClientSpec: QuickSpec {
 
                 expect(request.authenticator).toNot(beNil())
                 expect(request.plugins.count).to(equal(1))
-                expect(request.errorHandlers.count).to(equal(1))
             }
 
         }

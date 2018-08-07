@@ -46,7 +46,6 @@ open class RageClient {
             let config = self.defaultConfiguration
             requestDescription.authenticator = config.authenticator
             requestDescription.sessionProvider = config.sessionProvider
-            requestDescription.errorHandlers = config.errorsHandlersClosure()
             return requestDescription
         }()
 

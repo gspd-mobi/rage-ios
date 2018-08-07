@@ -42,11 +42,14 @@ public class ArrayParameter: Parameter {
 
     var values: [String]
     var stringMode: StringMode
+    var encoded: Bool
 
     init(values: [String],
-         stringMode: StringMode = .repeatKeyBrackets) {
+         stringMode: StringMode = .repeatKeyBrackets,
+         encoded: Bool = true) {
         self.values = values
         self.stringMode = stringMode
+        self.encoded = encoded
     }
 
     public override func string(key: String) -> String {
@@ -66,7 +69,7 @@ public class ArrayParameter: Parameter {
             if !valuesString.isEmpty {
                 valuesString += ","
             }
-            valuesString += value
+            valuesString += encodeIfNeeded(value: value)
         }
         return "\(key)=\(valuesString)"
     }
@@ -77,7 +80,7 @@ public class ArrayParameter: Parameter {
             if !valuesString.isEmpty {
                 valuesString += "&"
             }
-            valuesString += "\(key)=\(value)"
+            valuesString += "\(key)=\(encodeIfNeeded(value: value))"
         }
         return valuesString
     }
@@ -88,9 +91,16 @@ public class ArrayParameter: Parameter {
             if !valuesString.isEmpty {
                 valuesString += "&"
             }
-            valuesString += "\(key)[]=\(value)"
+            valuesString += "\(key)[]=\(encodeIfNeeded(value: value))"
         }
         return valuesString
+    }
+
+    private func encodeIfNeeded(value: String) -> String {
+        if encoded {
+            return value.urlEncoded()
+        }
+        return value
     }
 
 }

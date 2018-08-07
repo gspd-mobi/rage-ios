@@ -195,14 +195,6 @@ class RageRequestSpec: QuickSpec {
                 }
             }
 
-            describe("error handlers") {
-                it("can be set") {
-                    let errorHandler = TestErrorHandler()
-                    _ = request.withErrorHandlers([errorHandler])
-                    expect(request.errorHandlers.count).to(equal(1))
-                }
-            }
-
             describe("special request") {
                 it("can create body request") {
                     request.methodPath = "/test"

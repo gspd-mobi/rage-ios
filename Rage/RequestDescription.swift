@@ -8,7 +8,6 @@ open class RequestDescription {
     var headers: [String: String] = [:]
     var contentType: ContentType
 
-    var errorHandlers: [ErrorHandler] = []
     var authenticator: Authenticator?
 
     var sessionProvider: SessionProvider = SessionProvider()
