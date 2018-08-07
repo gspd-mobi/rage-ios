@@ -308,14 +308,14 @@
 				8A6748DA1D6B37200064467F /* RageTests */,
 				8A6748EB1D6B37620064467F /* RageExample */,
 				8A6748CD1D6B37200064467F /* Products */,
-				5D7AA2FD7CB4399F66B06DEE /* .gitignore */,
+				5D7AA4AD068266FB626E0B66 /* Rage.podspec */,
 				5D7AA632CD9EC5CD5ED7804E /* README.md */,
 				5D7AADAF06FD47162958627D /* LICENSE.txt */,
-				5D7AA4AD068266FB626E0B66 /* Rage.podspec */,
-				B723C0705F4746457B3A0F69 /* Pods */,
-				6F21BF15F9C4BCDB36CE9BFF /* Frameworks */,
+				5D7AA2FD7CB4399F66B06DEE /* .gitignore */,
 				5D7AA79FE2A1A2E219A1A01D /* .travis.yml */,
 				5D7AA9D0E0C8AC43F03DBFD3 /* .swiftlint.yml */,
+				B723C0705F4746457B3A0F69 /* Pods */,
+				6F21BF15F9C4BCDB36CE9BFF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -334,8 +334,6 @@
 			children = (
 				5D7AA6C6BA738C050DF3B45A /* Dependencies */,
 				5D7AA2A9761CF4E986A3C8C2 /* Plugins */,
-				8A6748CF1D6B37200064467F /* Rage.h */,
-				8A6748D11D6B37200064467F /* Info.plist */,
 				5D7AA014546BC9C0AD6E0557 /* ContentType.swift */,
 				5D7AA0B3847F859305A59DD9 /* ParamsBuilder.swift */,
 				5D7AA53697C908211ECE80BF /* HttpMethod.swift */,
@@ -360,6 +358,8 @@
 				03A5A4A9200CF7DA00B62E44 /* SessionProvider.swift */,
 				031AE0E220F3A60800187A12 /* Parameter.swift */,
 				038422C32119817E00E007F0 /* Rage+Codable.swift */,
+				8A6748D11D6B37200064467F /* Info.plist */,
+				8A6748CF1D6B37200064467F /* Rage.h */,
 			);
 			path = Rage;
 			sourceTree = "<group>";
@@ -367,12 +367,10 @@
 		8A6748DA1D6B37200064467F /* RageTests */ = {
 			isa = PBXGroup;
 			children = (
-				03A5A4B1200D0C2E00B62E44 /* .swiftlint.yml */,
-				8A6748DD1D6B37200064467F /* Info.plist */,
+				5D7AA37E69E617851A6D04A8 /* Helpers */,
 				5D7AA355BFFA26A6C861DC05 /* RageSpec.swift */,
 				5D7AA3B4B231305058C85580 /* ParamsBuilderSpec.swift */,
 				5D7AABE84706F0D726F56CAE /* RageClientSpec.swift */,
-				5D7AA37E69E617851A6D04A8 /* Helpers */,
 				5D7AA253B3CC4970E4CFB5C6 /* RageRequestSpec.swift */,
 				03A5A49D200CA43600B62E44 /* ContentTypeSpec.swift */,
 				03A5A49F200CA6AE00B62E44 /* HttpMethodSpec.swift */,
@@ -382,6 +380,8 @@
 				03A5A4A7200CF63900B62E44 /* BodyRageRequestSpec.swift */,
 				03A5A4AE200CFF3500B62E44 /* MultipartRageRequestSpec.swift */,
 				038422C7211981DF00E007F0 /* RageCodableSpec.swift */,
+				8A6748DD1D6B37200064467F /* Info.plist */,
+				03A5A4B1200D0C2E00B62E44 /* .swiftlint.yml */,
 			);
 			path = RageTests;
 			sourceTree = "<group>";
@@ -390,16 +390,16 @@
 			isa = PBXGroup;
 			children = (
 				8A6748F31D6B37620064467F /* Assets.xcassets */,
-				8A6748F81D6B37620064467F /* Info.plist */,
-				5D7AA51C1CF6F78649676154 /* AppDelegate.swift */,
-				5D7AAA9B8A155171C0902D34 /* GithubAPI.swift */,
 				5D7AAD207F88410504C7CD11 /* LaunchScreen.storyboard */,
 				5D7AA7A338D139BDE07EB748 /* Main.storyboard */,
+				8A2379FD1E09481E00D20E72 /* TableViewController.xib */,
+				5D7AA51C1CF6F78649676154 /* AppDelegate.swift */,
+				5D7AAA9B8A155171C0902D34 /* GithubAPI.swift */,
 				5D7AA8083F5452317A215EE1 /* ErrorHandling.swift */,
 				8A2379F81E093EEF00D20E72 /* RepoTableViewController.swift */,
 				5D7AA2BC4744202A073AE75D /* ContributorsTableViewController.swift */,
-				8A2379FD1E09481E00D20E72 /* TableViewController.xib */,
 				038422C92119833000E007F0 /* GithubEntities.swift */,
+				8A6748F81D6B37620064467F /* Info.plist */,
 			);
 			path = RageExample;
 			sourceTree = "<group>";

@@ -8,11 +8,7 @@ public class ParamsBuilder {
             if !fieldsString.isEmpty {
                 fieldsString += "&"
             }
-            if let value = parameter.valueWithEncodingIfNeeded() {
-                fieldsString += "\(key)=\(value)"
-            } else {
-                fieldsString += key
-            }
+            fieldsString += parameter.string(key: key)
         }
         return fieldsString
     }

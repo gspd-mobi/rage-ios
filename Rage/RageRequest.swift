@@ -51,7 +51,8 @@ open class RageRequest {
     open func query<T>(_ key: String, _ value: T?, encoded: Bool = true) -> RageRequest {
         let param: Parameter?
         if let safeValue = value {
-            param = Parameter(value: String(describing: safeValue), encoded: encoded)
+            param = SingleParameter(value: String(describing: safeValue),
+                                    encoded: encoded)
         } else {
             param = nil
         }
@@ -59,8 +60,16 @@ open class RageRequest {
         return self
     }
 
+    open func queryArray<T>(_ key: String,
+                            _ values: [T],
+                            stringMode: ArrayParameter.StringMode = .repeatKeyBrackets) -> RageRequest {
+        queryParameters[key] = ArrayParameter(values: values.map { String(describing: $0) }, stringMode: stringMode)
+        return self
+    }
+
     open func queryNoValue(_ key: String, encoded: Bool = true) -> RageRequest {
-        queryParameters[key] = Parameter(value: nil, encoded: encoded)
+        queryParameters[key] = SingleParameter(value: nil,
+                                               encoded: encoded)
         return self
     }
 

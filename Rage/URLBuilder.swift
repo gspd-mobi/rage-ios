@@ -44,21 +44,7 @@ class URLBuilder {
             if !queryParametersString.isEmpty {
                 queryParametersString += "&"
             }
-            let keyString: String
-            let value: String?
-            if param.encoded {
-                keyString = key.urlEncoded()
-                value = param.value?.urlEncoded()
-            } else {
-                keyString = key
-                value = param.value
-            }
-
-            if let safeValue = value {
-                queryParametersString += "\(keyString)=\(safeValue)"
-            } else {
-                queryParametersString += keyString
-            }
+            queryParametersString += param.string(key: key)
         }
 
         if !queryParametersString.isEmpty {

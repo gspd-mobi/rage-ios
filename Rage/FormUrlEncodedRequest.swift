@@ -24,8 +24,8 @@ open class FormUrlEncodedRequest: RageRequest {
             fieldParameters.removeValue(forKey: key)
             return self
         }
-        fieldParameters[key] = Parameter(value: String(describing: safeObject),
-                                              encoded: encoded)
+        fieldParameters[key] = SingleParameter(value: String(describing: safeObject),
+                                               encoded: encoded)
         return self
     }
 

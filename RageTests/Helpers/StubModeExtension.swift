@@ -21,5 +21,5 @@ extension Parameter: Equatable {
 }
 
 public func == (lhs: Parameter, rhs: Parameter) -> Bool {
-    return lhs.value == rhs.value && lhs.encoded == rhs.encoded
+    return lhs.string(key: "") == rhs.string(key: "")
 }
