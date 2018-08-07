@@ -1,6 +1,5 @@
 import Foundation
 import Rage
-import ObjectMapper
 
 extension Error {
 

@@ -18,6 +18,8 @@ class RepoTableViewController: UITableViewController {
     var info: GithubOrganization?
     var repos: [GithubRepository] = []
 
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,25 +34,26 @@ class RepoTableViewController: UITableViewController {
     }
 
     func obtainPageContent() {
-        _ = Observable.zip(ExampleAPI.sharedInstance.getOrgInfo(org: org),
-                           ExampleAPI.sharedInstance.getOrgRepositories(org: org)) { info, repos in
-                    return GithubOrganizationPage(info: info, repos: repos)
-                }
-                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { page in
-                    self.info = page.info
-                    self.repos = page.repos
-                    self.tableView.reloadData()
-                }, onError: { error in
-                    let message = error.description()
-                    let alert = UIAlertController(title: "Error", message: message,
-                            preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Ok",
-                            style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+        Observable.zip(GithubAPI.sharedInstance.getOrgInfo(org: org),
+                       GithubAPI.sharedInstance.getOrgRepositories(org: org)) { info, repos in
+                        return GithubOrganizationPage(info: info, repos: repos)
+            }
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] page in
+                self?.info = page.info
+                self?.repos = page.repos
+                self?.tableView.reloadData()
+            }, onError: { [weak self] error in
+                let message = error.description()
+                let alert = UIAlertController(title: "Error", message: message,
+                                              preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok",
+                                              style: UIAlertActionStyle.default, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
 
-                })
+            })
+            .disposed(by: disposeBag)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

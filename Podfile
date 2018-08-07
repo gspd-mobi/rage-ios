@@ -9,7 +9,6 @@ end
 
 target 'RageExample' do
     common_pods
-    pod 'ObjectMapper', '~> 3.1.0'
 end
 
 target 'Rage' do

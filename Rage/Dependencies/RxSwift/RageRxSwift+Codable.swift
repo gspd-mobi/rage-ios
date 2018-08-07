@@ -1,39 +1,35 @@
 import Foundation
-import Rage
 import RxSwift
-import ObjectMapper
 
 extension RageRequest {
 
-    public func executeObjectObservable<T: Mappable>() -> Observable<T> {
+    public func executeObjectObservable<T: Codable>(decoder: JSONDecoder = JSONDecoder()) -> Observable<T> {
         return taskObservable()
             .flatMap { result -> Observable<T> in
                 switch result {
                 case .success(let response):
-                    let parsedObject: T? = response.data?.parseJson()
+                    let parsedObject: T? = response.data?.parseJson(decoder: decoder)
                     if let resultObject = parsedObject {
                         return Observable.just(resultObject)
                     } else {
-                        return Observable.error(RageError(type: .configuration,
-                                                          message: "Couldn't parse object from JSON"))
+                        return Observable.error(RageError(type: .configuration))
                     }
                 case .failure(let error):
                     return Observable.error(error)
                 }
-            }
+        }
     }
 
-    public func executeObjectObservable<T: Mappable>() -> Observable<[T]> {
+    public func executeArrayObservable<T: Codable>(decoder: JSONDecoder = JSONDecoder()) -> Observable<[T]> {
         return taskObservable()
             .flatMap { result -> Observable<[T]> in
                 switch result {
                 case .success(let response):
-                    let parsedObject: [T]? = response.data?.parseJsonArray()
+                    let parsedObject: [T]? = response.data?.parseJsonArray(decoder: decoder)
                     if let resultObject = parsedObject {
                         return Observable.just(resultObject)
                     } else {
-                        return Observable.error(RageError(type: .configuration,
-                                                          message: "Couldn't parse object from JSON"))
+                        return Observable.error(RageError(type: .configuration))
                     }
                 case .failure(let error):
                     return Observable.error(error)

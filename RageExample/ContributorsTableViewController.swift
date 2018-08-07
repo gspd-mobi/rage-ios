@@ -7,6 +7,8 @@ class ContributorsTableViewController: UITableViewController {
     var org: String!
     var users: [GithubUser] = []
 
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = repo
@@ -14,23 +16,23 @@ class ContributorsTableViewController: UITableViewController {
     }
 
     func obtainPageContent() {
-        _ = ExampleAPI.sharedInstance.getContributorsForRepo(repo, org: org)
+        GithubAPI.sharedInstance.getContributors(repo: repo, org: org)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { users in
-                self.users = users
-                self.tableView.reloadData()
-                }, onError: { error in
+            .subscribe(onNext: { [weak self] users in
+                self?.users = users
+                self?.tableView.reloadData()
+            }, onError: { [weak self] error in
+                let message = error.description()
 
-                    let message = error.description()
+                let alert = UIAlertController(title: "Error", message: message,
+                                              preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok",
+                                              style: UIAlertActionStyle.default, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
 
-                    let alert = UIAlertController(title: "Error", message: message,
-                                                  preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Ok",
-                                                  style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-
-                })
+            })
+            .disposed(by: disposeBag)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
