@@ -195,55 +195,6 @@ class RageRequestSpec: QuickSpec {
                 }
             }
 
-            describe("special request") {
-                it("can create body request") {
-                    request.methodPath = "/test"
-                    request.authenticator = TestAuthenticator()
-                    let bodyRequest = request.withBody()
-                    expect(request.httpMethod).to(equal(bodyRequest.httpMethod))
-                    expect(bodyRequest.methodPath).to(equal(request.methodPath))
-                    expect(request.baseUrl).to(equal(bodyRequest.baseUrl))
-
-                    expect(request.queryParameters).to(equal(bodyRequest.queryParameters))
-                    expect(request.pathParameters).to(equal(bodyRequest.pathParameters))
-                    expect(request.headers).to(equal(bodyRequest.headers))
-                    expect(request.authenticator).toNot(beNil())
-                    expect(request.plugins.count).to(equal(bodyRequest.plugins.count))
-                }
-                it("can create multipart request") {
-                    request.methodPath = "/test"
-                    request.authenticator = TestAuthenticator()
-                    let multipartRequest = request.multipart()
-                    expect(request.httpMethod).to(equal(multipartRequest.httpMethod))
-                    expect(multipartRequest.methodPath).to(equal(request.methodPath))
-                    expect(request.baseUrl).to(equal(multipartRequest.baseUrl))
-
-//                    expect(request.queryParameters).to(equal(multipartRequest.queryParameters))
-                    expect(request.pathParameters).to(equal(multipartRequest.pathParameters))
-                    expect(request.headers.count).to(equal(multipartRequest.headers.count - 1))
-                    expect(multipartRequest.headers["Content-Type"]).to(equal("multipart/form-data"))
-                    expect(request.authenticator).toNot(beNil())
-                    expect(request.plugins.count).to(equal(multipartRequest.plugins.count))
-                }
-                it("can create form url encoded request") {
-                    request.methodPath = "/test"
-                    request.authenticator = TestAuthenticator()
-                    let urlEncodedRequest = request.formUrlEncoded()
-                    expect(request.httpMethod).to(equal(urlEncodedRequest.httpMethod))
-                    expect(urlEncodedRequest.methodPath).to(equal(request.methodPath))
-                    expect(request.baseUrl).to(equal(urlEncodedRequest.baseUrl))
-
-//                    expect(request.queryParameters).to(equal(urlEncodedRequest.queryParameters))
-                    expect(request.pathParameters).to(equal(urlEncodedRequest.pathParameters))
-                    expect(request.headers.count).to(equal(urlEncodedRequest.headers.count - 1))
-                    expect(urlEncodedRequest.headers["Content-Type"])
-                        .to(equal("application/x-www-form-urlencoded"))
-                    expect(request.authenticator).toNot(beNil())
-                    expect(request.plugins.count).to(equal(urlEncodedRequest.plugins.count))
-                }
-
-            }
-
             describe("execute") {
                 it("can be done sync for stub") {
                     _ = request.stub("{}".utf8Data()!)

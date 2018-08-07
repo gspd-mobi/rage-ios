@@ -7,6 +7,7 @@ There are few ways how requests can be executed in Rage.
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.get("/method")
+    .request()
 ```
 
 ## Sync execution ##
@@ -45,7 +46,6 @@ If you use Rage only as request building tool and don't want it to execute reque
 let rawRequest: URLRequest = request.rawRequest()
 // Execute it as you wish
 ```
-
 
 ## RxSwift wrapped request ##
 If you use RxSwift in your project you can create Observable object from request using `execute*Observable` function.

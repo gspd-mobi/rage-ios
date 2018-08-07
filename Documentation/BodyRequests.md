@@ -2,17 +2,12 @@ Body Requests
 =============================
 There are few ways how data can be specified as body.
 
-## We have request ##
+## Making request with body ##
 ```swift
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.post("/method")
-```
-
-## Body ##
-You should call `withBody()` if you want to add body to this request.
-```swift
-request.withBody()
+    .bodyRequest()
 ```
 
 ### String as Body ###

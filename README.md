@@ -20,8 +20,8 @@ Documentation now may differ from real API because it's unstable and improving p
 ## Features ##
 * One liner request making. :dart:
 * Describing API spec in highly readable way. :books:
+* Out of box JSON support by Codable. :ledger:
 * Optional [RxSwift](https://github.com/ReactiveX/RxSwift) out of box. :rocket:
-* Optional JSON support by [Codable](https://github.com/gspd-mobi/rage-ios-codable-extensions). :ledger:
 * Manipulating strictly typed objects instead of String dictionaries hell. :package:
 
 ## Usage ##
@@ -43,6 +43,7 @@ Then describe your API requests like these. It is a generic way to declare reque
 ```swift
 func getUser(username: String, completion: @escaping Result<RageResponse, RageError> -> ()) {
     client.get("/users/{user}")
+        .request()
         .path("user", username)
         .enqueue(completion)
 }
@@ -50,6 +51,7 @@ func getUser(username: String, completion: @escaping Result<RageResponse, RageEr
 // Async
 func getRepositoriesForOrganization(organizationTitle: String, completion: @escaping Result<RageResponse, RageError> -> ()) {
     client.get("/orgs/{org}/repos")
+        .request()
         .path("org", organizationTitle)
         .enqueue(completion)
 }
@@ -57,6 +59,7 @@ func getRepositoriesForOrganization(organizationTitle: String, completion: @esca
 // Sync
 func getRepositoriesForOrganizationSync(organizationTitle: String) -> Result<RageResponse, RageError> {
     return client.get("/orgs/{org}/repos")
+        .request()
         .path("org", organizationTitle)
         .execute()
 }
@@ -82,12 +85,12 @@ That's it. Compact but powerful.
 Add this dependency to Podfile and `pod install`
 ```ruby
 # Core subspec of Rage
-pod 'Rage', '~> 0.16.0'
+pod 'Rage', '~> 0.17.0'
 ```
 Or if you want to use RxSwift features you should use these Rage subspec
 ```ruby
 # RxSwift only
-pod "Rage/RxSwift", "~> 0.16.0"
+pod "Rage/RxSwift", "~> 0.17.0"
 ```
 
 License

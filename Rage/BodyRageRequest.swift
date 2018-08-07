@@ -7,17 +7,13 @@ open class BodyRageRequest: RageRequest {
 
     var body: Data?
 
-    public init(from request: RageRequest) {
-        super.init(httpMethod: request.httpMethod,
-                   baseUrl: request.baseUrl)
-        self.methodPath = request.methodPath
-        self.queryParameters = request.queryParameters
-        self.pathParameters = request.pathParameters
-        self.headers = request.headers
-        self.isAuthorized = request.isAuthorized
-        self.authenticator = request.authenticator
-        self.plugins = request.plugins
-        self.session = request.session
+    public override init(httpMethod: HttpMethod,
+                         baseUrl: String?) {
+        super.init(httpMethod: httpMethod, baseUrl: baseUrl)
+    }
+
+    public override init(requestDescription: RequestDescription) {
+        super.init(requestDescription: requestDescription)
     }
 
     open func bodyData(_ value: Data) -> BodyRageRequest {

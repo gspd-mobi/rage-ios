@@ -2,17 +2,12 @@ Multipart Requests
 =============================
 Request can also be declared to send Multipart data.
 
-## We have request ##
+## Making multipart request ##
 ```swift
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
-let request = client.post("/method")
-```
-
-## Making request multipart ##
-To make request multipart use function `multipart()` of request.
-```swift
-let multipartRequest = request.multipart()
+let multipartRequest = client.post("/method")
+    .multipartRequest()
 ```
 
 ## Adding parts ##
@@ -38,7 +33,7 @@ And of course you can chain these all functions.
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let result: Result<RageResponse, RageError> = client.post("/register")
-    .multipart()
+    .multipartRequest()
     .part(TypedObject(userInfoData, mimeType: "application/json"))
     .part(TypedObject(avatarData, mimeType: "image/png")
     .execute() // Execute async for example. Use any execute / enqueue method available for RageRequest class.

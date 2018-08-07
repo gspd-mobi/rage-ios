@@ -25,8 +25,7 @@ open class RageRequest {
         self.session = SessionProvider().session
     }
 
-    public init(requestDescription: RequestDescription,
-                plugins: [RagePlugin]) {
+    public init(requestDescription: RequestDescription) {
         self.httpMethod = requestDescription.httpMethod
         self.baseUrl = requestDescription.baseUrl
         self.methodPath = requestDescription.path
@@ -35,7 +34,7 @@ open class RageRequest {
 
         self.authenticator = requestDescription.authenticator
 
-        self.plugins = plugins
+        self.plugins = requestDescription.plugins
         self.session = requestDescription.sessionProvider.session
     }
 
@@ -193,24 +192,6 @@ extension RageRequest {
             return self
         }
         return self.stub(data, mode: mode)
-    }
-
-}
-
-extension RageRequest {
-
-    // MARK: Complex request abstractions
-
-    open func withBody() -> BodyRageRequest {
-        return BodyRageRequest(from: self)
-    }
-
-    open func multipart() -> MultipartRageRequest {
-        return MultipartRageRequest(from: self)
-    }
-
-    open func formUrlEncoded() -> FormUrlEncodedRequest {
-        return FormUrlEncodedRequest(from: self)
     }
 
 }

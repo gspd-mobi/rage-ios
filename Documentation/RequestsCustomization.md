@@ -10,6 +10,7 @@ How do we customize it?
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.get("/method")
+    .request()
 ```
 
 ## Query parameters ##
@@ -23,14 +24,22 @@ request.query("key1","value1")
     .query("key2","value2")
 // or using dictionary which is useful when you want to add more than one query parameter
 request.queryDictionary(["key1": "value1", "key2":"value2"])
+// there is possibility to add query parameter with no value, it will appear in url just like `key3`
+request.queryNoValue("key3")
+// if you want to pass array in query parameters there is special function
+request.queryArray("key4", ["value1", "value2"])
+// you can pass stringMode as third parameter in this function
+// commaSeparated - query line will look like `key4=value1,value2`
+// repeatKey - query line will look like `key4=value1&key4=value2`
+// repeatKeyBrackets - query line will look like `key4[]=value1&key4[]=value2`
 ```
-Note that if you pass `nil` as query parameter value it will not be added to url string.
 
 ## Path parameters ##
 Path parameters appear as part of provided url like `http://example.com/method/pathParam/subMethod`.
 To make `pathParam` replaceable we surround them with `{` and `}`. So we need to use corresponding url when creating it.
 ```swift
 let request = client.get("/method/{pathParam}/subMethod")
+    .request()
 ```
 How do we add them?
 ```swift
@@ -61,6 +70,7 @@ func doSomething() {
     let client = Rage.builderWithBaseUrl("http://example.com")
         .build()
     let result = client.get("/method")
+        .request()
         .url("http://example2.com/{pathParamName}")
         .query("queryParamName", "queryParamValue")
         .path("pathParamName", "pathParamValue")

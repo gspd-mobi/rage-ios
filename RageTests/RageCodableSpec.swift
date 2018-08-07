@@ -215,10 +215,9 @@ class RageCodableSpec: QuickSpec {
             it("codable at BodyRageRequest body json") {
                 let person = Person(firstName: "Jennifer", lastName: "Jenkins")
                 let personString = try! person.toJSONString()
-                let request = RageRequest(httpMethod: .post, baseUrl: "http://example.com")
-                let bodyRageRequest = BodyRageRequest(from: request)
-                _ = bodyRageRequest.bodyJson(person)
-                let body = bodyRageRequest.rawRequest().httpBody!
+                let request = BodyRageRequest(httpMethod: .post, baseUrl: "http://example.com")
+                    .bodyJson(person)
+                let body = request.rawRequest().httpBody!
                 let bodyString = String(data: body, encoding: .utf8)!
 
                 expect(bodyString).to(equal(personString))
@@ -230,10 +229,9 @@ class RageCodableSpec: QuickSpec {
                     Person(firstName: "Matilda", lastName: "Hunta")
                 ]
                 let personsString = try! persons.toJSONString()
-                let request = RageRequest(httpMethod: .post, baseUrl: "http://example.com")
-                let bodyRageRequest = BodyRageRequest(from: request)
-                _ = bodyRageRequest.bodyJson(persons)
-                let body = bodyRageRequest.rawRequest().httpBody!
+                let request = BodyRageRequest(httpMethod: .post, baseUrl: "http://example.com")
+                    .bodyJson(persons)
+                let body = request.rawRequest().httpBody!
                 let bodyString = String(data: body, encoding: .utf8)!
 
                 expect(bodyString).to(equal(personsString))

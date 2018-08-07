@@ -7,6 +7,7 @@ open class RequestDescription {
     var path: String?
     var headers: [String: String] = [:]
     var contentType: ContentType
+    var plugins: [RagePlugin] = []
 
     var authenticator: Authenticator?
 

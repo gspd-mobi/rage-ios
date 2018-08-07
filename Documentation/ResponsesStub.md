@@ -7,6 +7,7 @@ In Rage there is way to set stub for request - an object which should be returne
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.get("/method")
+    .request()
 ```
 ## Stub Mode ##
 - immediate

@@ -2,16 +2,12 @@ Url Encoded Requests
 =============================
 Request can also be declared to send Form Url Encoded data.
 
-## We have request ##
+## Make Url Encoded request ##
 ```swift
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.post("/method")
-```
-
-## Make request Url Encoded ##
-```swift
-request.urlEncoded()
+    .formUrlEncodedRequest()
 ```
 
 ## Fields ##
@@ -30,6 +26,7 @@ request.fieldDictionary(["key1": field1, "key2": field2])
 let client = Rage.builderWithBaseUrl("http://example.com")
     .build()
 let request = client.post("/method")
+    .formUrlEncodedRequest()
     .field("key1", FieldParameter("value1"))
     .field("key2", FieldParameter("value 2", encoded = true))
     .execute() // Will create request to POST http://example.com/method with body "key1=value1&key2=value%202" of Content-Type "application/x-www-form-urlencoded"
