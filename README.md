@@ -65,16 +65,18 @@ func getRepositoriesForOrganizationSync(organizationTitle: String) -> Result<Rag
 }
 ```
 
-Using both **RxSwift** and **RageCodableExtensions** you can declare API in such awesome way.
+Using **RxSwift**  you can declare API in such awesome way.
 ```swift
 func getUser(username: String) -> Observable<GithubUser> {
     return client.get("/users/{user}")
+        .request()
         .path("user", username)
         .executeObjectObservable()
 }
 
 func getRepositoriesForOrganization(organizationTitle: String) -> Observable<[GithubRepository]> {
     return client.get("/orgs/{org}/repos")
+        .request()
         .path("org", organizationTitle)
         .executeArrayObservable()
 }

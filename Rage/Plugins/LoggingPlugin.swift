@@ -66,7 +66,8 @@ open class LoggingPlugin: RagePlugin {
         }
     }
 
-    fileprivate func logResponse(_ rageResponse: RageResponse, rawRequest: URLRequest,
+    fileprivate func logResponse(_ rageResponse: RageResponse,
+                                 rawRequest: URLRequest,
                                  stubbed: Bool = false) {
         switch logLevel {
         case .full:
@@ -79,7 +80,8 @@ open class LoggingPlugin: RagePlugin {
         }
     }
 
-    func logResponseFull(_ rageResponse: RageResponse, rawRequest: URLRequest,
+    func logResponseFull(_ rageResponse: RageResponse,
+                         rawRequest: URLRequest,
                          stubbed: Bool = false) {
         let httpMethod = rawRequest.httpMethod ?? ""
         let url = rawRequest.url?.absoluteString ?? ""
@@ -125,7 +127,8 @@ open class LoggingPlugin: RagePlugin {
         }
     }
 
-    func logResponseMedium(_ rageResponse: RageResponse, rawRequest: URLRequest,
+    func logResponseMedium(_ rageResponse: RageResponse,
+                           rawRequest: URLRequest,
                            stubbed: Bool = false) {
         let httpMethod = rawRequest.httpMethod ?? ""
         let url = rawRequest.url?.absoluteString ?? ""
@@ -184,7 +187,6 @@ open class LoggingPlugin: RagePlugin {
              .none:
             break
         }
-
     }
 
     func logStatusCode(_ code: Int) {
