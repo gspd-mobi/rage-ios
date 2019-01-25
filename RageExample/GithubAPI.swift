@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 import Rage
 import Result
+import RxRage
 
 class GithubAPI {
 

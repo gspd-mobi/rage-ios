@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8A6748CB1D6B37200064467F"
-               BuildableName = "Rage.framework"
-               BlueprintName = "Rage"
+               BlueprintIdentifier = "031DA1A721246F9A002FA1DA"
+               BuildableName = "RxRage.framework"
+               BlueprintName = "RxRage"
                ReferencedContainer = "container:Rage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,39 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A6748CB1D6B37200064467F"
-            BuildableName = "Rage.framework"
-            BlueprintName = "Rage"
-            ReferencedContainer = "container:Rage.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8A6748D51D6B37200064467F"
-               BuildableName = "RageTests.xctest"
-               BlueprintName = "RageTests"
-               ReferencedContainer = "container:Rage.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A6748CB1D6B37200064467F"
-            BuildableName = "Rage.framework"
-            BlueprintName = "Rage"
-            ReferencedContainer = "container:Rage.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -75,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A6748CB1D6B37200064467F"
-            BuildableName = "Rage.framework"
-            BlueprintName = "Rage"
+            BlueprintIdentifier = "031DA1A721246F9A002FA1DA"
+            BuildableName = "RxRage.framework"
+            BlueprintName = "RxRage"
             ReferencedContainer = "container:Rage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -93,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A6748CB1D6B37200064467F"
-            BuildableName = "Rage.framework"
-            BlueprintName = "Rage"
+            BlueprintIdentifier = "031DA1A721246F9A002FA1DA"
+            BuildableName = "RxRage.framework"
+            BlueprintName = "RxRage"
             ReferencedContainer = "container:Rage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

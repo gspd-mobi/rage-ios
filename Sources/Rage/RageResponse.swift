@@ -8,11 +8,11 @@ open class RageResponse {
     open let error: NSError?
     open let timeMillis: Double
 
-    init(request: RageRequest,
-         data: Data?,
-         response: URLResponse?,
-         error: NSError?,
-         timeMillis: Double = 0.0) {
+    public init(request: RageRequest,
+                data: Data?,
+                response: URLResponse?,
+                error: NSError?,
+                timeMillis: Double = 0.0) {
         self.request = request
         self.data = data
         self.response = response
@@ -24,7 +24,7 @@ open class RageResponse {
 
 extension RageResponse {
 
-    func statusCode() -> Int? {
+    public func statusCode() -> Int? {
         if let httpResponse = response as? HTTPURLResponse {
             return httpResponse.statusCode
         }
@@ -34,7 +34,7 @@ extension RageResponse {
         return nil
     }
 
-    func isSuccess() -> Bool {
+    public func isSuccess() -> Bool {
         if let status = statusCode() {
             return 200 ..< 300 ~= status
         }

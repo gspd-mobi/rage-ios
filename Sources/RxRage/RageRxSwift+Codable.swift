@@ -1,4 +1,5 @@
 import Foundation
+import Rage
 import RxSwift
 
 extension RageRequest {

@@ -15,6 +15,10 @@ target 'Rage' do
     common_pods
 end
 
+target 'RxRage' do
+    common_pods
+end
+
 target 'RageTests' do
     common_pods
     pod 'Quick', '~> 1.2.0'

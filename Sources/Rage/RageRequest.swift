@@ -16,7 +16,7 @@ open class RageRequest {
 
     var stubData: StubData?
 
-    var session: URLSession
+    public var session: URLSession
 
     public init(httpMethod: HttpMethod,
                 baseUrl: String?) {
@@ -102,12 +102,12 @@ extension RageRequest {
 
     // MARK: Parameters
 
-    open func url(_ url: String) -> RageRequest {
+    open func url(_ url: String) -> Self {
         self.baseUrl = url
         return self
     }
 
-    open func query<T>(_ key: String, _ value: T?, encoded: Bool = true) -> RageRequest {
+    open func query<T>(_ key: String, _ value: T?, encoded: Bool = true) -> Self {
         let param: Parameter?
         if let safeValue = value {
             param = SingleParameter(value: String(describing: safeValue),
@@ -122,32 +122,32 @@ extension RageRequest {
     open func queryArray<T>(_ key: String,
                             _ values: [T],
                             stringMode: ArrayParameter.StringMode = .repeatKeyBrackets,
-                            encoded: Bool = true) -> RageRequest {
+                            encoded: Bool = true) -> Self {
         queryParameters[key] = ArrayParameter(values: values.map { String(describing: $0) },
                                               stringMode: stringMode,
                                               encoded: encoded)
         return self
     }
 
-    open func queryNoValue(_ key: String, encoded: Bool = true) -> RageRequest {
+    open func queryNoValue(_ key: String, encoded: Bool = true) -> Self {
         queryParameters[key] = SingleParameter(value: nil,
                                                encoded: encoded)
         return self
     }
 
-    open func queryDictionary<T>(_ dictionary: [String: T?]) -> RageRequest {
+    open func queryDictionary<T>(_ dictionary: [String: T?]) -> Self {
         for (key, value) in dictionary {
             _ = query(key, value)
         }
         return self
     }
 
-    open func path<T>(_ key: String, _ value: T) -> RageRequest {
+    open func path<T>(_ key: String, _ value: T) -> Self {
         pathParameters[key] = String(describing: value)
         return self
     }
 
-    open func header<T>(_ key: String, _ value: T?) -> RageRequest {
+    open func header<T>(_ key: String, _ value: T?) -> Self {
         guard let safeValue = value else {
             headers.removeValue(forKey: key)
             return self
@@ -156,7 +156,7 @@ extension RageRequest {
         return self
     }
 
-    open func headerDictionary<T>(_ dictionary: [String: T?]) -> RageRequest {
+    open func headerDictionary<T>(_ dictionary: [String: T?]) -> Self {
         for (key, value) in dictionary {
             if let safeValue = value {
                 headers[key] = String(describing: safeValue)
@@ -167,27 +167,27 @@ extension RageRequest {
         return self
     }
 
-    open func contentType(_ contentType: ContentType) -> RageRequest {
+    open func contentType(_ contentType: ContentType) -> Self {
         self.headers[ContentType.key] = contentType.stringValue()
         return self
     }
 
-    open func authorized(with authenticator: Authenticator) -> RageRequest {
+    open func authorized(with authenticator: Authenticator) -> Self {
         self.authenticator = authenticator
         return authorized()
     }
 
-    open func authorized(_ authorized: Bool = true) -> RageRequest {
+    open func authorized(_ authorized: Bool = true) -> Self {
         self.isAuthorized = authorized
         return self
     }
 
-    open func stub(_ data: Data, mode: StubMode = .immediate) -> RageRequest {
+    open func stub(_ data: Data, mode: StubMode = .immediate) -> Self {
         self.stubData = StubData(data: data, mode: mode)
         return self
     }
 
-    open func stub(_ string: String, mode: StubMode = .immediate) -> RageRequest {
+    open func stub(_ string: String, mode: StubMode = .immediate) -> Self {
         guard let data = string.utf8Data() else {
             return self
         }
@@ -292,7 +292,7 @@ extension RageRequest {
 
     // MARK: Stub
 
-    func isStubbed() -> Bool {
+    public func isStubbed() -> Bool {
         guard let stub = stubData else {
             return false
         }
@@ -304,7 +304,7 @@ extension RageRequest {
         }
     }
 
-    func getStubData() -> Data? {
+    public func getStubData() -> Data? {
         guard let stub = stubData else {
             return nil
         }
