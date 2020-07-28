@@ -1,5 +1,4 @@
 import Foundation
-import Result
 
 extension Encodable {
 
@@ -52,8 +51,7 @@ extension BodyRageRequest {
             preconditionFailure("Can't add body to request with such HttpMethod")
         }
 
-        guard let optionalString = try? value.toJSONString(encoder: encoder),
-            let json = optionalString else {
+        guard let json = try? value.toJSONString(encoder: encoder) else {
                 return self
         }
 
@@ -66,8 +64,7 @@ extension BodyRageRequest {
             preconditionFailure("Can't add body to request with such HttpMethod")
         }
 
-        guard let optionalString = try? value.toJSONString(encoder: encoder),
-            let json = optionalString else {
+        guard let json = try? value.toJSONString(encoder: encoder) else {
                 return self
         }
 
@@ -82,8 +79,7 @@ extension RageRequest {
     public func stub<T: Codable>(_ value: T,
                                  mode: StubMode = .immediate,
                                  encoder: JSONEncoder = JSONEncoder()) -> RageRequest {
-        guard let optionalString = try? value.toJSONString(encoder: encoder),
-            let json = optionalString else {
+        guard let json = try? value.toJSONString(encoder: encoder) else {
                 return self
         }
 
@@ -93,8 +89,7 @@ extension RageRequest {
     public func stub<T: Codable>(_ value: [T],
                                  mode: StubMode = .immediate,
                                  encoder: JSONEncoder = JSONEncoder()) -> RageRequest {
-        guard let optionalString = try? value.toJSONString(encoder: encoder),
-            let json = optionalString else {
+        guard let json = try? value.toJSONString(encoder: encoder) else {
                 return self
         }
 
