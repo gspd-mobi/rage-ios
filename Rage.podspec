@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   s.subspec "Core" do |ss|
     ss.source_files = "Sources/Rage/*.swift", "Sources/Rage/Plugins/*.swift"
     ss.framework = "Foundation"
-    ss.dependency "Result", "~> 3.0.0"
   end
 
   s.subspec "RxSwift" do |ss|
