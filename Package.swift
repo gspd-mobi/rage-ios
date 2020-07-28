@@ -28,5 +28,5 @@ let package = Package(
                 "Sources/Supporting Files",
                 "Examples"])
     ],
-    swiftLanguageVersions: [4]
+    swiftLanguageVersions: [5]
 )
