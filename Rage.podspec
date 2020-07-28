@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = "Sources/RxRage/*.swift"
     ss.dependency "Rage/Core"
-    ss.dependency "RxSwift", "~> 4.0.0"
+    ss.dependency "RxSwift", "~> 5"
   end
 
 end

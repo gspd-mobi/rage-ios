@@ -2,7 +2,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 def common_pods
-    pod 'RxSwift',   '~> 4.1.2'
+    pod 'RxSwift',   '~> 5'
     pod 'SwiftLint'
 end
 

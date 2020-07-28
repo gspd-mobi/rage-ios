@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "RxRage", targets: ["RxRage"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.1.2"))
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0"))
     ],
     targets: [
         .target(
