@@ -1,5 +1,4 @@
 import Foundation
-import Result
 
 open class FormUrlEncodedRequest: RageRequest {
 

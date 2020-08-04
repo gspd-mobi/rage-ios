@@ -12,7 +12,7 @@ public enum RageErrorType {
 
 open class RageError: Error {
 
-    open let type: RageErrorType
+    public let type: RageErrorType
     open var rageResponse: RageResponse?
     open var message: String?
 

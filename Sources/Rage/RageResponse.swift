@@ -2,11 +2,11 @@ import Foundation
 
 open class RageResponse {
 
-    open let request: RageRequest
-    open let data: Data?
-    open let response: URLResponse?
-    open let error: NSError?
-    open let timeMillis: Double
+    public let request: RageRequest
+    public let data: Data?
+    public let response: URLResponse?
+    public let error: NSError?
+    public let timeMillis: Double
 
     public init(request: RageRequest,
                 data: Data?,
